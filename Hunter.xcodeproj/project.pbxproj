@@ -14,6 +14,11 @@
 		95B8D8F01C6A9A210059C680 /* Hunter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95B8D8EE1C6A9A210059C680 /* Hunter.xcdatamodeld */; };
 		95B8D8F21C6A9A210059C680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8F11C6A9A210059C680 /* Assets.xcassets */; };
 		95B8D8F51C6A9A210059C680 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8F31C6A9A210059C680 /* LaunchScreen.storyboard */; };
+		95B8D9001C6AAC830059C680 /* Assests in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8FC1C6AAC830059C680 /* Assests */; };
+		95B8D9011C6AAC830059C680 /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8FD1C6AAC830059C680 /* Classes */; };
+		95B8D9021C6AAC830059C680 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8FE1C6AAC830059C680 /* Models */; };
+		95B8D9031C6AAC830059C680 /* ThirdParty in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8FF1C6AAC830059C680 /* ThirdParty */; };
+		95EB85211C7D633D00A98ABC /* Constants in Resources */ = {isa = PBXBuildFile; fileRef = 95EB85201C7D633D00A98ABC /* Constants */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		95B8D8F11C6A9A210059C680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95B8D8F41C6A9A210059C680 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95B8D8F61C6A9A210059C680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95B8D8FC1C6AAC830059C680 /* Assests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assests; sourceTree = "<group>"; };
+		95B8D8FD1C6AAC830059C680 /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Classes; sourceTree = "<group>"; };
+		95B8D8FE1C6AAC830059C680 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Models; sourceTree = "<group>"; };
+		95B8D8FF1C6AAC830059C680 /* ThirdParty */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ThirdParty; sourceTree = "<group>"; };
+		95EB85201C7D633D00A98ABC /* Constants */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Constants; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +70,11 @@
 		95B8D8E11C6A9A210059C680 /* Hunter */ = {
 			isa = PBXGroup;
 			children = (
+				95EB85201C7D633D00A98ABC /* Constants */,
+				95B8D8FC1C6AAC830059C680 /* Assests */,
+				95B8D8FD1C6AAC830059C680 /* Classes */,
+				95B8D8FE1C6AAC830059C680 /* Models */,
+				95B8D8FF1C6AAC830059C680 /* ThirdParty */,
 				95B8D8E51C6A9A210059C680 /* AppDelegate.h */,
 				95B8D8E61C6A9A210059C680 /* AppDelegate.m */,
 				95B8D8E81C6A9A210059C680 /* ViewController.h */,
@@ -139,8 +154,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95B8D9031C6AAC830059C680 /* ThirdParty in Resources */,
+				95B8D9021C6AAC830059C680 /* Models in Resources */,
 				95B8D8F51C6A9A210059C680 /* LaunchScreen.storyboard in Resources */,
+				95B8D9001C6AAC830059C680 /* Assests in Resources */,
+				95B8D9011C6AAC830059C680 /* Classes in Resources */,
 				95B8D8F21C6A9A210059C680 /* Assets.xcassets in Resources */,
+				95EB85211C7D633D00A98ABC /* Constants in Resources */,
 				95B8D8ED1C6A9A210059C680 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +322,7 @@
 				95B8D8FB1C6A9A210059C680 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
