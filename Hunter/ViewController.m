@@ -26,9 +26,9 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([[SCSEnvironment sharedInstance] hasStartedGame] == true) {
-        [self.navigationController performSegueWithIdentifier:@"EnterGameSceneSegue" sender: self];
-    }
+//    if ([[SCSEnvironment sharedInstance] hasStartedGame] == true) {
+//        [self.navigationController performSegueWithIdentifier:@"EnterGameSceneSegue" sender: self];
+//    }
 }
 
 

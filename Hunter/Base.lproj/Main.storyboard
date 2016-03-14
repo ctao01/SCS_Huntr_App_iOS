@@ -104,7 +104,6 @@
                     </navigationBar>
                     <connections>
                         <segue destination="hIp-vl-8Gn" kind="relationship" relationship="rootViewController" id="TEX-3j-aM3"/>
-                        <segue destination="8xl-Z9-9cb" kind="presentation" identifier="EnterGameSceneSegue" id="kab-uA-2vV"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OX6-IZ-ojq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -668,7 +667,6 @@
         <image name="start-button-2x.png" width="1042" height="258"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1ZA-GA-XNN"/>
         <segue reference="K87-nA-6hZ"/>
     </inferredMetricsTieBreakers>
 </document>
