@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic , strong) IBOutlet UIButton * startButton;
+@property (nonatomic , strong) IBOutlet UIButton * registerButton;
+
 
 @end
 

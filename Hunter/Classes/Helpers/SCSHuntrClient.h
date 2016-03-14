@@ -5,8 +5,10 @@
 //  Created by Andrew Olson on 6/4/14.
 //  Copyright (c) 2013 SunGard Consulting Services. All rights reserved.
 //
-
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "AFHTTPRequestOperationManager.h"
+#import "SCSPlayer.h"
 
 typedef enum {
     HTTPStatusCodeSuccess = 200,
@@ -18,18 +20,30 @@ typedef enum {
     HTTPStatusCodeUnknown = 0
 } HTTPStatusCode;
 
-
-typedef void (^SCSHuntrClientSuccessBlock)(id JSON);
+typedef void (^SCSHuntrClientSuccessBlock)(id response);
+typedef void (^SCSHuntrClientSuccessBlockArray)(NSArray * arrayResult);
 typedef void (^SCSHuntrClientFailureBlock)(NSString * errorString);
 
-@interface SCSHuntrClient : NSObject 
+@interface SCSHuntrClient : AFHTTPRequestOperationManager
 
 + (SCSHuntrClient *)sharedClient;
 
 @property (retain, nonatomic) NSString * pushToken;
 
+- (void) getAllGames:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) getGameById:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) getScoreboardByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
-- (void) callApiGetFunction: (NSString *) apiURL success: (SCSHuntrClientSuccessBlock) successBlock failure:(SCSHuntrClientFailureBlock) failureBlock;
-- (void) callApiPostFunction: (NSString *) apiURL postParameters: (NSDictionary *) parameterList success: (SCSHuntrClientSuccessBlock) successBlock failure:(SCSHuntrClientFailureBlock) failureBlock;
-- (void) callApiPostImageFunction: (NSString *) apiURL postParameters: (UIImage *) image success: (SCSHuntrClientSuccessBlock) successBlock failure:(SCSHuntrClientFailureBlock) failureBlock;
+- (void) getAllTeamsByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) getTeamById:(NSString *)teamId;
+- (void) addTeamByName:(NSString *)teamName;
+
+
+- (void) getCluesByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+
+- (void) getAnswersByTeam:(NSString *)teamId andGame:(NSString*)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) postAnswer:(id)answer withClue:(NSString*)clueId type:(NSString*)clueType successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+
+
+
 @end

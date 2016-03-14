@@ -7,19 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		955CCB511C8925AD00B9B4DA /* GamesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB501C8925AD00B9B4DA /* GamesListViewController.m */; };
+		955CCB541C8925FD00B9B4DA /* NewEntityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB531C8925FD00B9B4DA /* NewEntityViewController.m */; };
+		955CCB5F1C89DEBA00B9B4DA /* find-discover-2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB571C89DEBA00B9B4DA /* find-discover-2x.png */; };
+		955CCB601C89DEBA00B9B4DA /* find-discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB581C89DEBA00B9B4DA /* find-discover.png */; };
+		955CCB611C89DEBA00B9B4DA /* hunt-green-white-2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB591C89DEBA00B9B4DA /* hunt-green-white-2x.png */; };
+		955CCB621C89DEBA00B9B4DA /* hunt-green-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB5A1C89DEBA00B9B4DA /* hunt-green-white.png */; };
+		955CCB631C89DEBA00B9B4DA /* limo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB5B1C89DEBA00B9B4DA /* limo-icon.png */; };
+		955CCB641C89DEBA00B9B4DA /* limo-icon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB5C1C89DEBA00B9B4DA /* limo-icon2x.png */; };
+		955CCB651C89DEBA00B9B4DA /* start-button-2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB5D1C89DEBA00B9B4DA /* start-button-2x.png */; };
+		955CCB661C89DEBA00B9B4DA /* start-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB5E1C89DEBA00B9B4DA /* start-button.png */; };
+		955CCB6A1C8A879300B9B4DA /* GameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB691C8A879300B9B4DA /* GameCell.m */; };
+		955CCB6F1C8CFA1A00B9B4DA /* TeamsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB6E1C8CFA1A00B9B4DA /* TeamsListViewController.m */; };
+		955CCB721C8E2B9E00B9B4DA /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB711C8E2B9E00B9B4DA /* GameViewController.m */; };
+		955CCB751C8E407F00B9B4DA /* CluesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB741C8E407F00B9B4DA /* CluesListViewController.m */; };
+		955CCB7B1C8E751D00B9B4DA /* GameClueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB7A1C8E751D00B9B4DA /* GameClueCell.m */; };
+		955CCB7E1C8E797000B9B4DA /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB7C1C8E797000B9B4DA /* location@2x.png */; };
+		955CCB7F1C8E797000B9B4DA /* Camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB7D1C8E797000B9B4DA /* Camera@2x.png */; };
+		955CCB811C8F598100B9B4DA /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955CCB801C8F598100B9B4DA /* Checkmark@2x.png */; };
+		955CCB841C8FD8A300B9B4DA /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CCB831C8FD8A300B9B4DA /* AnswerViewController.m */; };
 		95B8D8E41C6A9A210059C680 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B8D8E31C6A9A210059C680 /* main.m */; };
 		95B8D8E71C6A9A210059C680 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B8D8E61C6A9A210059C680 /* AppDelegate.m */; };
 		95B8D8EA1C6A9A210059C680 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B8D8E91C6A9A210059C680 /* ViewController.m */; };
 		95B8D8ED1C6A9A210059C680 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8EB1C6A9A210059C680 /* Main.storyboard */; };
 		95B8D8F21C6A9A210059C680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8F11C6A9A210059C680 /* Assets.xcassets */; };
 		95B8D8F51C6A9A210059C680 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8F31C6A9A210059C680 /* LaunchScreen.storyboard */; };
-		95B8D9001C6AAC830059C680 /* Assests in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8FC1C6AAC830059C680 /* Assests */; };
-		95B8D9011C6AAC830059C680 /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = 95B8D8FD1C6AAC830059C680 /* Classes */; };
-		95EB85211C7D633D00A98ABC /* Constants in Resources */ = {isa = PBXBuildFile; fileRef = 95EB85201C7D633D00A98ABC /* Constants */; };
+		95E7C5F51C7E62DF009763C7 /* SCSEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E7C5F41C7E62DF009763C7 /* SCSEnvironment.m */; };
+		95EB3C3B1C911E96001068EA /* clue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EB3C391C911E96001068EA /* clue@2x.png */; };
+		95EB3C3C1C911E96001068EA /* Leaderboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EB3C3A1C911E96001068EA /* Leaderboard@2x.png */; };
+		95EB3C3F1C911F03001068EA /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB3C3E1C911F03001068EA /* LeaderboardViewController.m */; };
+		95EB3C421C9123A2001068EA /* LeaderboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB3C411C9123A2001068EA /* LeaderboardCell.m */; };
 		95EB97C41C7D6C2800A98ABC /* UIAlertView+error.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97951C7D6C2800A98ABC /* UIAlertView+error.m */; };
 		95EB97C51C7D6C2800A98ABC /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97971C7D6C2800A98ABC /* UIImage+Alpha.m */; };
 		95EB97C61C7D6C2800A98ABC /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97991C7D6C2800A98ABC /* UIImage+Resize.m */; };
 		95EB97C71C7D6C2800A98ABC /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB979B1C7D6C2800A98ABC /* UIImage+RoundedCorner.m */; };
+		95EB97C81C7D6C2800A98ABC /* SCSHuntrClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97A01C7D6C2800A98ABC /* SCSHuntrClient.m */; };
 		95EB97C91C7D6C2800A98ABC /* SCSClue.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97A61C7D6C2800A98ABC /* SCSClue.m */; };
 		95EB97CA1C7D6C2800A98ABC /* SCSEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97A81C7D6C2800A98ABC /* SCSEntity.m */; };
 		95EB97CB1C7D6C2800A98ABC /* SCSGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 95EB97AA1C7D6C2800A98ABC /* SCSGame.m */; };
@@ -37,6 +59,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		955CCB4F1C8925AD00B9B4DA /* GamesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesListViewController.h; sourceTree = "<group>"; };
+		955CCB501C8925AD00B9B4DA /* GamesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesListViewController.m; sourceTree = "<group>"; };
+		955CCB521C8925FD00B9B4DA /* NewEntityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEntityViewController.h; sourceTree = "<group>"; };
+		955CCB531C8925FD00B9B4DA /* NewEntityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEntityViewController.m; sourceTree = "<group>"; };
+		955CCB571C89DEBA00B9B4DA /* find-discover-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-discover-2x.png"; sourceTree = "<group>"; };
+		955CCB581C89DEBA00B9B4DA /* find-discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "find-discover.png"; sourceTree = "<group>"; };
+		955CCB591C89DEBA00B9B4DA /* hunt-green-white-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hunt-green-white-2x.png"; sourceTree = "<group>"; };
+		955CCB5A1C89DEBA00B9B4DA /* hunt-green-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hunt-green-white.png"; sourceTree = "<group>"; };
+		955CCB5B1C89DEBA00B9B4DA /* limo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "limo-icon.png"; sourceTree = "<group>"; };
+		955CCB5C1C89DEBA00B9B4DA /* limo-icon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "limo-icon2x.png"; sourceTree = "<group>"; };
+		955CCB5D1C89DEBA00B9B4DA /* start-button-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-button-2x.png"; sourceTree = "<group>"; };
+		955CCB5E1C89DEBA00B9B4DA /* start-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-button.png"; sourceTree = "<group>"; };
+		955CCB681C8A879300B9B4DA /* GameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCell.h; path = Cells/GameCell.h; sourceTree = "<group>"; };
+		955CCB691C8A879300B9B4DA /* GameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCell.m; path = Cells/GameCell.m; sourceTree = "<group>"; };
+		955CCB6D1C8CFA1A00B9B4DA /* TeamsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsListViewController.h; sourceTree = "<group>"; };
+		955CCB6E1C8CFA1A00B9B4DA /* TeamsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsListViewController.m; sourceTree = "<group>"; };
+		955CCB701C8E2B9E00B9B4DA /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		955CCB711C8E2B9E00B9B4DA /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		955CCB731C8E407F00B9B4DA /* CluesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CluesListViewController.h; sourceTree = "<group>"; };
+		955CCB741C8E407F00B9B4DA /* CluesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CluesListViewController.m; sourceTree = "<group>"; };
+		955CCB791C8E751D00B9B4DA /* GameClueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameClueCell.h; path = Cells/GameClueCell.h; sourceTree = "<group>"; };
+		955CCB7A1C8E751D00B9B4DA /* GameClueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameClueCell.m; path = Cells/GameClueCell.m; sourceTree = "<group>"; };
+		955CCB7C1C8E797000B9B4DA /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
+		955CCB7D1C8E797000B9B4DA /* Camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera@2x.png"; sourceTree = "<group>"; };
+		955CCB801C8F598100B9B4DA /* Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@2x.png"; sourceTree = "<group>"; };
+		955CCB821C8FD8A300B9B4DA /* AnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
+		955CCB831C8FD8A300B9B4DA /* AnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
 		95B8D8DF1C6A9A210059C680 /* Hunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hunter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B8D8E31C6A9A210059C680 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		95B8D8E51C6A9A210059C680 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -47,15 +96,25 @@
 		95B8D8F11C6A9A210059C680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95B8D8F41C6A9A210059C680 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95B8D8F61C6A9A210059C680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95B8D8FC1C6AAC830059C680 /* Assests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assests; sourceTree = "<group>"; };
-		95B8D8FD1C6AAC830059C680 /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Classes; sourceTree = "<group>"; };
-		95EB85201C7D633D00A98ABC /* Constants */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Constants; sourceTree = "<group>"; };
+		95E7C5F31C7E62DF009763C7 /* SCSEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSEnvironment.h; sourceTree = "<group>"; };
+		95E7C5F41C7E62DF009763C7 /* SCSEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSEnvironment.m; sourceTree = "<group>"; };
+		95EB3C391C911E96001068EA /* clue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clue@2x.png"; sourceTree = "<group>"; };
+		95EB3C3A1C911E96001068EA /* Leaderboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Leaderboard@2x.png"; sourceTree = "<group>"; };
+		95EB3C3D1C911F03001068EA /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardViewController.h; sourceTree = "<group>"; };
+		95EB3C3E1C911F03001068EA /* LeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardViewController.m; sourceTree = "<group>"; };
+		95EB3C401C9123A2001068EA /* LeaderboardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardCell.h; path = Cells/LeaderboardCell.h; sourceTree = "<group>"; };
+		95EB3C411C9123A2001068EA /* LeaderboardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardCell.m; path = Cells/LeaderboardCell.m; sourceTree = "<group>"; };
+		95EB97941C7D6C2800A98ABC /* UIAlertView+error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+error.h"; sourceTree = "<group>"; };
+		95EB97951C7D6C2800A98ABC /* UIAlertView+error.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+error.m"; sourceTree = "<group>"; };
 		95EB97961C7D6C2800A98ABC /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		95EB97971C7D6C2800A98ABC /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		95EB97981C7D6C2800A98ABC /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		95EB97991C7D6C2800A98ABC /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		95EB979A1C7D6C2800A98ABC /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		95EB979B1C7D6C2800A98ABC /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		95EB979F1C7D6C2800A98ABC /* SCSHuntrClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSHuntrClient.h; sourceTree = "<group>"; };
+		95EB97A01C7D6C2800A98ABC /* SCSHuntrClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSHuntrClient.m; sourceTree = "<group>"; };
+		95EB97A31C7D6C2800A98ABC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		95EB97A51C7D6C2800A98ABC /* SCSClue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSClue.h; sourceTree = "<group>"; };
 		95EB97A61C7D6C2800A98ABC /* SCSClue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSClue.m; sourceTree = "<group>"; };
 		95EB97A71C7D6C2800A98ABC /* SCSEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSEntity.h; sourceTree = "<group>"; };
@@ -98,6 +157,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		955CCB671C8A85ED00B9B4DA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				955CCB681C8A879300B9B4DA /* GameCell.h */,
+				955CCB691C8A879300B9B4DA /* GameCell.m */,
+				955CCB791C8E751D00B9B4DA /* GameClueCell.h */,
+				955CCB7A1C8E751D00B9B4DA /* GameClueCell.m */,
+				95EB3C401C9123A2001068EA /* LeaderboardCell.h */,
+				95EB3C411C9123A2001068EA /* LeaderboardCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		95B8D8D61C6A9A210059C680 = {
 			isa = PBXGroup;
 			children = (
@@ -117,9 +189,9 @@
 		95B8D8E11C6A9A210059C680 /* Hunter */ = {
 			isa = PBXGroup;
 			children = (
-				95EB85201C7D633D00A98ABC /* Constants */,
-				95B8D8FC1C6AAC830059C680 /* Assests */,
-				95B8D8FD1C6AAC830059C680 /* Classes */,
+				95EB97911C7D6C2800A98ABC /* Assests */,
+				95EB97921C7D6C2800A98ABC /* Classes */,
+				95EB97A21C7D6C2800A98ABC /* Constants */,
 				95EB97A41C7D6C2800A98ABC /* Models */,
 				95EB97AF1C7D6C2800A98ABC /* ThirdParty */,
 				95B8D8E51C6A9A210059C680 /* AppDelegate.h */,
@@ -144,6 +216,39 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		95EB97911C7D6C2800A98ABC /* Assests */ = {
+			isa = PBXGroup;
+			children = (
+				95EB3C391C911E96001068EA /* clue@2x.png */,
+				95EB3C3A1C911E96001068EA /* Leaderboard@2x.png */,
+				955CCB801C8F598100B9B4DA /* Checkmark@2x.png */,
+				955CCB7C1C8E797000B9B4DA /* location@2x.png */,
+				955CCB7D1C8E797000B9B4DA /* Camera@2x.png */,
+				955CCB571C89DEBA00B9B4DA /* find-discover-2x.png */,
+				955CCB581C89DEBA00B9B4DA /* find-discover.png */,
+				955CCB591C89DEBA00B9B4DA /* hunt-green-white-2x.png */,
+				955CCB5A1C89DEBA00B9B4DA /* hunt-green-white.png */,
+				955CCB5B1C89DEBA00B9B4DA /* limo-icon.png */,
+				955CCB5C1C89DEBA00B9B4DA /* limo-icon2x.png */,
+				955CCB5D1C89DEBA00B9B4DA /* start-button-2x.png */,
+				955CCB5E1C89DEBA00B9B4DA /* start-button.png */,
+			);
+			path = Assests;
+			sourceTree = "<group>";
+		};
+		95EB97921C7D6C2800A98ABC /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				955CCB671C8A85ED00B9B4DA /* Cells */,
+				95EB97931C7D6C2800A98ABC /* Categories */,
+				95EB979C1C7D6C2800A98ABC /* Commons */,
+				95EB979D1C7D6C2800A98ABC /* Controllers */,
+				95EB979E1C7D6C2800A98ABC /* Helpers */,
+				95EB97A11C7D6C2800A98ABC /* Views */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		95EB97931C7D6C2800A98ABC /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +262,60 @@
 				95EB979B1C7D6C2800A98ABC /* UIImage+RoundedCorner.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		95EB979C1C7D6C2800A98ABC /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				95E7C5F31C7E62DF009763C7 /* SCSEnvironment.h */,
+				95E7C5F41C7E62DF009763C7 /* SCSEnvironment.m */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
+		95EB979D1C7D6C2800A98ABC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				955CCB521C8925FD00B9B4DA /* NewEntityViewController.h */,
+				955CCB531C8925FD00B9B4DA /* NewEntityViewController.m */,
+				955CCB6D1C8CFA1A00B9B4DA /* TeamsListViewController.h */,
+				955CCB6E1C8CFA1A00B9B4DA /* TeamsListViewController.m */,
+				955CCB4F1C8925AD00B9B4DA /* GamesListViewController.h */,
+				955CCB501C8925AD00B9B4DA /* GamesListViewController.m */,
+				955CCB701C8E2B9E00B9B4DA /* GameViewController.h */,
+				955CCB711C8E2B9E00B9B4DA /* GameViewController.m */,
+				955CCB731C8E407F00B9B4DA /* CluesListViewController.h */,
+				955CCB741C8E407F00B9B4DA /* CluesListViewController.m */,
+				955CCB821C8FD8A300B9B4DA /* AnswerViewController.h */,
+				955CCB831C8FD8A300B9B4DA /* AnswerViewController.m */,
+				95EB3C3D1C911F03001068EA /* LeaderboardViewController.h */,
+				95EB3C3E1C911F03001068EA /* LeaderboardViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		95EB979E1C7D6C2800A98ABC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				95EB979F1C7D6C2800A98ABC /* SCSHuntrClient.h */,
+				95EB97A01C7D6C2800A98ABC /* SCSHuntrClient.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		95EB97A11C7D6C2800A98ABC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		95EB97A21C7D6C2800A98ABC /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				95EB97A31C7D6C2800A98ABC /* Constants.h */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		95EB97A41C7D6C2800A98ABC /* Models */ = {
@@ -267,12 +426,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				955CCB641C89DEBA00B9B4DA /* limo-icon2x.png in Resources */,
+				95EB3C3B1C911E96001068EA /* clue@2x.png in Resources */,
+				955CCB611C89DEBA00B9B4DA /* hunt-green-white-2x.png in Resources */,
+				955CCB811C8F598100B9B4DA /* Checkmark@2x.png in Resources */,
+				95EB3C3C1C911E96001068EA /* Leaderboard@2x.png in Resources */,
 				95B8D8F51C6A9A210059C680 /* LaunchScreen.storyboard in Resources */,
-				95B8D9001C6AAC830059C680 /* Assests in Resources */,
-				95B8D9011C6AAC830059C680 /* Classes in Resources */,
 				95B8D8F21C6A9A210059C680 /* Assets.xcassets in Resources */,
-				95EB85211C7D633D00A98ABC /* Constants in Resources */,
+				955CCB651C89DEBA00B9B4DA /* start-button-2x.png in Resources */,
+				955CCB601C89DEBA00B9B4DA /* find-discover.png in Resources */,
+				955CCB7F1C8E797000B9B4DA /* Camera@2x.png in Resources */,
+				955CCB661C89DEBA00B9B4DA /* start-button.png in Resources */,
 				95B8D8ED1C6A9A210059C680 /* Main.storyboard in Resources */,
+				955CCB621C89DEBA00B9B4DA /* hunt-green-white.png in Resources */,
+				955CCB7E1C8E797000B9B4DA /* location@2x.png in Resources */,
+				955CCB5F1C89DEBA00B9B4DA /* find-discover-2x.png in Resources */,
+				955CCB631C89DEBA00B9B4DA /* limo-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				955CCB511C8925AD00B9B4DA /* GamesListViewController.m in Sources */,
 				95EB97C71C7D6C2800A98ABC /* UIImage+RoundedCorner.m in Sources */,
 				95B8D8EA1C6A9A210059C680 /* ViewController.m in Sources */,
 				95EB97CD1C7D6C2800A98ABC /* SCSTeam.m in Sources */,
@@ -290,19 +460,30 @@
 				95EB97D51C7D6C2800A98ABC /* AFURLResponseSerialization.m in Sources */,
 				95EB97D31C7D6C2800A98ABC /* AFURLConnectionOperation.m in Sources */,
 				95EB97C41C7D6C2800A98ABC /* UIAlertView+error.m in Sources */,
+				95EB97C81C7D6C2800A98ABC /* SCSHuntrClient.m in Sources */,
 				95EB97CF1C7D6C2800A98ABC /* AFHTTPRequestOperationManager.m in Sources */,
+				95EB3C3F1C911F03001068EA /* LeaderboardViewController.m in Sources */,
 				95EB97CC1C7D6C2800A98ABC /* SCSPlayer.m in Sources */,
 				95EB97D21C7D6C2800A98ABC /* AFSecurityPolicy.m in Sources */,
 				95EB97C51C7D6C2800A98ABC /* UIImage+Alpha.m in Sources */,
 				95EB97D41C7D6C2800A98ABC /* AFURLRequestSerialization.m in Sources */,
+				955CCB7B1C8E751D00B9B4DA /* GameClueCell.m in Sources */,
+				95EB3C421C9123A2001068EA /* LeaderboardCell.m in Sources */,
+				955CCB541C8925FD00B9B4DA /* NewEntityViewController.m in Sources */,
+				955CCB841C8FD8A300B9B4DA /* AnswerViewController.m in Sources */,
+				955CCB6A1C8A879300B9B4DA /* GameCell.m in Sources */,
+				955CCB721C8E2B9E00B9B4DA /* GameViewController.m in Sources */,
 				95EB97D11C7D6C2800A98ABC /* AFNetworkReachabilityManager.m in Sources */,
+				955CCB751C8E407F00B9B4DA /* CluesListViewController.m in Sources */,
 				95EB97CB1C7D6C2800A98ABC /* SCSGame.m in Sources */,
 				95B8D8E71C6A9A210059C680 /* AppDelegate.m in Sources */,
+				95E7C5F51C7E62DF009763C7 /* SCSEnvironment.m in Sources */,
 				95B8D8E41C6A9A210059C680 /* main.m in Sources */,
 				95EB97CE1C7D6C2800A98ABC /* AFHTTPRequestOperation.m in Sources */,
 				95EB97C91C7D6C2800A98ABC /* SCSClue.m in Sources */,
 				95EB97D01C7D6C2800A98ABC /* AFHTTPSessionManager.m in Sources */,
 				95EB97C61C7D6C2800A98ABC /* UIImage+Resize.m in Sources */,
+				955CCB6F1C8CFA1A00B9B4DA /* TeamsListViewController.m in Sources */,
 				95EB97D61C7D6C2800A98ABC /* AFURLSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
