@@ -60,8 +60,8 @@
     {
         if (nameFieldText != nil || [nameFieldText length] > 0)
         {
-            if([self.delegate respondsToSelector:@selector(didCreateNewTeam)])
-                [self.delegate didCreateNewTeam];
+            if([self.delegate respondsToSelector:@selector(didCreateNewTeam:)])
+                [self.delegate didCreateNewTeam:nameFieldText];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }

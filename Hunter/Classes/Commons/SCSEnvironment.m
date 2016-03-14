@@ -31,6 +31,12 @@
     return self;
 }
 
+- (NSString *) currentPlayer
+{
+    return [[[NSUserDefaults standardUserDefaults]objectForKey:@"current_player"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+}
+
+
 - (BOOL) hasStartedGame {
     NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys]);
     return [self hasRegisteredPlayer] && [self hasSelectedTeam] && [self hasSelectedGame];

@@ -11,8 +11,8 @@
 
 @interface SCSEnvironment : NSObject
 
-@property (nonatomic, strong) SCSPlayer * currentPlayer;
-
+//@property (nonatomic, strong) SCSPlayer * currentPlayer;
+@property (nonatomic , readonly) NSString * currentPlayer;
 + (instancetype)sharedInstance;
 - (BOOL) hasRegisteredPlayer;
 - (BOOL) hasStartedGame;

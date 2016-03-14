@@ -10,6 +10,7 @@
 #import "NewEntityViewController.h"
 #import "GameViewController.h"
 #import "SCSHuntrClient.h"
+#import "SCSEnvironment.h"
 
 @interface TeamsListViewController () <NewEntityControllerDelegate>
 @property (nonatomic , strong) NSArray * teams;
@@ -35,10 +36,10 @@
     }];
     
     if ([self.selectedGame.gameStatus isEqualToString:@"In Progress"]) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }
     else {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
 
@@ -56,8 +57,13 @@
 }
 
 #pragma mark - NewEntityControllerDelegate
-- (void) didCreateNewTeam {
+- (void) didCreateNewTeam:(NSString*)teamName {
     
+    NSDictionary * parameter = [NSDictionary dictionaryWithObject: teamName forKey: @"teamName"];
+    [[SCSHuntrClient sharedClient]addTeamToGame:parameter successBlock:^(NSArray* responseObjects){
+        self.teams = responseObjects;
+        [self.tableView reloadData];
+    } failureBlock:nil];
 }
 
 #pragma mark - Table view data source
@@ -85,45 +91,36 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%li",(long)indexPath.row);
-}
+    SCSTeam * selectedTeam = [self.teams objectAtIndex:indexPath.row];
+    [self checkIfUserExistInTheTeam:selectedTeam completion:^(BOOL isExisting){
+        if (isExisting)
+        {
+            [self performSegueWithIdentifier:@"EnterGameSceneSegue" sender:indexPath];
+        }
+        else
+        {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [[SCSHuntrClient sharedClient]addPlayerToTeam:selectedTeam.teamID successBlock:^(id response) {
+                    if(response)
+                    {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self performSegueWithIdentifier:@"EnterGameSceneSegue" sender:indexPath];
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+                        });
+                    }
+                } failureBlock:nil];
+            });
+        }
+    }];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(nullable id)sender
+{
+    if ([self.selectedGame.gameStatus isEqualToString:@"In Progress"]) return YES;
+    else return NO;
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -143,5 +140,27 @@
     }
 }
 
+#pragma private methods 
+
+- (void) checkIfUserExistInTheTeam:(SCSTeam*)selectedTeam completion:(void (^)(BOOL))completion
+{
+    [[SCSHuntrClient sharedClient] getPlayersByTeam:selectedTeam.teamID successBlock:^(NSArray *arrayResult) {
+        
+        [arrayResult enumerateObjectsUsingBlock:^(SCSPlayer * player, NSUInteger idx, BOOL * stop) {
+            
+            if ([player.playerName isEqualToString:[[SCSEnvironment sharedInstance]currentPlayer]])
+            {
+                *stop = YES;
+                completion(YES);
+                return;
+            }
+            if (idx == arrayResult.count - 1)
+            {
+                completion(NO);
+            }
+        }];
+        
+    } failureBlock:nil];
+}
 
 @end

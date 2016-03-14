@@ -62,6 +62,13 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
     return self;
 }
 
+- (NSString* ) urlStringWithEndPoint:(NSString *)endPoint
+{
+    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kSCSHuntrAPIBaseURLString, endPoint];
+    urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return  urlString;
+}
+
 #pragma mark - Public
 
 - (BOOL) checkReachability:(SCSHuntrClientFailureBlock) failureBlock {
@@ -77,8 +84,8 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 #pragma makr - GAME(S)
 - (void) getAllGames:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-    
-    [self GET:[NSString stringWithFormat:@"%@/%@",kSCSHuntrAPIBaseURLString,@"games/simple"]parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * endPoint = @"games/simple";
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
@@ -99,7 +106,7 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 - (void) getGameById:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"games/%@",gameId];
-    [self GET:endPoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]])
         {
             NSLog(@"game: %@", responseObject);
@@ -119,7 +126,7 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 - (void) getScoreboardByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"game/scoreboard/%@",gameId];
-    [self GET:endPoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
@@ -144,8 +151,7 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 - (void) getAllTeamsByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"team/%@",gameId];
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kSCSHuntrAPIBaseURLString,endPoint];
-    [self GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
@@ -165,16 +171,53 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 }
 
 
-- (void) getTeamById:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+- (void) addTeamToGame:(id)gameData successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-    //api/team/:gameID/:teamID'
+    NSString * currentGameId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_game"];
+    NSString * endPoint = [NSString stringWithFormat:@"team/%@",currentGameId];
 
-    
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:gameData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (responseObject) successBlock((NSArray*)responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock([error description]);
+    }];
 }
 
-- (void) addTeamToGame:(NSString*)gameData successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+- (void) getPlayersByTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-  
+    NSString * endPoint = [NSString stringWithFormat:@"player/%@",teamId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject isKindOfClass:[NSArray class]])
+        {
+            NSMutableArray * array = [NSMutableArray new];
+            [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                [array addObject:[[SCSPlayer alloc]initWithJSON:obj]];
+            }];
+            successBlock(array);
+        }
+        else
+        {
+            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
+            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock([error description]);
+    }];
+
+
+}
+
+- (void) addPlayerToTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    NSString * currentPlayer= [[NSUserDefaults standardUserDefaults]objectForKey:@"current_player"];
+
+    NSString * endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, currentPlayer];
+    
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (responseObject) successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock([error description]);
+    }];
 }
 
 #pragma mark - Clues and Answers
@@ -182,8 +225,7 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 - (void) getCluesByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"clues/%@",gameId];
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kSCSHuntrAPIBaseURLString,endPoint];
-    [self GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
@@ -207,8 +249,7 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 - (void) getAnswersByTeam:(NSString *)teamId andGame:(NSString*)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"answers/%@/%@",gameId,teamId];
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kSCSHuntrAPIBaseURLString,endPoint];
-    [self GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             successBlock(responseObject);
@@ -227,11 +268,9 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 - (void) postAnswer:(id)answer withClue:(NSString*)clueId type:(NSString*)clueType successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * currentTeamId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_team"];
-    NSString * currentPlayer= [[NSUserDefaults standardUserDefaults]objectForKey:@"current_player"];
 
-    NSString * endPoint = [NSString stringWithFormat:@"answers/%@/%@/%@/%@",clueType,clueId,currentTeamId, currentPlayer];
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kSCSHuntrAPIBaseURLString,endPoint];
-    [self POST:urlString parameters: answer success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * endPoint = [NSString stringWithFormat:@"answers/%@/%@/%@/%@",clueType,clueId,currentTeamId, [[SCSEnvironment sharedInstance]currentPlayer]];
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters: answer success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
