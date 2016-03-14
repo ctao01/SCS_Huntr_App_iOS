@@ -32,6 +32,7 @@
         _latitude = [json valueForKey:@"latitude"];
         _longitude = [json valueForKey:@"longitude"];
         _answerArray = [json valueForKey:@"answers"];
+        _isCorrect = NO;
         
         if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc]initWithLatitude:[_latitude doubleValue]longitude:[_longitude doubleValue]];
 

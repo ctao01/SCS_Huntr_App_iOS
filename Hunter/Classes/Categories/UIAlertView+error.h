@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Marin Todorov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UIAlertView(error)
 

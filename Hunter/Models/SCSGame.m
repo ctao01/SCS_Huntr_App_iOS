@@ -24,8 +24,8 @@
         _endDate =[self dateForApiTimeString: [json valueForKey:@"endDate"]];
         _gameStatus =[json valueForKey:@"status"];
         
-        _teamList = [SCSTeam initWithJSON: [json valueForKey: @"teams" ]];
-        _clueList = [SCSClue initWithJSON:[json valueForKey:@"clues"]];
+//        _teamList = [SCSTeam initWithJSON: [json valueForKey: @"teams" ]];
+//        _clueList = [SCSClue initWithJSON:[json valueForKey:@"clues"]];
         
         
     }

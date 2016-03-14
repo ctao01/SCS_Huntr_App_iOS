@@ -25,6 +25,6 @@
 @property (retain, nonatomic) NSArray *     teamList;
 @property (retain, nonatomic) NSArray *     clueList;
 
-- (id)initWithJSON:(NSDictionary *) json;
+- (id) initWithJSON:(NSDictionary *) json;
 
 @end

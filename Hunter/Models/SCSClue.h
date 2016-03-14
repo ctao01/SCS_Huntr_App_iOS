@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *longitude;
 @property (strong, nonatomic) CLLocation *clueLocation;
-@property (strong, nonatomic) NSString *isCorrect;
+@property (nonatomic) BOOL isCorrect;
 @property (strong, nonatomic) NSMutableArray *answerArray;
 
 + (NSArray *) initWithJSON:(NSArray *) json;
