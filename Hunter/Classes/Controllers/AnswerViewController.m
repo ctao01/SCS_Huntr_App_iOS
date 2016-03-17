@@ -134,8 +134,6 @@
     
     CLLocationDistance distance = [userLocation distanceFromLocation:self.theClue.clueLocation];
     
-    NSLog(@"%f",distance);
-    
     NSString *distanceReturned = [NSString stringWithFormat:@"%f",distance];
     
     if([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue]>0){

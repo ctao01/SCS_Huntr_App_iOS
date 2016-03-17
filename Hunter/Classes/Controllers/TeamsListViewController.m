@@ -52,7 +52,7 @@
 
 - (IBAction)createNewTeam:(id)sender
 {
-    [self performSegueWithIdentifier:@"CreateNewTeamSegue" sender: self];
+    [self performSegueWithIdentifier:@"CreateNewTeamSegue" sender:sender];
 
 }
 
@@ -60,10 +60,7 @@
 - (void) didCreateNewTeam:(NSString*)teamName {
     
     NSDictionary * parameter = [NSDictionary dictionaryWithObject: teamName forKey: @"teamName"];
-    [[SCSHuntrClient sharedClient]addTeamToGame:parameter successBlock:^(NSArray* responseObjects){
-        self.teams = responseObjects;
-        [self.tableView reloadData];
-    } failureBlock:nil];
+    [[SCSHuntrClient sharedClient]addTeamToGame:parameter successBlock:^(id object){} failureBlock:nil];
 }
 
 #pragma mark - Table view data source

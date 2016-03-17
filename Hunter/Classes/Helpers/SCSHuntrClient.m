@@ -171,13 +171,14 @@ static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:30
 }
 
 
-- (void) addTeamToGame:(id)gameData successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+- (void) addTeamToGame:(id)gameData successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * currentGameId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_game"];
     NSString * endPoint = [NSString stringWithFormat:@"team/%@",currentGameId];
 
     [self POST:[self urlStringWithEndPoint:endPoint] parameters:gameData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (responseObject) successBlock((NSArray*)responseObject);
+        if (responseObject) successBlock(responseObject);
+        else  failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock([error description]);
     }];

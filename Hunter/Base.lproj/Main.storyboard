@@ -217,12 +217,14 @@
                     <navigationItem key="navigationItem" title="Teams" id="cHe-Mq-ndP">
                         <barButtonItem key="rightBarButtonItem" title="New Team" id="g2D-Oi-anT">
                             <connections>
-                                <action selector="createNewTeam:" destination="AH1-ek-oui" id="Lws-Dk-RmC"/>
-                                <segue destination="nDT-dY-6gG" kind="presentation" identifier="CreateNewTeamSegue" id="S9I-6D-9tl"/>
+                                <action selector="createNewTeam:" destination="AH1-ek-oui" id="3QT-4j-chb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <segue destination="nDT-dY-6gG" kind="presentation" identifier="CreateNewTeamSegue" id="d2t-4U-J17"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NEk-AK-Nbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
