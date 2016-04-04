@@ -20,21 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self refreshTeamList];
     
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    [[SCSHuntrClient sharedClient]getAllTeamsByGame:self.selectedGame.gameID successBlock:^(NSArray * arrayResult){
-        
-        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:true];
-        self.teams = [[[NSArray alloc]initWithArray:arrayResult] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSortDescriptor, nil]];
-        [self.tableView reloadData];
-        
-    } failureBlock:^(NSString * errorString){
-        
-    }];
-    
     if ([self.selectedGame.gameStatus isEqualToString:@"In Progress"]) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
     }
@@ -48,6 +39,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Private Methods 
+- (void) refreshTeamList
+{
+    [[SCSHuntrClient sharedClient]getAllTeamsByGame:self.selectedGame.gameID successBlock:^(NSArray * arrayResult){
+        
+        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:true];
+        self.teams = [[[NSArray alloc]initWithArray:arrayResult] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSortDescriptor, nil]];
+        [self.tableView reloadData];
+        
+    } failureBlock:^(NSString * errorString){
+        
+    }];
+}
+
+
+
 #pragma mark - Actions 
 
 - (IBAction)createNewTeam:(id)sender
@@ -57,10 +64,29 @@
 }
 
 #pragma mark - NewEntityControllerDelegate
-- (void) didCreateNewTeam:(NSString*)teamName {
+
+- (void) willValidateNewTeam:(NSString*)teamName completion:(void (^)(bool isExisting))completion
+{
+    __block BOOL isTeamNameExsiting = false;
+    [self.teams enumerateObjectsUsingBlock:^(SCSTeam* team, NSUInteger idx, BOOL *  stop) {
+        if ([team.teamName isEqualToString:teamName]) {
+            isTeamNameExsiting = true;
+            * stop = true;
+        }
+
+    }];
+    completion(isTeamNameExsiting);
+
+}
+
+
+- (void) willCreateNewTeam:(NSString*)teamName {
+    
     
     NSDictionary * parameter = [NSDictionary dictionaryWithObject: teamName forKey: @"teamName"];
-    [[SCSHuntrClient sharedClient]addTeamToGame:parameter successBlock:^(id object){} failureBlock:nil];
+    [[SCSHuntrClient sharedClient]addTeamToGame:parameter successBlock:^(id object){
+        [self refreshTeamList];
+    } failureBlock:nil];
 }
 
 #pragma mark - Table view data source

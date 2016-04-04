@@ -60,8 +60,17 @@
     {
         if (nameFieldText != nil || [nameFieldText length] > 0)
         {
-            if([self.delegate respondsToSelector:@selector(didCreateNewTeam:)])
-                [self.delegate didCreateNewTeam:nameFieldText];
+            if([self.delegate respondsToSelector:@selector(willValidateNewTeam:completion:)])
+                [self.delegate willValidateNewTeam:nameFieldText completion:^(BOOL exists){
+                    if (exists == false) {
+                        if ([self.delegate respondsToSelector:@selector(willCreateNewTeam:)])
+                            [self.delegate willCreateNewTeam:nameFieldText];
+                    }
+                    else
+                    {
+                        NSLog(@"EXISTS");
+                    }
+                }];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }

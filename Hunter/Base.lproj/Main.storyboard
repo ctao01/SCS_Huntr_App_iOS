@@ -421,6 +421,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="checkImageView" destination="OkY-gB-yfb" id="Thl-mY-bUH"/>
                                     <outlet property="descriptionLabel" destination="ger-cf-Q0f" id="l58-NR-dzW"/>
                                     <outlet property="pointLabel" destination="4r4-AS-Xuv" id="et1-lK-3IW"/>
                                     <outlet property="typeImageView" destination="Pay-eK-dv1" id="o3J-xu-1Zx"/>

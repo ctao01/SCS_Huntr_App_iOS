@@ -10,8 +10,8 @@
 #import "SCSHuntrClient.h"
 
 @interface AnswerViewController () <UIImagePickerControllerDelegate , UINavigationControllerDelegate, CLLocationManagerDelegate , UIActionSheetDelegate>
-
 @property (nonatomic , strong) CLLocationManager * locationManager;
+
 @end
 
 @implementation AnswerViewController
@@ -36,8 +36,8 @@
         // For foreground access
         // [self.locationManager requestWhenInUseAuthorization];
         [self.locationManager requestAlwaysAuthorization]; // For background access
-        [self.locationManager startUpdatingLocation];
-
+        self.locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+        self.locationManager.pausesLocationUpdatesAutomatically = NO;
     }
 
     self.descriptionTextView.text = self.theClue.clueDescription;
@@ -67,7 +67,7 @@
 
 - (void) checkInHere:(id)sender
 {
-    [self.locationManager stopUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 }
 
 #pragma mark - UIImagePickerDelegate
@@ -92,27 +92,28 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"didUpdateToLocation: %@,", locations);
-    CLLocation *currentLocation = locations.lastObject;
-    if (currentLocation != nil)
-    {
-        BOOL rightAnswer = [self isUserInTheLocation:currentLocation];
-        if (rightAnswer)
+        NSLog(@"didUpdateToLocation: %@,", locations);
+        CLLocation *currentLocation = locations.lastObject;
+        if (currentLocation != nil)
         {
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Success" message:@"You found the location." preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            BOOL rightAnswer = [self isUserInTheLocation:currentLocation];
+            if (rightAnswer)
+            {
+                [manager stopUpdatingLocation];
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Success" message:@"You found the location." preferredStyle:UIAlertControllerStyleAlert];
                 
-                NSDictionary * answer = @{@"latitude": [NSNumber numberWithDouble:currentLocation.coordinate.latitude], @"longitude": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]};
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    
+                    NSDictionary * answer = @{@"latitude": [NSNumber numberWithDouble:currentLocation.coordinate.latitude], @"longitude": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]};
+                    
+                    [[SCSHuntrClient sharedClient] postAnswer:answer withClue:self.theClue.clueID type:@"Location" successBlock:nil failureBlock:nil];
+                    
+                }];
                 
-                [[SCSHuntrClient sharedClient] postAnswer:answer withClue:self.theClue.clueID type:@"Location" successBlock:nil failureBlock:nil];
-                
-            }];
-            
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
         }
-    }
 }
 
 

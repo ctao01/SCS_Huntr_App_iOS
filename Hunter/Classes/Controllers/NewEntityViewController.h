@@ -28,5 +28,6 @@ typedef enum SCSCreateObjectType : NSInteger {
 @protocol NewEntityControllerDelegate <NSObject>
 @optional
 - (void) didRegisterUser;
-- (void) didCreateNewTeam:(NSString*)teamName;
+- (void) willValidateNewTeam:(NSString*)teamName completion:(void (^)(bool isExisting))completion;
+- (void) willCreateNewTeam:(NSString*)teamName;
 @end
