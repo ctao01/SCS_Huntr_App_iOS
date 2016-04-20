@@ -86,7 +86,7 @@
 		955CCB801C8F598100B9B4DA /* Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@2x.png"; sourceTree = "<group>"; };
 		955CCB821C8FD8A300B9B4DA /* AnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
 		955CCB831C8FD8A300B9B4DA /* AnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
-		95B8D8DF1C6A9A210059C680 /* Hunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hunter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B8D8DF1C6A9A210059C680 /* Huntr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Huntr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B8D8E31C6A9A210059C680 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		95B8D8E51C6A9A210059C680 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95B8D8E61C6A9A210059C680 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -114,7 +114,6 @@
 		95EB979B1C7D6C2800A98ABC /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		95EB979F1C7D6C2800A98ABC /* SCSHuntrClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSHuntrClient.h; sourceTree = "<group>"; };
 		95EB97A01C7D6C2800A98ABC /* SCSHuntrClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSHuntrClient.m; sourceTree = "<group>"; };
-		95EB97A31C7D6C2800A98ABC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		95EB97A51C7D6C2800A98ABC /* SCSClue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSClue.h; sourceTree = "<group>"; };
 		95EB97A61C7D6C2800A98ABC /* SCSClue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSClue.m; sourceTree = "<group>"; };
 		95EB97A71C7D6C2800A98ABC /* SCSEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSEntity.h; sourceTree = "<group>"; };
@@ -181,7 +180,7 @@
 		95B8D8E01C6A9A210059C680 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				95B8D8DF1C6A9A210059C680 /* Hunter.app */,
+				95B8D8DF1C6A9A210059C680 /* Huntr.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,7 +312,6 @@
 		95EB97A21C7D6C2800A98ABC /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				95EB97A31C7D6C2800A98ABC /* Constants.h */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -372,9 +370,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		95B8D8DE1C6A9A210059C680 /* Hunter */ = {
+		95B8D8DE1C6A9A210059C680 /* Huntr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95B8D8F91C6A9A210059C680 /* Build configuration list for PBXNativeTarget "Hunter" */;
+			buildConfigurationList = 95B8D8F91C6A9A210059C680 /* Build configuration list for PBXNativeTarget "Huntr" */;
 			buildPhases = (
 				95B8D8DB1C6A9A210059C680 /* Sources */,
 				95B8D8DC1C6A9A210059C680 /* Frameworks */,
@@ -384,9 +382,9 @@
 			);
 			dependencies = (
 			);
-			name = Hunter;
+			name = Huntr;
 			productName = Hunter;
-			productReference = 95B8D8DF1C6A9A210059C680 /* Hunter.app */;
+			productReference = 95B8D8DF1C6A9A210059C680 /* Huntr.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -403,7 +401,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 95B8D8DA1C6A9A210059C680 /* Build configuration list for PBXProject "Hunter" */;
+			buildConfigurationList = 95B8D8DA1C6A9A210059C680 /* Build configuration list for PBXProject "Huntr" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -416,7 +414,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				95B8D8DE1C6A9A210059C680 /* Hunter */,
+				95B8D8DE1C6A9A210059C680 /* Huntr */,
 			);
 		};
 /* End PBXProject section */
@@ -596,8 +594,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Hunter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Hunter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Huntr;
+				PRODUCT_NAME = Huntr;
 			};
 			name = Debug;
 		};
@@ -607,15 +605,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Hunter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Hunter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Huntr;
+				PRODUCT_NAME = Huntr;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		95B8D8DA1C6A9A210059C680 /* Build configuration list for PBXProject "Hunter" */ = {
+		95B8D8DA1C6A9A210059C680 /* Build configuration list for PBXProject "Huntr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95B8D8F71C6A9A210059C680 /* Debug */,
@@ -624,7 +622,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95B8D8F91C6A9A210059C680 /* Build configuration list for PBXNativeTarget "Hunter" */ = {
+		95B8D8F91C6A9A210059C680 /* Build configuration list for PBXNativeTarget "Huntr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95B8D8FA1C6A9A210059C680 /* Debug */,
