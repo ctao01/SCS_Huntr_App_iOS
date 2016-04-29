@@ -1,0 +1,30 @@
+//
+//  Huntr.pch
+//  Huntr
+//
+//  Created by Joy Tao on 4/22/16.
+//  Copyright © 2016 SCS. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <QuartzCore/QuartzCore.h>
+
+    #import "SCSGame.h"
+    #import "SCSTeam.h"
+    #import "SCSAnswer.h"
+    #import "SCSClue.h"
+    #import "NSString+EnumParser.h"
+    #import "UIButton+Style.h"
+
+    #import "EnvironmentConstants.h"
+    #import "EnvironmentManger.h"
+    #import "SCSHuntrClient.h"
+#endif
