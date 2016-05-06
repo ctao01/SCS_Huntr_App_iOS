@@ -11,5 +11,5 @@
 @interface NSString (EnumParser)
 
 - (GameStatus) statusEnumFromString;
-
+- (ClueType) clueTypeFromString;
 @end

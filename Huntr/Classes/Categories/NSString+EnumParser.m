@@ -13,10 +13,21 @@
 - (GameStatus) statusEnumFromString
 {
     NSDictionary<NSString*,NSNumber*> *status = @{
-                                                  @"Not Started": @(NotStarted),
-                                                  @"In Progress": @(InProgress),
-                                                  @"Completed": @(Completed),
+                                                  @"Not Started": @(GameStatusNotStarted),
+                                                  @"In Progress": @(GameStatusInProgress),
+                                                  @"Completed": @(GameStatusCompleted),
                                                   };
-    return status[self].integerValue;
+    return (GameStatus)status[self].integerValue;
 }
+
+- (ClueType) clueTypeFromString
+{
+    NSDictionary<NSString*,NSNumber*> *type = @{
+                                                  @"Location": @(ClueTypeLocation),
+                                                  @"Picture": @(ClueTypePicture)
+                                                  };
+    
+    return (ClueType)type[self].integerValue;
+}
+
 @end
