@@ -461,7 +461,7 @@
         NSData *imageData = UIImageJPEGRepresentation(answer, 0.5);
         NSError * error = nil;
         NSMutableURLRequest * request = [self.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:[self urlStringWithEndPoint:endPoint] parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData){
-            [formData appendPartWithFileData:imageData name:@"photoAnswer" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:imageData name:@"answer" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
         }error:&error];
         
         AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {

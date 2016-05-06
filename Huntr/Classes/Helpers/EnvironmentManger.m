@@ -63,7 +63,7 @@
 
 - (void) joinGame:(NSString *)gameId
 {
-    NSMutableDictionary * joinedGames = [[NSUserDefaults standardUserDefaults]objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults]objectForKey:KJoinedGames];
     if (joinedGames == nil) {
         NSDictionary * info = [NSDictionary new];
         NSDictionary * new = [NSDictionary dictionaryWithObjectsAndKeys:info,gameId, nil];
@@ -75,10 +75,10 @@
         if([joinedGames objectForKey: gameId] == nil)
         {
             NSDictionary * info = [NSDictionary new];
-            [joinedGames setObject:info forKey:gameId];
+            NSDictionary * newGame = [NSDictionary dictionaryWithObjectsAndKeys:info,gameId, nil];
             
             [[NSUserDefaults standardUserDefaults]removeObjectForKey:KJoinedGames];
-            [[NSUserDefaults standardUserDefaults]setObject:joinedGames forKey:KJoinedGames];
+            [[NSUserDefaults standardUserDefaults]setObject:newGame forKey:KJoinedGames];
         }
     }
     
