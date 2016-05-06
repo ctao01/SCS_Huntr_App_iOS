@@ -52,8 +52,8 @@
 - (void) registerUserDidSave :(NewEntityViewController *)controller {
     
     /* Binding Game Id with Player Name */
-    [[EnvironmentManger sharedManager]joinGame:self.selectedGame.gameID];
-    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
+//    [[EnvironmentManger sharedManager]joinGame:self.selectedGame.gameID];
+//    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
     
     /* Set Current Player Name */
     [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];

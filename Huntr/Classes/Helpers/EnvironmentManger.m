@@ -65,11 +65,9 @@
 {
     NSMutableDictionary * joinedGames = [[NSUserDefaults standardUserDefaults]objectForKey:KJoinedGames];
     if (joinedGames == nil) {
-        joinedGames = [NSMutableDictionary new];
-        
         NSDictionary * info = [NSDictionary new];
-        [joinedGames setObject:info forKey:gameId];
-        [[NSUserDefaults standardUserDefaults]setObject:joinedGames forKey:KJoinedGames];
+        NSDictionary * new = [NSDictionary dictionaryWithObjectsAndKeys:info,gameId, nil];
+        [[NSUserDefaults standardUserDefaults]setObject:new forKey:KJoinedGames];
         
     }
     else
