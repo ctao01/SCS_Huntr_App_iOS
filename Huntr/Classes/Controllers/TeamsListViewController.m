@@ -24,31 +24,25 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.tableView.allowsSelection = false;
     self.joinedTeamIndexPath = nil;
-    [self refreshUI];
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self refreshTeamsListWithCompletion:^{
-        [self.tableView reloadData];
-    }];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if (self.selectedGame.status != Completed)
-    {
-        if ([[EnvironmentManger sharedManager] hasJoinedGame:self.selectedGame.gameID] == NO)
-        {
-            [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
-            
-        }
-    }
+    [self refreshTeamsListWithCompletion:^{
+        [self.tableView reloadData];
+        [self refreshUI];
+
+    }];
 }
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -59,7 +53,7 @@
 
 - (void) refreshUI {
     
-    if (self.selectedGame.status == InProgress) {
+    if (self.selectedGame.status == GameStatusInProgress) {
         self.navigationItem.rightBarButtonItem.enabled = true;
         self.addTeamBtn.enabled = false;
         self.updateNameBtn.enabled = true;
@@ -166,39 +160,47 @@
 
 #pragma mark - NewEntityControllerDelegate
 
-- (void) registerUserDidSave :(NewEntityViewController *)controller {
-    
-    /* Binding Game Id with Player Name */
-    [[EnvironmentManger sharedManager]joinGame:self.selectedGame.gameID];
-    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
-    
-    /* Set Current Player Name */
-    [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
-    
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    
-}
-
-- (void) registerUserDidCancel:(NewEntityViewController *)controller
-{
-    [controller dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController popViewControllerAnimated:NO];
-
-}
-
 - (void) updateUserDidSave:(NewEntityViewController *)controller
 {
-    //TODO: UPDATE USER NAME
+    // TODO: UPDATE USER NAME
+    // CASE 1: Not yet selected team - NO API CALLED
+    // CASE 2: Already selected team - Update
+    if (self.joinedTeamIndexPath != nil && [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerId] != nil)
+    {
+        //CASE 2
+        
+        [[SCSHuntrClient sharedClient]postPlayerName:controller.nameField.text withSuccessBlock:^(id response) {
+            
+            /* Set Current Player Name */
+            [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
+            /* Set Current Player Id */
+            NSArray * teamPlayers = [response objectForKey:@"players"];
+            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                if ([[obj objectForKey:@"name"] isEqualToString:controller.nameField.text])
+                {
+                    [[NSUserDefaults standardUserDefaults]setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
+                }
+            }];
+            
+            [controller dismissViewControllerAnimated:YES completion:nil];
+            
+        } failureBlock:^(NSString *errorString) {
+            //
+        }];
+    }
+    else
+    {
+        // CASE 1
+        /* Binding Game Id with Player Name */
+        
+        [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
+        
+        /* Set Current Player Name */
+        [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
+        
+        [controller dismissViewControllerAnimated:YES completion:nil];
+    }
     
-    
-    /* Binding Game Id with Player Name */
-    
-    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
-    
-    /* Set Current Player Name */
-    [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
-    
-    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) updateUserDidCancel:(NewEntityViewController *)controller
@@ -207,7 +209,7 @@
 
 }
 
-- (void) newTeamWillAdd:(NewEntityViewController *)controller completion:(void (^)(void))completion
+- (void) newTeamWillAdd:(NewEntityViewController *)controller completion:(void (^)(BOOL))completion
 
 {
     __block BOOL isExsitingTeam = false;
@@ -216,11 +218,10 @@
             isExsitingTeam = true;
             *stop = true;
         }
+        if (stop) completion(isExsitingTeam);
+
     }];
     
-    if (isExsitingTeam == true) {
-        if (completion) completion();
-    }
 }
 
 - (void) newTeamDidAdd:(NewEntityViewController *)controller
@@ -249,30 +250,6 @@
     }];
     
 }
-
-- (void) willValidateNewTeam:(NSString*)teamName completion:(void (^)(bool isExisting))completion
-{
-//    __block BOOL isTeamNameExsiting = false;
-//    [self.teams enumerateObjectsUsingBlock:^(SCSTeam* team, NSUInteger idx, BOOL *  stop) {
-//        if ([team.teamName isEqualToString:teamName]) {
-//            isTeamNameExsiting = true;
-//            * stop = true;
-//        }
-//
-//    }];
-//    completion(isTeamNameExsiting);
-
-}
-
-
-- (void) willCreateNewTeam:(NSString*)teamName {
-    
-//    NSDictionary * parameter = [NSDictionary dictionaryWithObject: teamName forKey: @"teamName"];
-//    [[SCSHuntrClient sharedClient]addTeamToGame:parameter successBlock:^(id object){
-//        [self refreshTeamList];
-//    } failureBlock:nil];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -303,15 +280,25 @@
     }
     
     [accessoryButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-    cell.accessoryView = accessoryButton;
+    /*
+     accessoryButton active: 
+     1. If game is not yet started 
+     2. If user is not yet joined a team, if game is in progress
+     
+     accessoryButton inactive:
+     1. Arleady joined a team if game is in progress
+     */
+    if (self.selectedGame.status == GameStatusInProgress && self.joinedTeamIndexPath != nil)
+    {
+        if (indexPath.row == self.joinedTeamIndexPath.row) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else cell.accessoryView = nil;
+    }
+    else
+        cell.accessoryView = accessoryButton;
 
     return cell;
-}
-
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 - (void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
@@ -332,22 +319,37 @@
             {
                 [[SCSHuntrClient sharedClient]addPlayerToTeam:team.teamID successBlock:^(id response) {
                     
-                    [[NSUserDefaults standardUserDefaults]setObject:team.teamID forKey:kCurrentTeamId];
-                    [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:team.teamID];
+                    //Get User ID
                     
-                    UITableViewCell * cell_old = [tableView cellForRowAtIndexPath:self.joinedTeamIndexPath];
-                    UIButton * normalButton = [UIButton setupNormalStyle];
-                    [normalButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpOutside];
-                    cell_old.accessoryView = normalButton;
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            
+                            NSString * userName = [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerName];
+                            NSArray * teamPlayers = [response objectForKey:@"players"];
+                            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                                if ([[obj objectForKey:@"name"] isEqualToString:userName])
+                                {
+                                    [[NSUserDefaults standardUserDefaults]setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
+                                }
+                            }];
+                            [[NSUserDefaults standardUserDefaults]setObject:team.teamID forKey:kCurrentTeamId];
+                            [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:team.teamID];
+                            
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                UITableViewCell * cell_old = [tableView cellForRowAtIndexPath:self.joinedTeamIndexPath];
+                                UIButton * normalButton = [UIButton setupNormalStyle];
+                                [normalButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpOutside];
+                                cell_old.accessoryView = normalButton;
+                                
+                                UITableViewCell * cell_new = [tableView cellForRowAtIndexPath:indexPath];
+                                UIButton * joinedButton = [UIButton setupJoinedStyle];
+                                [joinedButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpOutside];
+                                cell_new.accessoryView = joinedButton;
+                                
+                                self.joinedTeamIndexPath  = indexPath;
+                            });
+                        });
                     
-                    UITableViewCell * cell_new = [tableView cellForRowAtIndexPath:indexPath];
-                    UIButton * joinedButton = [UIButton setupJoinedStyle];
-                    [joinedButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpOutside];
-                    cell_new.accessoryView = joinedButton;
-                    
-                    self.joinedTeamIndexPath  = indexPath;
-
-
                 } failureBlock:^(NSString *errorString) {
                     // TODO: Add Player To Team Error
                 }];
@@ -368,15 +370,27 @@
             {
                 [[SCSHuntrClient sharedClient]addPlayerToTeam:team.teamID successBlock:^(id response) {
                     
-                    [[NSUserDefaults standardUserDefaults]setObject:team.teamID forKey:kCurrentTeamId];
-                    [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:team.teamID];
-                    
-                    UITableViewCell * cell_new = [tableView cellForRowAtIndexPath:indexPath];
-                    UIButton * joinedButton = [UIButton setupJoinedStyle];
-                    [joinedButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpOutside];
-                    cell_new.accessoryView = joinedButton;
-                    
-                    self.joinedTeamIndexPath  = indexPath;
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            NSString * userName = [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerName];
+                            NSArray * teamPlayers = [response objectForKey:@"players"];
+                            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                                if ([[obj objectForKey:@"name"] isEqualToString:userName])
+                                {
+                                    [[NSUserDefaults standardUserDefaults]setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
+                                }
+                            }];
+                            [[NSUserDefaults standardUserDefaults]setObject:team.teamID forKey:kCurrentTeamId];
+                            [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:team.teamID];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                UITableViewCell * cell_new = [tableView cellForRowAtIndexPath:indexPath];
+                                UIButton * joinedButton = [UIButton setupJoinedStyle];
+                                [joinedButton addTarget:self action:@selector(accessoryButtonTapped:event:) forControlEvents:UIControlEventTouchUpOutside];
+                                cell_new.accessoryView = joinedButton;
+                                
+                                self.joinedTeamIndexPath  = indexPath;
+                            });
+                        });
 
                     
                 } failureBlock:^(NSString *errorString) {
@@ -398,7 +412,7 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if (self.selectedGame.status == NotStarted)
+    if (self.selectedGame.status == GameStatusNotStarted)
     {
         if ([identifier isEqualToString:kAddTeamSegueIdentifier])
         {
@@ -414,7 +428,7 @@
             return YES;
         }
     }
-    else if (self.selectedGame.status == InProgress)
+    else if (self.selectedGame.status == GameStatusInProgress)
     {
         if ([identifier isEqualToString:kAddTeamSegueIdentifier])
         {
@@ -438,14 +452,9 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([[segue identifier] isEqualToString:kRegisterUserSegueIdentifier]) {
-        
-        NewEntityViewController * registeredUserViewController = [((UINavigationController*)segue.destinationViewController).viewControllers objectAtIndex:0];
-        
-        registeredUserViewController.delegate = self;
-        registeredUserViewController.objectType = SCSCreateObjectTypeNewUser;
-    }
-    else if ([[segue identifier] isEqualToString:kAddTeamSegueIdentifier]) {
+    NSLog(@"%@",segue.identifier);
+    
+    if ([[segue identifier] isEqualToString:kAddTeamSegueIdentifier]) {
         NewEntityViewController * registeredUserViewController = [((UINavigationController*)segue.destinationViewController).viewControllers objectAtIndex:0];
         
         registeredUserViewController.delegate = self;
@@ -457,6 +466,13 @@
         
         registeredUserViewController.delegate = self;
         registeredUserViewController.objectType = SCSCreateObjectTypeUpdateUser;
+    }
+    else if ([[segue identifier] isEqualToString:kGetGameSegueIdentifier])
+    {
+        GameViewController * gameViewController = segue.destinationViewController;
+        gameViewController.selectedGame = self.selectedGame;
+        
+        NSLog(@"%u",self.selectedGame.status);
     }
 }
 

@@ -12,7 +12,7 @@
 //#import "AnswerViewController.h"
 #import "PhotoAnswerViewController.h"
 #import "LocationAnswerViewController.h"
-
+#import "GameViewController.h"
 
 @interface CluesListViewController ()
 @property (nonatomic, strong) NSArray * clues;
@@ -37,45 +37,36 @@
     
 }
 
+#pragma mark - Actions 
+
+- (IBAction) quitCurrentGame:(id)sender
+{
+    if(((GameViewController*)self.navigationController.tabBarController).selectedGame.status == GameStatusCompleted)
+    {
+        if ([self.navigationController.tabBarController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+        {
+            [self.navigationController.tabBarController  dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else
+    {
+        
+    }
+    
+    
+    
+}
+
 #pragma mark - Private Methods
 
 - (void) refreshClues
 {
-    [[SCSHuntrClient sharedClient]getCluesByTeamWithSuccessBlock:^(NSArray *arrayResult) {
+    [[SCSHuntrClient sharedClient]getCluesWithSuccessBlock:^(NSArray *arrayResult) {
         self.clues = arrayResult;
+        [self.tableView reloadData];
     } failureBlock:^(NSString *errorString) {
         
     }];
-    /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString * currentGameId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_game"];
-        NSString * currentTeamId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_team"];
-        
-        [[SCSHuntrClient sharedClient]getCluesByGame:currentGameId successBlock:^(NSArray * cluesResult){
-            [[SCSHuntrClient sharedClient]getAnswersByTeam:currentTeamId andGame:currentGameId successBlock:^(NSArray *answersResult) {
-                
-                [cluesResult enumerateObjectsUsingBlock:^(SCSClue* clueObj, NSUInteger clueIdx, BOOL * clueStop) {
-                    [answersResult enumerateObjectsUsingBlock:^(NSString* ansObj, NSUInteger ansIdx, BOOL * ansStop) {
-                        if([clueObj.clueID isEqualToString:ansObj])
-                        {
-                            clueObj.isCorrect = YES;
-                            *ansStop = YES;
-                        }
-                    }];
-                }];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.clues = [NSArray arrayWithArray:cluesResult];
-                    [self.tableView reloadData];
-                });
-                
-            } failureBlock:^(NSString *errorString) {
-                
-            }];
-            
-        }failureBlock:^(NSString *errorString) {
-            
-        }];
-    });*/
-
 }
 
 #pragma mark - Table view data source
@@ -99,7 +90,7 @@
     cell.descriptionLabel.text = clue.clueDescription;
     cell.pointLabel.text = [NSString stringWithFormat:@"%i points",[clue.pointValue intValue]];
     cell.typeImageView.image = ([clue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
-    cell.checkImageView.hidden = !clue.submittedAnswer.isCorrect;
+    cell.checkImageView.hidden = (clue.didSubmit == true)? !clue.submittedAnswer.isCorrect: true;
     
     return cell;
 }
@@ -107,11 +98,11 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCSClue * clue = [self.clues objectAtIndex:indexPath.row];
-    if ([clue.type isEqualToString:@"Location"])
+    if (clue.clueType  == ClueTypeLocation)
     {
         [self performSegueWithIdentifier:kGoToLocAnswerSegueIdentifier sender:self];
     }
-    else if ([clue.type isEqualToString:@"Picture"])
+    else if (clue.clueType == ClueTypePicture)
     {
         [self performSegueWithIdentifier:kGoToPicAnswerSegueIdentifier sender:self];
     }
@@ -126,13 +117,15 @@
     if ([[segue identifier] isEqualToString:kGoToPicAnswerSegueIdentifier])
     {
         PhotoAnswerViewController * controller = segue.destinationViewController;
-        controller.clueToAnswer = clue;
+        controller.selectedClue = clue;
+        controller.selectedGame = self.selectedGame;
         controller.answerImageView.hidden = false;
     }
     else if ([[segue identifier] isEqualToString:kGoToLocAnswerSegueIdentifier])
     {
         LocationAnswerViewController * controller = segue.destinationViewController;
-        controller.clueToAnswer = clue;
+        controller.selectedClue = clue;
+        controller.selectedGame = self.selectedGame;
         controller.answerMapView.hidden = false;
     }
 }

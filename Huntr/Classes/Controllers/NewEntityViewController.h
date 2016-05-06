@@ -31,7 +31,7 @@ typedef enum SCSCreateObjectType : NSInteger {
 - (void) didRegisterUser;
 - (void) registerUserDidSave:(NewEntityViewController *)controller;
 - (void) registerUserDidCancel:(NewEntityViewController *)controller;
-- (void) newTeamWillAdd:(NewEntityViewController *)controller completion:(void (^)(void))completion;
+- (void) newTeamWillAdd:(NewEntityViewController *)controller completion:(void (^)(BOOL))completion;
 - (void) newTeamDidAdd:(NewEntityViewController *)controller;
 - (void) updateUserDidSave:(NewEntityViewController *)controller;
 - (void) updateUserDidCancel:(NewEntityViewController *)controller;

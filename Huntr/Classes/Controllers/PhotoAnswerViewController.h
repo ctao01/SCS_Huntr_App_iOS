@@ -10,7 +10,8 @@
 
 @interface PhotoAnswerViewController : UIViewController
 
-@property (nonatomic , strong) SCSClue * clueToAnswer;
+@property (nonatomic , strong) SCSClue * selectedClue;
+@property (nonatomic , strong) SCSGame * selectedGame;
 
 @property (nonatomic , strong) IBOutlet UIImageView * clueTypeImageView;
 @property (nonatomic , strong) IBOutlet UILabel * pointLabel;

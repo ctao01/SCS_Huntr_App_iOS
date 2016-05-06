@@ -15,6 +15,7 @@
 #define kCurrentGameId @"kCurrentGameId"
 #define kCurrentTeamId @"kCurrentTeamId"
 #define kCurrentPlayerName @"kCurrentPlayerName"
+#define kCurrentPlayerId @"kCurrentPlayerId"
 
 #define kGameId @"kGameId"
 #define kTeamId @"kTeamId"

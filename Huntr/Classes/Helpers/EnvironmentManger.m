@@ -23,6 +23,13 @@
 }
 
 
+//TODO --
+/*
+ key: kCurrentGame (SCSGame)
+ key: kCurrentTeam (teamId)
+ key: kCurrentPlayer (playerName)
+ */
+
 - (BOOL) hasJoinedGame:(NSString *)gameId
 {
     NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults]objectForKey:KJoinedGames];

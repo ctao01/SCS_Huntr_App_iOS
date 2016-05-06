@@ -12,7 +12,7 @@
 
 - (void) setTheTeam:(SCSTeam *)theTeam
 {
-    self.rankLabel.text = [NSString stringWithFormat:@"%i",[theTeam.ranking intValue]];
+    self.rankLabel.text = ([theTeam.ranking integerValue]!= 0) ? [NSString stringWithFormat:@"%i",[theTeam.ranking intValue]]: @"1";
     self.teamLabel.text = theTeam.teamName;
     self.scoreLabel.text = [NSString stringWithFormat:@"%i",[theTeam.score intValue]];
 }

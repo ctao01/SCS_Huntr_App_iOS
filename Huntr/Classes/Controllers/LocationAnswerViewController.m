@@ -43,32 +43,63 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.descriptionTextView.text = self.clueToAnswer.clueDescription;
-    self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.clueToAnswer.pointValue intValue]];
-    self.pointLabel.textColor =  (self.clueToAnswer.submittedAnswer.isCorrect) ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
-    self.clueTypeImageView.image = [UIImage imageNamed:@"Location"];
     
+    self.descriptionTextView.text = self.selectedClue.clueDescription;
+    self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
+    self.pointLabel.textColor =  (self.selectedClue.submittedAnswer.isCorrect) ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
+    self.clueTypeImageView.image = [UIImage imageNamed:@"Location"];
+    if(self.selectedGame.status == GameStatusInProgress)
+    {
+        if (self.selectedClue.didSubmit == true && self.selectedClue.submittedAnswer.isCorrect == true)
+        {
+            self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
+            
+            SCSAnnotation * annotation = [[SCSAnnotation alloc] initWithCoordinate:self.selectedClue.submittedAnswer.answerLocation.coordinate];
+            [self.answerMapView addAnnotation:annotation];
+            self.checkInButton.hidden = true;
+            
+        }
+        else
+        {
+            self.pointLabel.textColor = [UIColor darkGrayColor];
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            
+            if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+            {
+                [self.locationManager requestWhenInUseAuthorization];
+            }
+            self.locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+            self.locationManager.pausesLocationUpdatesAutomatically = NO;
+            self.checkInButton.hidden = false;
+            [self.checkInButton setTitle:@"Check In" forState:UIControlStateNormal];
+            self.answerMapView.showsUserLocation  = true;
+
+            
+        }
+    }
+    else if (self.selectedGame.status == GameStatusCompleted)
+    {
+        self.checkInButton.hidden = true;
+        
+        if (self.selectedClue.submittedAnswer.isCorrect) {
+            self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
+            
+            SCSAnnotation * annotation = [[SCSAnnotation alloc] initWithCoordinate:self.selectedClue.submittedAnswer.answerLocation.coordinate];
+            [self.answerMapView addAnnotation:annotation];
+        }
+        else
+        {
+            self.pointLabel.textColor = [UIColor lightGrayColor];
+            self.answerMapView.showsUserLocation  = false;
+        }
+    }
 
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if (self.clueToAnswer.didSubmit == false){
-        self.answerMapView.showsUserLocation  = true;
-        
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager requestAlwaysAuthorization]; // For background access
-        self.locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
-        self.locationManager.pausesLocationUpdatesAutomatically = NO;
-    }
-    else
-    {
-        SCSAnnotation * annotation = [[SCSAnnotation alloc] initWithCoordinate:self.clueToAnswer.submittedAnswer.answerLocation.coordinate];
-        [self.answerMapView addAnnotation:annotation];
-    }
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -94,11 +125,11 @@
 
 - (BOOL) isUserInTheLocation:(CLLocation*)userLocation{
     
-    CLLocationDistance distance = [userLocation distanceFromLocation:self.clueToAnswer.clueLocation];
+    CLLocationDistance distance = [userLocation distanceFromLocation:self.selectedClue.clueLocation];
     
     NSString *distanceReturned = [NSString stringWithFormat:@"%f",distance];
     
-    if([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue]>0){
+    if([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue] >= 0){
         return YES;
     }
     else{
@@ -130,16 +161,23 @@
         BOOL isCorrect = [self isUserInTheLocation: currentLocation];
         if (isCorrect) {
             NSDictionary * answerInfo = @{@"latitude": [NSNumber numberWithDouble:currentLocation.coordinate.latitude], @"longitude": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]};
-            [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.clueToAnswer.clueID type:@"Location" successBlock:nil failureBlock:nil];
+            [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.selectedClue.clueID type:@"Location" successBlock:^(id response) {
+                
+                [self.navigationController popViewControllerAnimated:true];
+
+            }failureBlock:^(NSString * errorString){
+                //TODO: ERROR
+            }];
         }
         else
         {
-            
+            //TODO: ERROR
         }
 
     }
     else
     {
+        //TODO: ERROR
         
     }
     

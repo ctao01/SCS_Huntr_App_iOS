@@ -7,6 +7,7 @@
 //
 
 #import "GameViewController.h"
+#import "CluesListViewController.h"
 
 @interface GameViewController ()
 @end
@@ -16,11 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.selectedIndex = 0;
+    
+    CluesListViewController * vcClue = [((UINavigationController*)[self.viewControllers objectAtIndex:1]).viewControllers objectAtIndex:0];
+    vcClue.selectedGame = self.selectedGame;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

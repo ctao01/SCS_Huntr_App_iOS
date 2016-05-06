@@ -9,4 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GameViewController : UITabBarController
+
+@property (nonatomic , strong) SCSGame * selectedGame;
+
 @end

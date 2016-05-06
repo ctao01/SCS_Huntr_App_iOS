@@ -30,6 +30,9 @@
 @interface SCSHuntrClient ()
 @property (nonatomic , readonly) NSString * gameId;
 @property (nonatomic , readonly) NSString * teamId;
+@property (nonatomic , readonly) NSString * playerId;
+@property (nonatomic , readonly) NSString * playerName;
+
 @end
 
 @implementation SCSHuntrClient
@@ -58,7 +61,12 @@
 
 - (NSString *) playerName
 {
-    return [[NSUserDefaults standardUserDefaults]objectForKey:kPlayerName];
+    return [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerName];
+}
+
+- (NSString *) playerId
+{
+    return [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerId];
 }
 
 - (id) initWithBaseURLString:(NSString *) urlString {
@@ -225,7 +233,11 @@
             [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                 [array addObject:[[SCSTeam alloc]initWithJSON:obj]];
             }];
-            successBlock(array);
+            
+            NSSortDescriptor * nameSort = [NSSortDescriptor sortDescriptorWithKey:@"teamName" ascending:YES];
+            NSArray * arrayResult = [NSArray new];
+            arrayResult = [array sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSort, nil]];
+            successBlock(arrayResult);
         }
         else
         {
@@ -246,7 +258,7 @@
             endPoint = [NSString stringWithFormat:@"team/%@",currentGameId];
             break;
         case 2:
-            endPoint = [NSString stringWithFormat:@"games/%@/teams",currentGameId];
+            endPoint = [NSString stringWithFormat:@"games/%@/teams",self.gameId];
             break;
         default:
             break;
@@ -339,6 +351,20 @@
     }
 }
 
+- (void) postPlayerName:(NSString*)playerName withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    NSString * endPoint = [NSString stringWithFormat:@"teams/%@/players/%@", self.teamId, self.playerId];
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:playerName, @"playerName", nil] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (responseObject != nil){
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock([error description]);
+    }];
+
+}
+
 #pragma mark - Clues and Answers
 
 - (void) getCluesByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
@@ -390,63 +416,92 @@
 
 }
 
-- (void) getCluesByTeamWithSuccessBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+- (void) getCluesWithSuccessBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-//    NSString * currentGameId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_game"];
-//    NSString * currentTeamId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_team"];
-
-    switch (API_CRUD_VERSION) {
-        case 1:
-        {
-
-            [self getCluesByGame:self.gameId successBlock:successBlock failureBlock:failureBlock];
+    // -- 'api/v2/games/:gameID/clues'*/
+    NSString * endPoint = [NSString stringWithFormat:@"games/%@/clues",self.gameId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (responseObject != nil){
+            if ([responseObject isKindOfClass:[NSArray class]])
+            {
+                NSMutableArray * cluesList = [NSMutableArray new];
+                [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                    SCSClue * clue = [[SCSClue alloc]initWithJSON:obj];
+                    [cluesList addObject:clue];
+                }];
+                successBlock (cluesList);
+            }
         }
-            break;
-        case 2:
-        {
-            NSString * endPoint = [NSString stringWithFormat:@"games/%@/clues/%@",self.gameId,self.teamId];
-            [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-                NSLog(@"%@",result);
-                if ([responseObject isKindOfClass:[NSArray class]])
-                {
-                    NSMutableArray * cluesByTeam = [NSMutableArray new];
-                    [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *  stop) {
-                        SCSClue * clue = [[SCSClue alloc]initWithJSON:obj];
-                        [cluesByTeam addObject:clue];
-                        
-                        successBlock(cluesByTeam);
-                    }];
-                }
-                else
-                {
-                    NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
-                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                failureBlock([error description]);
-            }];
-
-        }
-            break;
-        default:
-            break;
-    }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock([error description]);
+    }];
 }
-
 
 - (void) postAnswer:(id)answer withClue:(NSString*)clueId type:(NSString*)clueType successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-    NSString * currentTeamId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_team"];
+//    NSString * currentTeamId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_team"];
+    // --/api/v2/answers/clues/:clueID/teams/:teamID/players/:playerName/location
+    // --/api/v2/answers/clues/:clueID/teams/:teamID/players/:playerName/picture
+    NSString * endPoint = [NSString stringWithFormat:@"answers/clues/%@/teams/%@/players/%@/%@",clueId,self.teamId, self.playerId, [clueType lowercaseString]];
 
-    NSString * endPoint = [NSString stringWithFormat:@"answers/%@/%@/%@/%@",clueType,clueId,currentTeamId, [[SCSEnvironment sharedInstance]currentPlayer]];
+    if ([clueType isEqualToString:@"Location"]){
+    NSLog(@"%@",[self urlStringWithEndPoint:endPoint]);
     [self POST:[self urlStringWithEndPoint:endPoint] parameters: answer success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        SCSAnswer * answer = [[SCSAnswer alloc]initWithJSON: responseObject];
-        successBlock(answer);
+        successBlock(responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+    }
+    else
+    {
+        NSLog(@"%@",[self urlStringWithEndPoint:endPoint]);
+
+        NSData *imageData = UIImageJPEGRepresentation(answer, 0.5);
+        NSError * error = nil;
+        NSMutableURLRequest * request = [self.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:[self urlStringWithEndPoint:endPoint] parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData){
+            [formData appendPartWithFileData:imageData name:@"photoAnswer" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
+        }error:&error];
+        
+        AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"POST Answer JSON: %@", responseObject);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (successBlock) successBlock(responseObject);
+                
+            });
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"POST Answer JSON:%@", [error localizedDescription]);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (failureBlock) failureBlock([error description]);
+            });
+            
+        }];
+        [self.operationQueue addOperation:operation];
+//        self.responseSerializer.acceptableContentTypes = [self.responseSerializer.acceptableContentTypes setByAddingObject:@"text/json"];
+//
+//        [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//     
+//            NSLog(@"%@", formData);
+//            
+//            NSData *imageData = UIImageJPEGRepresentation(answer, 0.5);
+//            [formData appendPartWithFileData:imageData name:@"files" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
+//        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+//            successBlock(responseObject);
+//
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            
+//            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+//            failureBlock(operation.responseString);
+//
+//        }];
+    }
+    
 }
 
 @end

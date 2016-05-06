@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CluesListViewController : UITableViewController
-
+@property (nonatomic , strong) SCSGame * selectedGame;
 @end

@@ -12,9 +12,11 @@
 #import "GameCell.h"
 #import "TeamsListViewController.h"
 #import "GameViewController.h"
+#import "NewEntityViewController.h"
 
-@interface GamesListViewController ()
+@interface GamesListViewController () <NewEntityControllerDelegate>
 @property (nonatomic , strong) NSArray * games;
+@property (nonatomic , strong) SCSGame * selectedGame;
 @end
 
 @implementation GamesListViewController
@@ -45,6 +47,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - NewEntityControllerDelegate
+
+- (void) registerUserDidSave :(NewEntityViewController *)controller {
+    
+    /* Binding Game Id with Player Name */
+    [[EnvironmentManger sharedManager]joinGame:self.selectedGame.gameID];
+    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
+    
+    /* Set Current Player Name */
+    [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
+    
+    [controller dismissViewControllerAnimated:YES completion:^{
+         [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
+    }];
+    
+}
+
+- (void) registerUserDidCancel:(NewEntityViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - Table view data source
 
@@ -67,16 +90,22 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCSGame * selectedGame = [self.games objectAtIndex:indexPath.row];
-    [[NSUserDefaults standardUserDefaults]setObject:selectedGame.gameID forKey:kCurrentGameId];
+    self.selectedGame = [self.games objectAtIndex:indexPath.row];
+    [[NSUserDefaults standardUserDefaults]setObject:self.selectedGame.gameID forKey:kCurrentGameId];
     
-    if (selectedGame.status == Completed)
+    if (self.selectedGame.status == GameStatusCompleted)
     {
         [self performSegueWithIdentifier:kGetGameSegueIdentifier sender:self];
     }
     else
     {
-        [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
+        if ([[EnvironmentManger sharedManager] hasJoinedGame:self.selectedGame.gameID] == NO)
+        {
+            [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
+        }
+        else {
+            [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
+        }
 
     }
 
@@ -91,46 +120,13 @@
 //{
 //    return 62.0f;
 //}
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    NSLog(@"%@",segue.identifier);
    
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
     SCSGame * selectedGame = [self.games objectAtIndex:selectedIndexPath.row];
@@ -142,6 +138,21 @@
         TeamsListViewController * viewController = segue.destinationViewController;
         [viewController setSelectedGame:selectedGame];
     }
+    else if ([[segue identifier] isEqualToString:kRegisterUserSegueIdentifier]) {
+        
+        NewEntityViewController * registeredUserViewController = [((UINavigationController*)segue.destinationViewController).viewControllers objectAtIndex:0];
+        
+        registeredUserViewController.delegate = self;
+        registeredUserViewController.objectType = SCSCreateObjectTypeNewUser;
+    }
+    else if ([[segue identifier] isEqualToString:kGetGameSegueIdentifier])
+    {
+        GameViewController * gameViewController = segue.destinationViewController;
+        gameViewController.selectedGame = self.selectedGame;
+        
+        NSLog(@"%u",self.selectedGame.status);
+    }
+    
 }
 
 

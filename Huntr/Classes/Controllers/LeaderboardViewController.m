@@ -9,6 +9,7 @@
 #import "LeaderboardViewController.h"
 #import "LeaderboardCell.h"
 #import "SCSHuntrClient.h"
+#import "GameViewController.h"
 
 @interface LeaderboardViewController ()
 @property (nonatomic , strong) NSArray * teams;
@@ -27,8 +28,9 @@
     NSString * gameId = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentGameId];
     [[SCSHuntrClient sharedClient]getScoreboardByGame:gameId successBlock:^(NSArray * arrayResult){
         
-        NSSortDescriptor *rankingSort = [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES];
-        arrayResult = [arrayResult sortedArrayUsingDescriptors:[NSArray arrayWithObjects:rankingSort, nil]];
+        NSSortDescriptor * rankingSort = [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES];
+        NSSortDescriptor * nameSort = [NSSortDescriptor sortDescriptorWithKey:@"teamName" ascending:YES];
+        arrayResult = [arrayResult sortedArrayUsingDescriptors:[NSArray arrayWithObjects:rankingSort,nameSort, nil]];
         self.teams = [NSArray arrayWithArray:arrayResult];
         [self.tableView reloadData];
         
@@ -42,6 +44,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Actions
+
+- (IBAction) quitCurrentGame:(id)sender
+{
+    NSLog(@"%@",[self.navigationController.tabBarController class]);
+    
+    if(((GameViewController*)self.navigationController.tabBarController).selectedGame.status == GameStatusCompleted)
+    {
+        if ([self.navigationController.tabBarController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+        {
+            [self.navigationController.tabBarController  dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else
+    {
+        
+    }
+    
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

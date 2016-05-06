@@ -70,9 +70,15 @@
         if (nameFieldText != nil || [nameFieldText length] > 0)
         {
             if ([self.delegate respondsToSelector:@selector(newTeamWillAdd:completion:)]){
-                [self.delegate newTeamWillAdd:self completion:^{
-                    if ([self.delegate respondsToSelector:@selector(newTeamDidAdd:)]){
-                        [self.delegate newTeamDidAdd:self];
+                [self.delegate newTeamWillAdd:self completion:^(BOOL exist){
+                    if (!exist) {
+                        if ([self.delegate respondsToSelector:@selector(newTeamDidAdd:)]){
+                            [self.delegate newTeamDidAdd:self];
+                        }
+                    }
+                    else
+                    {
+                        //TODO-
                     }
                 }];
             }
@@ -108,56 +114,6 @@
         }
         
     }
-}
-
-- (IBAction)registerUserSaved:(id)sender
-{
-    NSString * nameFieldText = self.nameField.text;
-    if (self.objectType == SCSCreateObjectTypeNewUser)
-    {
-        if (nameFieldText != nil || [nameFieldText length] > 0)
-        {
-            [[NSUserDefaults standardUserDefaults]setObject:nameFieldText forKey:@"current_player"];
-            [[NSUserDefaults standardUserDefaults]setObject:nameFieldText forKey: kCurrentPlayerName];
-            
-            if([self.delegate respondsToSelector:@selector(didRegisterUser)]){
-                [self.delegate didRegisterUser];
-                [self dismissViewControllerAnimated:YES completion:nil];
-
-            }
-            
-        }
-    }
-    else
-    {
-        if (nameFieldText != nil || [nameFieldText length] > 0)
-        {
-            if([self.delegate respondsToSelector:@selector(willValidateNewTeam:completion:)])
-                
-                [self.delegate willValidateNewTeam:nameFieldText completion:^(BOOL exists){
-                    if (exists == false) {
-                        if ([self.delegate respondsToSelector:@selector(willCreateNewTeam:)])
-                            [self.delegate willCreateNewTeam:nameFieldText];
-                    }
-                    else
-                    {
-                        NSLog(@"EXISTS");
-                    }
-                }];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }
-    
-}
-
-- (IBAction)registerUserCancel:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
-
-- (IBAction)unwindToThisViewController:(UIStoryboardSegue *)unwindSegue
-{
 }
 
 @end
