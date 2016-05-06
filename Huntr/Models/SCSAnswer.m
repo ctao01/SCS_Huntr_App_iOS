@@ -12,21 +12,12 @@
 
 - (id)initWithJSON:(NSDictionary *) json
 {
-//    return new Schema({
-//    submitted: 			{type:Boolean, required:true},
-//    correctFlag:		{type: Boolean, required: false},
-//    pending: 		{type: String, required: false},
-//    teamID:			{type: String, required: true},
-//    playerName:		{type: String, required: true},
-//    picture:			{type: String,	required: false},
-//    latitude:				{type: Number,	required: false},
-//    longitude:				{type: Number,	required: false}
-//    });
     
     self = [super init];
     if (self) {
         self.isPending = [json objectForKey:@"pending"];
         self.isCorrect = [json objectForKey:@"correctFlag"];
+        self.teamId = [json objectForKey:@"teamID"];
         
         CLLocationDegrees longitude = (CLLocationDegrees)[[json objectForKey:@"longitude"] doubleValue];
         CLLocationDegrees latitude = (CLLocationDegrees)[[json objectForKey:@"latitude"] doubleValue];

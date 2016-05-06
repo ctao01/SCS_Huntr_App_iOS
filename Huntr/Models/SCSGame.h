@@ -13,10 +13,10 @@
 #import "SCSClue.h"
 
 typedef enum {
-    NotStarted = 0,
-    InProgress = 1,
-    Completed = 2,
-    Unknown = 99,
+    GameStatusNotStarted = 0,
+    GameStatusInProgress = 1,
+    GameStatusCompleted = 2,
+    GameStatusUnknown = 99,
 } GameStatus;
 
 @interface SCSGame : SCSEntity

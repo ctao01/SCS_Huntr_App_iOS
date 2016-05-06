@@ -25,18 +25,37 @@
 {
     self = [super init];
     if (self) {
-        _clueID = [json valueForKey:@"_id"];
-        _clueDescription = [json valueForKey:@"description"];
-        _type = [json valueForKey:@"type"];
-        _pointValue = [json valueForKey:@"pointValue"];
-        _latitude = [json valueForKey:@"latitude"];
-        _longitude = [json valueForKey:@"longitude"];
-
-        _didSubmit = (_submittedAnswer) ? true :false;
+        self.clueID = [json objectForKey:@"_id"];
+        self.clueDescription = [json objectForKey:@"description"];
+        self.type = [json objectForKey:@"type"];
+        self.clueType = [(NSString*)[json valueForKey:@"type"] clueTypeFromString];
+        self.pointValue = [json objectForKey:@"pointValue"];
         
-        if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc]initWithLatitude:[_latitude doubleValue]longitude:[_longitude doubleValue]];
-
+        if ([json objectForKey:@"answers"] != nil) {
+            [[json objectForKey:@"answers"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                SCSAnswer * answer = [[SCSAnswer alloc]initWithJSON:obj];
+                if ([answer.teamId isEqualToString:[[NSUserDefaults standardUserDefaults]objectForKey:kCurrentTeamId]])
+                {
+                    self.submittedAnswer = answer;
+                    self.didSubmit = true;
+                    *stop = true;
+                }
+            }];
+        }
+        self.clueLocation = [[CLLocation alloc]initWithLatitude:[[json objectForKey:@"latitude"] doubleValue]longitude:[[json objectForKey:@"longitude"] doubleValue]];
         
+//        _clueID = [json valueForKey:@"_id"];
+//        _clueDescription = [json valueForKey:@"description"];
+//        _type = [json valueForKey:@"type"];
+//        _pointValue = [json valueForKey:@"pointValue"];
+//        _latitude = [json valueForKey:@"latitude"];
+//        _longitude = [json valueForKey:@"longitude"];
+//
+//        _didSubmit = (_submittedAnswer) ? true :false;
+//        
+//        if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc]initWithLatitude:[_latitude doubleValue]longitude:[_longitude doubleValue]];
+//
+//        
     
     }
     return self;

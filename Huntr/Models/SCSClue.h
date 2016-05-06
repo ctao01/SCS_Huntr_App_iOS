@@ -12,11 +12,19 @@
 
 @class SCSAnswer;
 
+typedef enum {
+    ClueTypeLocation = 0,
+    ClueTypePicture = 1,
+    ClueTypeUnknown = 99
+}ClueType;
+
+
 @interface SCSClue : SCSEntity 
 
 @property (strong, nonatomic) NSString *clueID;
 @property (strong, nonatomic) NSString *clueDescription;
 @property (strong, nonatomic) NSString *type;
+@property (assign, nonatomic) ClueType clueType;
 @property (strong, nonatomic) NSNumber *pointValue;
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *longitude;

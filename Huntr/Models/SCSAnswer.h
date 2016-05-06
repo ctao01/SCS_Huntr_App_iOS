@@ -13,9 +13,11 @@
 
 @property (nonatomic) BOOL isCorrect;
 @property (nonatomic) BOOL isPending;
+@property (nonatomic , strong) NSString * teamId;
 @property (nonatomic , strong) NSString * playerName;
 @property (nonatomic , strong) NSString * answerImageUrl;
-@property (nonatomic , nonatomic) CLLocation * answerLocation;
+@property (nonatomic , strong) CLLocation * answerLocation;
+@property (nonatomic , strong) NSDate * submittedTime;
 
 - (id)initWithJSON:(NSDictionary *) json;
 
