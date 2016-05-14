@@ -78,6 +78,26 @@
 {
     if (self.selectedClue.didSubmit && self.selectedClue.submittedAnswer.isPending)
     {
+        UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"Re-submit Answer" message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * aCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction * aContinue = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            
+        }];
+        [ac addAction:aContinue];
+        [ac addAction:aCancel];
+        [self presentViewController:ac animated:true completion:nil];
+    }
+    
+    else
+    {
+        [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+            [self.navigationController popViewControllerAnimated:true];
+        } failureBlock:nil];
+    }
+    
+    
+    /*if (self.selectedClue.didSubmit && self.selectedClue.submittedAnswer.isPending)
+    {
         UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * actionContinue = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
             [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
@@ -94,8 +114,11 @@
     else
     {
         NSLog(@"%@",[self.answerPicture description]);
-        [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
-    }
+        [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+            [self.navigationController popViewControllerAnimated:true];
+
+        } failureBlock:nil];
+    }*/
     
 }
 

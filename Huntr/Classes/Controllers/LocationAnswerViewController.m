@@ -162,11 +162,10 @@
         if (isCorrect) {
             NSDictionary * answerInfo = @{@"latitude": [NSNumber numberWithDouble:currentLocation.coordinate.latitude], @"longitude": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]};
             [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.selectedClue.clueID type:@"Location" successBlock:^(id response) {
-                
-                [self.navigationController popViewControllerAnimated:true];
+                [self.navigationController popViewControllerAnimated:YES];
 
             }failureBlock:^(NSString * errorString){
-                //TODO: ERROR
+
             }];
         }
         else

@@ -106,6 +106,7 @@
     }
     else if (self.objectType == SCSCreateObjectTypeNewTeam) {
         
+        
     }
     
     else if (self.objectType == SCSCreateObjectTypeUpdateUser) {

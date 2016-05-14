@@ -54,7 +54,7 @@
 - (void) refreshUI {
     
     if (self.selectedGame.status == GameStatusInProgress) {
-        self.navigationItem.rightBarButtonItem.enabled = true;
+        self.navigationItem.rightBarButtonItem.enabled = [[EnvironmentManger sharedManager]isReadyForGame];
         self.addTeamBtn.enabled = false;
         self.updateNameBtn.enabled = true;
     }
@@ -69,7 +69,21 @@
 
 - (void) refreshTeamsListWithCompletion:(void (^)(void))completion
 {
-    [[SCSHuntrClient sharedClient]getAllTeamsByGame:self.selectedGame.gameID successBlock:^(NSArray * arrayResult){
+    [[SCSHuntrClient sharedClient]getAllTeamsWithSuccessBlock:^(NSArray * arrayResult){
+        [arrayResult enumerateObjectsUsingBlock:^(SCSTeam * obj, NSUInteger idx, BOOL * stop) {
+            BOOL joined = [[EnvironmentManger sharedManager]hasJoinedTeam:obj.teamID];
+            if (joined == true) {
+                self.joinedTeamIndexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+            }
+        }];
+        
+        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:true];
+        self.teams = [[[NSArray alloc]initWithArray:arrayResult] sortedArrayUsingDescriptors:[NSArray arrayWithObjects: nameSortDescriptor, nil]];
+        if(completion) completion();
+    }failureBlock:^(NSString *errorString) {
+        
+    }];
+    /*[[SCSHuntrClient sharedClient]getAllTeamsByGame:self.selectedGame.gameID successBlock:^(NSArray * arrayResult){
         
         [arrayResult enumerateObjectsUsingBlock:^(SCSTeam * obj, NSUInteger idx, BOOL * stop) {
             BOOL joined = [[EnvironmentManger sharedManager]hasJoinedTeam:obj.teamID inGame:self.selectedGame.gameID];
@@ -84,7 +98,7 @@
         
     } failureBlock:^(NSString * errorString){
         
-    }];
+    }];*/
 }
 
 - (void) checkIfUserNameHasBeenTakenInTheTeam:(SCSTeam*)selectedTeam completion:(void (^)(BOOL))completion
@@ -171,8 +185,8 @@
         
         [[SCSHuntrClient sharedClient]postPlayerName:controller.nameField.text withSuccessBlock:^(id response) {
             
-            /* Set Current Player Name */
-            [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
+            [[EnvironmentManger sharedManager]registerPlayerName:controller.nameField.text];
+            
             /* Set Current Player Id */
             NSArray * teamPlayers = [response objectForKey:@"players"];
             [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
@@ -191,13 +205,8 @@
     else
     {
         // CASE 1
-        /* Binding Game Id with Player Name */
-        
-        [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
-        
+        [[EnvironmentManger sharedManager]registerPlayerName:controller.nameField.text];
         /* Set Current Player Name */
-        [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
-        
         [controller dismissViewControllerAnimated:YES completion:nil];
     }
     
@@ -213,14 +222,22 @@
 
 {
     __block BOOL isExsitingTeam = false;
-    [self.teams enumerateObjectsUsingBlock:^(SCSTeam* team, NSUInteger idx, BOOL *  stop) {
-        if ([team.teamName isEqualToString:controller.nameField.text]){
-            isExsitingTeam = true;
-            *stop = true;
-        }
-        if (stop) completion(isExsitingTeam);
+    if (self.teams.count > 0)
+    {
+        [self.teams enumerateObjectsUsingBlock:^(SCSTeam* team, NSUInteger idx, BOOL *  stop) {
+            if ([team.teamName isEqualToString:controller.nameField.text]){
+                isExsitingTeam = true;
+                *stop = true;
+            }
+            if (stop) completion(isExsitingTeam);
+            
+        }];
+    }
+    else
+    {
+        completion(isExsitingTeam);
+    }
 
-    }];
     
 }
 
@@ -228,13 +245,6 @@
 {
     NSDictionary * parameter = [NSDictionary dictionaryWithObject: controller.nameField.text forKey: @"teamName"];
     [[SCSHuntrClient sharedClient] addTeamToGame:parameter successBlock:^(id object){
-        
-        /* Binding Game Id with Team Name */
-        [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:((SCSTeam*)object).teamID];
-        
-        /* Set Current Player Name */
-        [[NSUserDefaults standardUserDefaults ]setObject:((SCSTeam*)object).teamID forKey:kCurrentTeamId];
-        
         [controller dismissViewControllerAnimated:YES completion:^{
             [self.tableView reloadData];
         }];
@@ -331,8 +341,8 @@
                                     [[NSUserDefaults standardUserDefaults]setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
                                 }
                             }];
-                            [[NSUserDefaults standardUserDefaults]setObject:team.teamID forKey:kCurrentTeamId];
-                            [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:team.teamID];
+                            
+                            [[EnvironmentManger sharedManager]registerTeam:team.teamID];
                             
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
@@ -347,6 +357,8 @@
                                 cell_new.accessoryView = joinedButton;
                                 
                                 self.joinedTeamIndexPath  = indexPath;
+                                [self refreshUI];
+
                             });
                         });
                     
@@ -372,15 +384,15 @@
                     
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                             NSString * userName = [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerName];
-                            NSArray * teamPlayers = [response objectForKey:@"players"];
-                            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+//                            NSArray * teamPlayers = [response objectForKey:@"players"];
+                            [response enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                                 if ([[obj objectForKey:@"name"] isEqualToString:userName])
                                 {
                                     [[NSUserDefaults standardUserDefaults]setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
                                 }
                             }];
-                            [[NSUserDefaults standardUserDefaults]setObject:team.teamID forKey:kCurrentTeamId];
-                            [[EnvironmentManger sharedManager] joinGame:self.selectedGame.gameID withTeamId:team.teamID];
+                            
+                            [[EnvironmentManger sharedManager]registerTeam:team.teamID];
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 UITableViewCell * cell_new = [tableView cellForRowAtIndexPath:indexPath];
@@ -389,6 +401,7 @@
                                 cell_new.accessoryView = joinedButton;
                                 
                                 self.joinedTeamIndexPath  = indexPath;
+                                [self refreshUI];
                             });
                         });
 

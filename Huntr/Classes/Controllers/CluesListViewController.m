@@ -9,7 +9,6 @@
 #import "CluesListViewController.h"
 #import "SCSHuntrClient.h"
 #import "GameClueCell.h"
-//#import "AnswerViewController.h"
 #import "PhotoAnswerViewController.h"
 #import "LocationAnswerViewController.h"
 #import "GameViewController.h"
@@ -50,6 +49,7 @@
     }
     else
     {
+        
         
     }
     

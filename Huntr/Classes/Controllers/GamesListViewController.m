@@ -38,7 +38,8 @@
         [self.tableView reloadData];
         
     } failureBlock:^(NSString * errorString){
-        
+        // TODO: error message
+        NSLog(@"%@",errorString);
     }];
     
 }
@@ -52,11 +53,8 @@
 - (void) registerUserDidSave :(NewEntityViewController *)controller {
     
     /* Binding Game Id with Player Name */
-    [[EnvironmentManger sharedManager]joinGame:self.selectedGame.gameID];
-    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID withPlayerName:controller.nameField.text];
-    
-    /* Set Current Player Name */
-    [[NSUserDefaults standardUserDefaults]setObject:controller.nameField.text forKey:kCurrentPlayerName];
+    [[EnvironmentManger sharedManager]registerGame:self.selectedGame.gameID];
+    [[EnvironmentManger sharedManager]registerPlayerName:controller.nameField.text];
     
     [controller dismissViewControllerAnimated:YES completion:^{
          [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
@@ -91,7 +89,9 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedGame = [self.games objectAtIndex:indexPath.row];
+    
     [[NSUserDefaults standardUserDefaults]setObject:self.selectedGame.gameID forKey:kCurrentGameId];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     
     if (self.selectedGame.status == GameStatusCompleted)
     {
@@ -104,6 +104,7 @@
             [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
         }
         else {
+            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager]playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
             [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
         }
 
@@ -111,34 +112,12 @@
 
 }
 
-//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return CGFLOAT_MIN;
-//}
-//
-//- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 62.0f;
-//}
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"%@",segue.identifier);
-   
-    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    SCSGame * selectedGame = [self.games objectAtIndex:selectedIndexPath.row];
-
-    if ([[segue identifier] isEqualToString:kGetTeamsSegueIdentifier])
-    {
-        // Not Start or In Progress
-        
-        TeamsListViewController * viewController = segue.destinationViewController;
-        [viewController setSelectedGame:selectedGame];
-    }
-    else if ([[segue identifier] isEqualToString:kRegisterUserSegueIdentifier]) {
+    if ([[segue identifier] isEqualToString:kRegisterUserSegueIdentifier]) {
         
         NewEntityViewController * registeredUserViewController = [((UINavigationController*)segue.destinationViewController).viewControllers objectAtIndex:0];
         
@@ -150,7 +129,11 @@
         GameViewController * gameViewController = segue.destinationViewController;
         gameViewController.selectedGame = self.selectedGame;
         
-        NSLog(@"%u",self.selectedGame.status);
+    }
+    else if ([[segue identifier] isEqualToString:kGetTeamsSegueIdentifier])
+    {
+        TeamsListViewController * vcTeams = segue.destinationViewController;
+        vcTeams.selectedGame = self.selectedGame;
     }
     
 }
