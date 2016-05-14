@@ -23,6 +23,7 @@
     #import "SCSClue.h"
     #import "NSString+EnumParser.h"
     #import "UIButton+Style.h"
+    #import "UIAlertController+Blocks.h"
 
     #import "EnvironmentConstants.h"
     #import "EnvironmentManger.h"

@@ -50,6 +50,7 @@
 		952045B71CD2F456007C1431 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045A71CD2F456007C1431 /* AFURLResponseSerialization.m */; };
 		952045B81CD2F456007C1431 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045A91CD2F456007C1431 /* AFURLSessionManager.m */; };
 		952045BB1CD2F488007C1431 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045B91CD2F488007C1431 /* AppDelegate.m */; };
+		95E4AD2F1CE6C0C500F9F04B /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */; };
 		95E9F2341CD41B5100B0B909 /* Camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2271CD41B5100B0B909 /* Camera@2x.png */; };
 		95E9F2351CD41B5100B0B909 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2281CD41B5100B0B909 /* Checkmark@2x.png */; };
 		95E9F2361CD41B5100B0B909 /* clue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2291CD41B5100B0B909 /* clue@2x.png */; };
@@ -153,6 +154,8 @@
 		952045B91CD2F488007C1431 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
 		952045BA1CD2F488007C1431 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		952045BC1CD2F526007C1431 /* Huntr.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Huntr.pch; sourceTree = "<group>"; };
+		95E4AD2D1CE6C0C500F9F04B /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
+		95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		95E9F2271CD41B5100B0B909 /* Camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera@2x.png"; sourceTree = "<group>"; };
 		95E9F2281CD41B5100B0B909 /* Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@2x.png"; sourceTree = "<group>"; };
 		95E9F2291CD41B5100B0B909 /* clue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clue@2x.png"; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 				952045421CD2F40E007C1431 /* UIImage+Resize.m */,
 				952045431CD2F40E007C1431 /* UIImage+RoundedCorner.h */,
 				952045441CD2F40E007C1431 /* UIImage+RoundedCorner.m */,
+				95E4AD2D1CE6C0C500F9F04B /* UIAlertController+Blocks.h */,
+				95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -494,6 +499,7 @@
 				952045701CD2F40E007C1431 /* UIButton+Style.m in Sources */,
 				952045AB1CD2F456007C1431 /* SCSClue.m in Sources */,
 				952045B11CD2F456007C1431 /* AFHTTPRequestOperationManager.m in Sources */,
+				95E4AD2F1CE6C0C500F9F04B /* UIAlertController+Blocks.m in Sources */,
 				952045731CD2F40E007C1431 /* UIImage+RoundedCorner.m in Sources */,
 				9520456F1CD2F40E007C1431 /* UIAlertView+error.m in Sources */,
 				9520457D1CD2F40E007C1431 /* LeaderboardViewController.m in Sources */,
