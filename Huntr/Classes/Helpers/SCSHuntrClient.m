@@ -147,7 +147,7 @@
         }
         else {
             NSLog(@"the only one game: %@", responseObject);
-            failureBlock(@"");
+            failureBlock(@"No Games Found");
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock([error description]);
@@ -249,6 +249,33 @@
     }];
 }
 
+- (void) getAllTeamsWithSuccessBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    NSString * endPoint = [NSString stringWithFormat:@"games/%@/teams", self.gameId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject isKindOfClass:[NSArray class]])
+        {
+            NSMutableArray * array = [NSMutableArray new];
+            [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                [array addObject:[[SCSTeam alloc]initWithJSON:obj]];
+            }];
+            
+            NSSortDescriptor * nameSort = [NSSortDescriptor sortDescriptorWithKey:@"teamName" ascending:YES];
+            NSArray * arrayResult = [NSArray new];
+            arrayResult = [array sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSort, nil]];
+            successBlock(arrayResult);
+        }
+        else
+        {
+            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
+            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock([error description]);
+    }];
+
+}
+
 - (void) addTeamToGame:(id)gameData successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * currentGameId = [[NSUserDefaults standardUserDefaults]objectForKey:@"current_game"];
@@ -340,7 +367,18 @@
         case 2:{
             endPoint = [NSString stringWithFormat:@"teams/%@/players", teamId];
             [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentPlayer,@"playerName", nil] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                if (responseObject) successBlock(responseObject);
+                if (responseObject)
+                {
+                    if ([[responseObject objectForKey:@"players"] isKindOfClass:[NSArray class]])
+                    {
+                        successBlock([responseObject objectForKey:@"players"]);
+                    }
+                    else
+                    {
+                        failureBlock(responseObject);
+
+                    }
+                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 failureBlock([error description]);
             }];
@@ -448,6 +486,7 @@
     if ([clueType isEqualToString:@"Location"]){
     NSLog(@"%@",[self urlStringWithEndPoint:endPoint]);
     [self POST:[self urlStringWithEndPoint:endPoint] parameters: answer success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject");
         successBlock(responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -482,24 +521,6 @@
             
         }];
         [self.operationQueue addOperation:operation];
-//        self.responseSerializer.acceptableContentTypes = [self.responseSerializer.acceptableContentTypes setByAddingObject:@"text/json"];
-//
-//        [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//     
-//            NSLog(@"%@", formData);
-//            
-//            NSData *imageData = UIImageJPEGRepresentation(answer, 0.5);
-//            [formData appendPartWithFileData:imageData name:@"files" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
-//        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-//            successBlock(responseObject);
-//
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            
-//            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-//            failureBlock(operation.responseString);
-//
-//        }];
     }
     
 }
