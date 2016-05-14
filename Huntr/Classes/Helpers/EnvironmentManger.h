@@ -13,14 +13,14 @@
 + (instancetype)sharedManager;
 
 - (BOOL) hasJoinedGame:(NSString*)gameId;
-- (BOOL) hasJoinedTeam:(NSString *)teamId inGame:(NSString *)gameId;
+- (BOOL) hasJoinedTeam:(NSString *)teamId;
+
 - (BOOL) isReadyForGame;
 
-- (void) joinGame:(NSString *)gameId;
-- (void) registerGame:(NSString *)gameId withPlayerName:(NSString *)playerName;
-- (void) joinGame:(NSString *)gameId withTeamId:(NSString *)teamId;
+- (void) registerGame:(NSString *)gameId;
+- (void) registerPlayerName:(NSString *)playerName;
+- (void) registerTeam:(NSString *)teamId;
 
-//@property (nonatomic , readonly) NSDictionary *  currentGame;
-
+- (NSString *) playerNameInGame:(NSString *)gameId;
 
 @end
