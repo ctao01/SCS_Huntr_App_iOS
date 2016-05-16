@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Hmc-U0-hTy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Hmc-U0-hTy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -445,7 +445,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPg-Nb-s1K">
-                                            <rect key="frame" x="62" y="30.5" width="443" height="44"/>
+                                            <rect key="frame" x="62" y="30" width="443" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="ayM-eW-9C0"/>
                                                 <constraint firstAttribute="height" constant="44" id="zHS-da-ctV"/>
@@ -477,22 +477,35 @@
                                                 </mask>
                                             </variation>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPW-97-q1L">
+                                            <rect key="frame" x="487" y="34.5" width="80" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="PFA-Va-ZAK"/>
+                                                <constraint firstAttribute="height" constant="21" id="uAn-ja-kwQ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.96470588239999999" green="0.57254901960000004" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Yc1-iT-MT6" firstAttribute="top" secondItem="VCj-Uo-eeP" secondAttribute="top" constant="15" id="D9f-Dd-bao"/>
                                         <constraint firstItem="GxX-q7-fC6" firstAttribute="centerY" secondItem="Yc1-iT-MT6" secondAttribute="centerY" id="HFk-ln-U5V"/>
                                         <constraint firstItem="GxX-q7-fC6" firstAttribute="leading" secondItem="Yc1-iT-MT6" secondAttribute="trailing" constant="15" id="MbE-5S-ZZX"/>
                                         <constraint firstItem="HG6-hJ-CSf" firstAttribute="leading" secondItem="RPg-Nb-s1K" secondAttribute="trailing" constant="30" id="TBn-iM-hTt"/>
+                                        <constraint firstItem="oPW-97-q1L" firstAttribute="centerY" secondItem="VCj-Uo-eeP" secondAttribute="centerY" id="VUr-Q9-A3K"/>
                                         <constraint firstItem="RPg-Nb-s1K" firstAttribute="leading" secondItem="GxX-q7-fC6" secondAttribute="leading" id="YYk-ao-9T1"/>
                                         <constraint firstAttribute="bottom" secondItem="RPg-Nb-s1K" secondAttribute="bottom" constant="15" id="b0S-Nz-AEZ"/>
                                         <constraint firstAttribute="trailing" secondItem="HG6-hJ-CSf" secondAttribute="trailing" constant="8" id="ba4-Zd-5iU"/>
                                         <constraint firstItem="HG6-hJ-CSf" firstAttribute="centerY" secondItem="VCj-Uo-eeP" secondAttribute="centerY" id="iv0-bM-i5G"/>
                                         <constraint firstItem="Yc1-iT-MT6" firstAttribute="leading" secondItem="VCj-Uo-eeP" secondAttribute="leading" constant="15" id="nhP-9X-Ojx"/>
+                                        <constraint firstAttribute="trailing" secondItem="oPW-97-q1L" secondAttribute="trailing" id="tqq-ue-URh"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="checkImageView" destination="HG6-hJ-CSf" id="Uj3-SW-n73"/>
                                     <outlet property="descriptionLabel" destination="RPg-Nb-s1K" id="Orx-tW-UyE"/>
+                                    <outlet property="pendingStatusIcon" destination="oPW-97-q1L" id="dpJ-of-Y7d"/>
                                     <outlet property="pointLabel" destination="GxX-q7-fC6" id="Pqh-iS-SuG"/>
                                     <outlet property="typeImageView" destination="Yc1-iT-MT6" id="AAF-6Q-2AZ"/>
                                 </connections>

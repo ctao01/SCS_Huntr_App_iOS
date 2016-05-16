@@ -40,20 +40,20 @@
 
 - (IBAction) quitCurrentGame:(id)sender
 {
-    if(((GameViewController*)self.navigationController.tabBarController).selectedGame.status == GameStatusCompleted)
+    /*if(((GameViewController*)self.navigationController.tabBarController).selectedGame.status == GameStatusCompleted)
     {
-        if ([self.navigationController.tabBarController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
-        {
-            [self.navigationController.tabBarController  dismissViewControllerAnimated:YES completion:nil];
-        }
+        
     }
     else
     {
         
         
+    }*/
+    
+    if ([self.navigationController.tabBarController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+    {
+        [self.navigationController.tabBarController  dismissViewControllerAnimated:YES completion:nil];
     }
-    
-    
     
 }
 
@@ -90,8 +90,25 @@
     cell.descriptionLabel.text = clue.clueDescription;
     cell.pointLabel.text = [NSString stringWithFormat:@"%i points",[clue.pointValue intValue]];
     cell.typeImageView.image = ([clue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
-    cell.checkImageView.hidden = (clue.didSubmit == true)? !clue.submittedAnswer.isCorrect: true;
     
+    if (self.selectedGame.status == GameStatusCompleted)
+    {
+        cell.checkImageView.hidden = (clue.submittedAnswer.isCorrect) ? NO :YES;
+    }
+    else
+    {
+        if (clue.didSubmit == true)
+        {
+            cell.checkImageView.hidden = (clue.submittedAnswer.isCorrect) ? NO :YES;
+            cell.pendingStatusIcon.hidden = (clue.submittedAnswer.isCorrect)  ?  YES : !clue.submittedAnswer.isPending;
+        }
+        else
+        {
+            cell.pendingStatusIcon.hidden = true;
+            cell.checkImageView.hidden = true;
+            
+        }
+    }
     return cell;
 }
 

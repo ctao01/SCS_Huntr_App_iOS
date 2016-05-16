@@ -16,5 +16,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *pointLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *typeImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *checkImageView;
+@property (nonatomic, strong) IBOutlet UILabel *pendingStatusIcon;
+
 
 @end
