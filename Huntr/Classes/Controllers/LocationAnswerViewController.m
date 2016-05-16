@@ -170,7 +170,9 @@
         }
         else
         {
-            //TODO: ERROR
+            [UIAlertController showAlertInViewController:self withTitle:@"Check In" message:@"You are not here" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController *  controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+                
+            }];
         }
 
     }

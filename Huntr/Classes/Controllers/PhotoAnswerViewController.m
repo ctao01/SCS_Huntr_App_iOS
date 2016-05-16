@@ -34,13 +34,20 @@
     [super viewWillAppear:animated];
 
     if (self.selectedClue.didSubmit) {
-        [self.takePhotoButton setTitle:@"Retake Photo" forState:UIControlStateNormal];
-        
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
-        [self.answerImageView setImage:[UIImage imageWithData:imageData]];
+        {
+            self.takePhotoButton.hidden = self.selectedClue.submittedAnswer.isCorrect;
+            if (!self.selectedClue.submittedAnswer.isCorrect)
+            {
+                [self.takePhotoButton setTitle:@"Retake Photo" forState:UIControlStateNormal];
+
+            }
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
+            [self.answerImageView setImage:[UIImage imageWithData:imageData]];
+        }
     }
     else
     {
+        self.takePhotoButton.hidden = false;
         [self.takePhotoButton setTitle:@"Take Photo" forState:UIControlStateNormal];
     }
 
@@ -78,14 +85,19 @@
 {
     if (self.selectedClue.didSubmit && self.selectedClue.submittedAnswer.isPending)
     {
-        UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"Re-submit Answer" message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * aCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction * aContinue = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            
-        }];
-        [ac addAction:aContinue];
-        [ac addAction:aCancel];
-        [self presentViewController:ac animated:true completion:nil];
+       [UIAlertController showAlertInViewController:self
+                                                                    withTitle:@"Submit Answer"
+                                                                      message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten."
+                                                            cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Submit"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
+                                                                if (buttonIndex == controller.cancelButtonIndex) {
+                                                                    NSLog(@"cancel");
+                                                                }
+                                                                else {
+                                                                    [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+                                                                        [self.navigationController popViewControllerAnimated:true];
+                                                                    } failureBlock:nil];
+                                                                }
+                                                            }];
     }
     
     else
