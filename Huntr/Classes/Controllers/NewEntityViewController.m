@@ -105,10 +105,11 @@
         }
     }
     else if (self.objectType == SCSCreateObjectTypeNewTeam) {
-        
+        if ([self.delegate respondsToSelector:@selector(newTeamDidCancel:)]){
+            [self.delegate newTeamDidCancel:self];
+        }
         
     }
-    
     else if (self.objectType == SCSCreateObjectTypeUpdateUser) {
         if ([self.delegate respondsToSelector:@selector(updateUserDidCancel:)]){
             [self.delegate updateUserDidCancel:self];

@@ -86,23 +86,23 @@
     if (self.selectedClue.didSubmit && self.selectedClue.submittedAnswer.isPending)
     {
        [UIAlertController showAlertInViewController:self
-                                                                    withTitle:@"Submit Answer"
-                                                                      message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten."
-                                                            cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Submit"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
-                                                                if (buttonIndex == controller.cancelButtonIndex) {
-                                                                    NSLog(@"cancel");
-                                                                }
-                                                                else {
-                                                                    [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
-                                                                        [self.navigationController popViewControllerAnimated:true];
-                                                                    } failureBlock:nil];
-                                                                }
-                                                            }];
+                                            withTitle:@"Submit Answer"
+                                              message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten."
+                                    cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Submit"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
+                                        if (buttonIndex == controller.cancelButtonIndex) {
+                                            NSLog(@"cancel");
+                                        }
+                                        else {
+                                            [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+                                                [self.navigationController popViewControllerAnimated:true];
+                                            } failureBlock:nil];
+                                        }
+                                    }];
     }
     
     else
     {
-        [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+        [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
             [self.navigationController popViewControllerAnimated:true];
         } failureBlock:nil];
     }

@@ -100,7 +100,7 @@
             NSMutableDictionary * joinedGames = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults]objectForKey:KJoinedGames]];
             [joinedGames setObject:info forKey:gameId];
             [[NSUserDefaults standardUserDefaults]removeObjectForKey:KJoinedGames];
-            [[NSUserDefaults standardUserDefaults]setObject:mutableJoinedGames forKey:KJoinedGames];
+            [[NSUserDefaults standardUserDefaults]setObject:joinedGames forKey:KJoinedGames];
         }
     }
     

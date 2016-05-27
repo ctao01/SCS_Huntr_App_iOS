@@ -157,7 +157,8 @@
 - (void) getGameById:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"games/%@",gameId];
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * hostEndPoint = [self urlStringWithEndPoint:endPoint];
+    [self GET:hostEndPoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]])
         {
             SCSGame * game = [[SCSGame alloc]initWithJSON:responseObject];
@@ -165,7 +166,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
+            NSLog(@"operation error:%ld",[operation.response statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
             });
@@ -210,7 +211,7 @@
     }];
 }
 
-#pragma makr - TEAM(S)
+#pragma mark - TEAM(S)
 - (void) getAllTeamsByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint;
@@ -524,5 +525,51 @@
     }
     
 }
+
+#pragma mark - Override Super GET and POST
+
+- (AFHTTPRequestOperation *)GET:(NSString *)URLString
+                     parameters:(id)parameters
+                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+    
+//    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+    
+    AFHTTPResponseSerializer * respSerializer = operation.responseSerializer;
+    NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
+    [responseCodes addIndex:304];
+    respSerializer.acceptableStatusCodes = responseCodes;
+    [operation setResponseSerializer:respSerializer];
+    
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+//- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+//                      parameters:(id)parameters
+//                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+//                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+//{
+//    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+//    
+////    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+//    
+//    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+//    
+//    AFHTTPResponseSerializer * respSerializer = operation.responseSerializer;
+//    NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
+//    [responseCodes addIndex:304];
+//    respSerializer.acceptableStatusCodes = responseCodes;
+//    [operation setResponseSerializer:respSerializer];
+//    
+//    [self.operationQueue addOperation:operation];
+//    
+//    return operation;
+//}
 
 @end

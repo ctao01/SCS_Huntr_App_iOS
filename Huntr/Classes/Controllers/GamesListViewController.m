@@ -32,22 +32,33 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[SCSHuntrClient sharedClient]getAllGames:^(NSArray * arrayResult){
-       
-        self.games = [NSArray arrayWithArray:arrayResult];
-        [self.tableView reloadData];
-        
-    } failureBlock:^(NSString * errorString){
-        // TODO: error message
-        NSLog(@"%@",errorString);
-    }];
     
+    [self refresh:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Actions
+
+- (IBAction)refresh:(UIRefreshControl* )control
+{
+    [[SCSHuntrClient sharedClient]getAllGames:^(NSArray * arrayResult){
+        
+        self.games = [NSArray arrayWithArray:arrayResult];
+        [self.tableView reloadData];
+        if (control) [control endRefreshing];
+        
+    } failureBlock:^(NSString * errorString){
+        
+        // TODO: error message
+        NSLog(@"%@",errorString);
+        if (control) [control endRefreshing];
+    }];
+}
+
 #pragma mark - NewEntityControllerDelegate
 
 - (void) registerUserDidSave :(NewEntityViewController *)controller {

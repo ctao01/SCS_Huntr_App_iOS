@@ -32,8 +32,8 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self refreshClues];
     
+    [self refresh:nil];
 }
 
 #pragma mark - Actions 
@@ -57,15 +57,20 @@
     
 }
 
-#pragma mark - Private Methods
-
-- (void) refreshClues
+- (IBAction)refresh:(UIRefreshControl* )control
 {
     [[SCSHuntrClient sharedClient]getCluesWithSuccessBlock:^(NSArray *arrayResult) {
+        
         self.clues = arrayResult;
         [self.tableView reloadData];
+        if (control) [control endRefreshing];
+        
     } failureBlock:^(NSString *errorString) {
         
+        // TODO: error message
+        NSLog(@"%@",errorString);
+        
+        if (control) [control endRefreshing];
     }];
 }
 

@@ -144,7 +144,7 @@
     }
 }
 
-- (IBAction)refrsh:(UIRefreshControl* )control
+- (IBAction)refresh:(UIRefreshControl* )control
 {
     [[SCSHuntrClient sharedClient]getGameById:self.selectedGame.gameID successBlock:^(id response)
      {
@@ -162,7 +162,9 @@
          
          
      } failureBlock:^(NSString *errorString) {
-        //TODO: getGameById Error;
+         //TODO: getGameById Error;
+         //TODO: Add Alert...
+         [control endRefreshing];
      }];
 }
 
@@ -215,13 +217,20 @@
 - (void) updateUserDidCancel:(NewEntityViewController *)controller
 {
     [controller dismissViewControllerAnimated:YES completion:nil];
+    
+}
 
+- (void) newTeamDidCancel:(NewEntityViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void) newTeamWillAdd:(NewEntityViewController *)controller completion:(void (^)(BOOL))completion
 
 {
     __block BOOL isExsitingTeam = false;
+    
     if (self.teams.count > 0)
     {
         [self.teams enumerateObjectsUsingBlock:^(SCSTeam* team, NSUInteger idx, BOOL *  stop) {
@@ -229,15 +238,10 @@
                 isExsitingTeam = true;
                 *stop = true;
             }
-            if (stop) completion(isExsitingTeam);
-            
         }];
     }
-    else
-    {
-        completion(isExsitingTeam);
-    }
-
+    
+    completion(isExsitingTeam);
     
 }
 
@@ -250,7 +254,7 @@
         }];
 
         
-    }failureBlock:^(NSString *errorString) {
+    } failureBlock:^(NSString *errorString) {
         UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"Error" message:errorString preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * actionOk = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
             [ac dismissViewControllerAnimated:YES completion:nil];
