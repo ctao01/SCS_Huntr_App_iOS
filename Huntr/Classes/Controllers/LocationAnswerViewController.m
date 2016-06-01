@@ -40,10 +40,17 @@
 
 @implementation LocationAnswerViewController
 
+static float MilesToMeters(float miles) {
+    // 1 mile is 1609.344 meters
+    // source: http://www.google.com/search?q=1+mile+in+meters
+    return 1609.344f * miles;
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.answerMapView.delegate = self;
+
     self.descriptionTextView.text = self.selectedClue.clueDescription;
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
     self.pointLabel.textColor =  (self.selectedClue.submittedAnswer.isCorrect) ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
@@ -73,9 +80,8 @@
             self.locationManager.pausesLocationUpdatesAutomatically = NO;
             self.checkInButton.hidden = false;
             [self.checkInButton setTitle:@"Check In" forState:UIControlStateNormal];
+           
             self.answerMapView.showsUserLocation  = true;
-
-            
         }
     }
     else if (self.selectedGame.status == GameStatusCompleted)
@@ -141,7 +147,7 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, MilesToMeters(5), MilesToMeters(5));
     [self.answerMapView setRegion:[self.answerMapView regionThatFits:region] animated:YES];
 }
 
