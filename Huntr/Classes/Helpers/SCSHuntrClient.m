@@ -390,12 +390,15 @@
     }
 }
 
-- (void) postPlayerName:(NSString*)playerName withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+- (void) renamePlayerName:(NSString*)playerName withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"teams/%@/players/%@", self.teamId, self.playerId];
     [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:playerName, @"playerName", nil] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (responseObject != nil){
-            
+            NSLog(@"postPlayerName %@",responseObject);
+            if ([responseObject objectForKey:@"updated"] != nil) {
+                successBlock([responseObject objectForKey:@"updated"]);
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

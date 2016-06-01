@@ -185,19 +185,13 @@
     {
         //CASE 2
         
-        [[SCSHuntrClient sharedClient]postPlayerName:controller.nameField.text withSuccessBlock:^(id response) {
+        [[SCSHuntrClient sharedClient]renamePlayerName:controller.nameField.text withSuccessBlock:^(id response) {
             
             [[EnvironmentManger sharedManager]registerPlayerName:controller.nameField.text];
             
             /* Set Current Player Id */
-            NSArray * teamPlayers = [response objectForKey:@"players"];
-            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
-                if ([[obj objectForKey:@"name"] isEqualToString:controller.nameField.text])
-                {
-                    [[NSUserDefaults standardUserDefaults]setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
-                }
-            }];
-            
+            [[NSUserDefaults standardUserDefaults]setObject:[response objectForKey:@"playerID"] forKey:kCurrentPlayerId];
+
             [controller dismissViewControllerAnimated:YES completion:nil];
             
         } failureBlock:^(NSString *errorString) {
