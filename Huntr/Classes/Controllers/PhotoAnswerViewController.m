@@ -108,39 +108,17 @@
     }
     
     
-    /*if (self.selectedClue.didSubmit && self.selectedClue.submittedAnswer.isPending)
-    {
-        UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Your previous answer is still pending for review, if you re-submit an answer, the previous answer will be overwritten." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * actionContinue = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
-            [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
-            [ac dismissViewControllerAnimated:YES completion:nil];
-        }];
-        UIAlertAction * actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *  action) {
-            [ac dismissViewControllerAnimated:YES completion:nil];
-
-        }];
-        [ac addAction:actionContinue];
-        [ac addAction:actionCancel];
-
-    }
-    else
-    {
-        NSLog(@"%@",[self.answerPicture description]);
-        [[SCSHuntrClient sharedClient]postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
-            [self.navigationController popViewControllerAnimated:true];
-
-        } failureBlock:nil];
-    }*/
-    
 }
 
 #pragma mark - UIImagePickerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     self.answerPicture = [info objectForKey:UIImagePickerControllerOriginalImage];
-
     [picker dismissViewControllerAnimated:YES completion:^{
+        self.answerImageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        self.answerImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.answerImageView.image = self.answerPicture;
+
 
     }];
 }
