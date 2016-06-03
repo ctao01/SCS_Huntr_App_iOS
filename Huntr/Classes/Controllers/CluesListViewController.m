@@ -96,24 +96,11 @@
     cell.pointLabel.text = [NSString stringWithFormat:@"%i points",[clue.pointValue intValue]];
     cell.typeImageView.image = ([clue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
     
-    if (self.selectedGame.status == GameStatusCompleted)
-    {
-        cell.checkImageView.hidden = (clue.submittedAnswer.isCorrect) ? NO :YES;
-    }
-    else
-    {
-        if (clue.didSubmit == true)
-        {
-            cell.checkImageView.hidden = (clue.submittedAnswer.isCorrect) ? NO :YES;
-            cell.pendingStatusIcon.hidden = (clue.submittedAnswer.isCorrect)  ?  YES : !clue.submittedAnswer.isPending;
-        }
-        else
-        {
-            cell.pendingStatusIcon.hidden = true;
-            cell.checkImageView.hidden = true;
-            
-        }
-    }
+    cell.statusImageView.hidden = (!clue.didSubmit) || (clue.submittedAnswer.isPending);
+    cell.statusImageView.image = (clue.submittedAnswer.isCorrect) ? [UIImage imageNamed:@"approval.png"] : [UIImage imageNamed:@"reject.png"];
+    
+    cell.pendingStatusLabel.hidden = ((clue.didSubmit) && (clue.submittedAnswer.isPending)) ? false : true;
+    
     return cell;
 }
 

@@ -50,6 +50,10 @@
 		952045B71CD2F456007C1431 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045A71CD2F456007C1431 /* AFURLResponseSerialization.m */; };
 		952045B81CD2F456007C1431 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045A91CD2F456007C1431 /* AFURLSessionManager.m */; };
 		952045BB1CD2F488007C1431 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045B91CD2F488007C1431 /* AppDelegate.m */; };
+		954247F31D01274A00E3CE07 /* pending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F01D01274A00E3CE07 /* pending@2x.png */; };
+		954247F41D01274A00E3CE07 /* reject@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F11D01274A00E3CE07 /* reject@2x.png */; };
+		954247F51D01274A00E3CE07 /* approved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F21D01274A00E3CE07 /* approved@2x.png */; };
+		954247F71D0128EA00E3CE07 /* approval@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F61D0128EA00E3CE07 /* approval@2x.png */; };
 		95E4AD2F1CE6C0C500F9F04B /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */; };
 		95E9F2341CD41B5100B0B909 /* Camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2271CD41B5100B0B909 /* Camera@2x.png */; };
 		95E9F2351CD41B5100B0B909 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2281CD41B5100B0B909 /* Checkmark@2x.png */; };
@@ -154,6 +158,10 @@
 		952045B91CD2F488007C1431 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
 		952045BA1CD2F488007C1431 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		952045BC1CD2F526007C1431 /* Huntr.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Huntr.pch; sourceTree = "<group>"; };
+		954247F01D01274A00E3CE07 /* pending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pending@2x.png"; sourceTree = "<group>"; };
+		954247F11D01274A00E3CE07 /* reject@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reject@2x.png"; sourceTree = "<group>"; };
+		954247F21D01274A00E3CE07 /* approved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approved@2x.png"; sourceTree = "<group>"; };
+		954247F61D0128EA00E3CE07 /* approval@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approval@2x.png"; sourceTree = "<group>"; };
 		95E4AD2D1CE6C0C500F9F04B /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
 		95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		95E9F2271CD41B5100B0B909 /* Camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera@2x.png"; sourceTree = "<group>"; };
@@ -393,6 +401,10 @@
 		95E9F2261CD41B5100B0B909 /* Assests */ = {
 			isa = PBXGroup;
 			children = (
+				954247F61D0128EA00E3CE07 /* approval@2x.png */,
+				954247F01D01274A00E3CE07 /* pending@2x.png */,
+				954247F11D01274A00E3CE07 /* reject@2x.png */,
+				954247F21D01274A00E3CE07 /* approved@2x.png */,
 				95E9F2271CD41B5100B0B909 /* Camera@2x.png */,
 				95E9F2281CD41B5100B0B909 /* Checkmark@2x.png */,
 				95E9F2291CD41B5100B0B909 /* clue@2x.png */,
@@ -473,16 +485,20 @@
 				95E9F2371CD41B5100B0B909 /* find-discover-2x.png in Resources */,
 				95E9F23C1CD41B5100B0B909 /* limo-icon.png in Resources */,
 				95E9F23D1CD41B5100B0B909 /* limo-icon2x.png in Resources */,
+				954247F41D01274A00E3CE07 /* reject@2x.png in Resources */,
 				95E9F2361CD41B5100B0B909 /* clue@2x.png in Resources */,
 				9520452A1CD2F0D0007C1431 /* Assets.xcassets in Resources */,
 				95E9F23B1CD41B5100B0B909 /* Leaderboard@2x.png in Resources */,
 				952045361CD2F3D6007C1431 /* Huntrv2.storyboard in Resources */,
 				95E9F23E1CD41B5100B0B909 /* location@2x.png in Resources */,
+				954247F71D0128EA00E3CE07 /* approval@2x.png in Resources */,
+				954247F31D01274A00E3CE07 /* pending@2x.png in Resources */,
 				95E9F2401CD41B5100B0B909 /* start-button.png in Resources */,
 				95E9F23A1CD41B5100B0B909 /* hunt-green-white.png in Resources */,
 				95E9F2391CD41B5100B0B909 /* hunt-green-white-2x.png in Resources */,
 				95E9F2341CD41B5100B0B909 /* Camera@2x.png in Resources */,
 				95E9F2351CD41B5100B0B909 /* Checkmark@2x.png in Resources */,
+				954247F51D01274A00E3CE07 /* approved@2x.png in Resources */,
 				95E9F23F1CD41B5100B0B909 /* start-button-2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
