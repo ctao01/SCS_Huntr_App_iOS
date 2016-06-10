@@ -58,7 +58,7 @@
     NSString * nameFieldText = self.nameField.text;
     if (self.objectType == SCSCreateObjectTypeNewUser)
     {
-        if (nameFieldText != nil && [nameFieldText length] > 0 && [nameFieldText isEqualToString:@" "])
+        if (nameFieldText != nil && [nameFieldText length] > 0 && (![nameFieldText isEqualToString:@" "]))
         {
             if ([self.delegate respondsToSelector:@selector(registerUserDidSave:)]){
                 [self.delegate registerUserDidSave:self];
@@ -66,12 +66,12 @@
         }
         else
         {
-            [UIAlertController showAlertInViewController:self withTitle:@"Register" message:@"Player name can't be blacnk" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
+            [UIAlertController showAlertInViewController:self withTitle:@"Register" message:@"Player name can't be blank" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
         }
     }
     else if (self.objectType == SCSCreateObjectTypeNewTeam)
     {
-        if (nameFieldText != nil && [nameFieldText length] > 0 && [nameFieldText isEqualToString:@" "])
+        if (nameFieldText != nil && [nameFieldText length] > 0 && (![nameFieldText isEqualToString:@" "]))
         {
             if ([self.delegate respondsToSelector:@selector(newTeamWillAdd:completion:)]){
                 [self.delegate newTeamWillAdd:self completion:^(BOOL exist){
@@ -89,12 +89,12 @@
         }
         
         else {
-            [UIAlertController showAlertInViewController:self withTitle:@"Create Team" message:@"Team name can't be blacnk" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
+            [UIAlertController showAlertInViewController:self withTitle:@"Create Team" message:@"Team name can't be blank" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
         }
     }
     else if (self.objectType == SCSCreateObjectTypeUpdateUser)
     {
-        if (nameFieldText != nil && [nameFieldText length] > 0 && [nameFieldText isEqualToString:@" "])
+        if (nameFieldText != nil && [nameFieldText length] > 0 && (![nameFieldText isEqualToString:@" "]))
         {
             if ([self.delegate respondsToSelector:@selector(updateUserDidSave:)]){
                 [self.delegate updateUserDidSave:self];
@@ -102,7 +102,7 @@
         }
         else
         {
-            [UIAlertController showAlertInViewController:self withTitle:@"Change Name" message:@"Player name can't be blacnk" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
+            [UIAlertController showAlertInViewController:self withTitle:@"Change Name" message:@"Player name can't be blank" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
         }
     }
     
