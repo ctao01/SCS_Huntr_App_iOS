@@ -82,19 +82,27 @@
                     }
                     else
                     {
-                        //TODO-
+                        [UIAlertController showAlertInViewController:self withTitle:@"Create Team"message:@"Team name has already taken." cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
                     }
                 }];
             }
         }
+        
+        else {
+            [UIAlertController showAlertInViewController:self withTitle:@"Create Team" message:@"Team name can't be blacnk" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
+        }
     }
     else if (self.objectType == SCSCreateObjectTypeUpdateUser)
     {
-        if (nameFieldText != nil || [nameFieldText length] > 0)
+        if (nameFieldText != nil && [nameFieldText length] > 0 && [nameFieldText isEqualToString:@" "])
         {
             if ([self.delegate respondsToSelector:@selector(updateUserDidSave:)]){
                 [self.delegate updateUserDidSave:self];
             }
+        }
+        else
+        {
+            [UIAlertController showAlertInViewController:self withTitle:@"Change Name" message:@"Player name can't be blacnk" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
         }
     }
     
