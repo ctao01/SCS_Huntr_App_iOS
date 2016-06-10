@@ -58,16 +58,20 @@
     NSString * nameFieldText = self.nameField.text;
     if (self.objectType == SCSCreateObjectTypeNewUser)
     {
-        if (nameFieldText != nil || [nameFieldText length] > 0)
+        if (nameFieldText != nil && [nameFieldText length] > 0 && [nameFieldText isEqualToString:@" "])
         {
             if ([self.delegate respondsToSelector:@selector(registerUserDidSave:)]){
                 [self.delegate registerUserDidSave:self];
             }
         }
+        else
+        {
+            [UIAlertController showAlertInViewController:self withTitle:@"Register" message:@"Player name can't be blacnk" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
+        }
     }
     else if (self.objectType == SCSCreateObjectTypeNewTeam)
     {
-        if (nameFieldText != nil || [nameFieldText length] > 0)
+        if (nameFieldText != nil && [nameFieldText length] > 0 && [nameFieldText isEqualToString:@" "])
         {
             if ([self.delegate respondsToSelector:@selector(newTeamWillAdd:completion:)]){
                 [self.delegate newTeamWillAdd:self completion:^(BOOL exist){
