@@ -96,8 +96,8 @@
     cell.pointLabel.text = [NSString stringWithFormat:@"%i points",[clue.pointValue intValue]];
     cell.typeImageView.image = ([clue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
     
-    cell.statusImageView.hidden = (!clue.didSubmit) || (clue.submittedAnswer.isPending);
-    cell.statusImageView.image = (clue.submittedAnswer.isCorrect) ? [UIImage imageNamed:@"approval.png"] : [UIImage imageNamed:@"reject.png"];
+    cell.statusImageView.hidden = (!clue.didSubmit) || (clue.submittedAnswer.isPending) || (clue.didSubmit == true && clue.submittedAnswer.isCorrect == false);
+    cell.statusImageView.image = [UIImage imageNamed:@"approval.png"];
     
     cell.pendingStatusLabel.hidden = ((clue.didSubmit) && (clue.submittedAnswer.isPending)) ? false : true;
     
