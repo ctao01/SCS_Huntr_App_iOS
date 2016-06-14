@@ -9,6 +9,12 @@
 #ifndef EnvironmentConstants_h
 #define EnvironmentConstants_h
 
+#define KDeviceUUID @"KDeviceUUID"
+
+#define KApnsDeviceToken @"KDeviceTokenAPNS"
+#define KApnsAlertEnabled @"KApnsAlertEnabled"
+#define KApnsBadgeEnabled @"KApnsBadgeEnabled"
+#define KApnsSoundEnabled @"KApnsSoundEnabled"
 
 #define KJoinedGames @"KJoinedGames"
 

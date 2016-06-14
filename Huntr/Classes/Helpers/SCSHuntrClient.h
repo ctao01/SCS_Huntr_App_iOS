@@ -55,5 +55,6 @@ typedef void (^SCSHuntrClientFailureBlock)(NSString * errorString);
 
 /*CRUD - Version 2.0 */
 
+- (void) registerDevice:(NSString*)deviceUUID params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
 @end

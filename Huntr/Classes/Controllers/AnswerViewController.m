@@ -55,7 +55,7 @@
 {
     if ([self.theClue.type isEqualToString:@"Picture"]) {
         UIImage * answerImage = self.answerImageView.image;
-        [[SCSHuntrClient sharedClient]postAnswer:answerImage withClue:self.theClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
+        [[SCSHuntrClient sharedClient] postAnswer:answerImage withClue:self.theClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
         // TODO: success -> self.theClue.didSubmit = true; pup to viewcontroller
         // TODO: failed  -> self.theClue.didSubmit = false; stay
     }
@@ -64,7 +64,7 @@
     }
 }
 
-- (void) takeThePicture:(id)sender{
+- (void) takeThePicture:(id)sender {
     
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 #if TARGET_IPHONE_SIMULATOR
@@ -88,7 +88,7 @@
     UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:^{
         self.answerImageView.image = image;
-//        [[SCSHuntrClient sharedClient]postAnswer:image withClue:self.theClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
+//        [[SCSHuntrClient sharedClient] postAnswer:image withClue:self.theClue.clueID type:@"Picture" successBlock:nil failureBlock:nil];
     }];
 }
 
@@ -121,7 +121,7 @@
     {
         [manager stopUpdatingLocation];
         
-        MKAnnotation * annotation = [[MKAnnotation alloc]initWithAnnotation:<#(nullable id<MKAnnotation>)#> reuseIdentifier:<#(nullable NSString *)#>]
+        MKAnnotation * annotation = [[MKAnnotation alloc] initWithAnnotation:<#(nullable id<MKAnnotation>)#> reuseIdentifier:<#(nullable NSString *)#>]
         MKAnnotationView * annotationDelegate = [[[MKAnnotationView alloc] initWithCoordinate:currentLocation. andTitle:title andSubtitle:subt] autorelease];
 
         
@@ -164,16 +164,16 @@
 
 #pragma mark - Private Methods
 
-- (BOOL) isUserInTheLocation:(CLLocation*)userLocation{
+- (BOOL) isUserInTheLocation:(CLLocation*)userLocation {
     
     CLLocationDistance distance = [userLocation distanceFromLocation:self.theClue.clueLocation];
     
     NSString *distanceReturned = [NSString stringWithFormat:@"%f",distance];
     
-    if([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue]>0){
+    if ([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue]>0) {
         return YES;
     }
-    else{
+    else {
         return NO;
     }
 }

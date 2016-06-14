@@ -129,16 +129,16 @@ static float MilesToMeters(float miles) {
 
 #pragma mark - Private Methods
 
-- (BOOL) isUserInTheLocation:(CLLocation*)userLocation{
+- (BOOL) isUserInTheLocation:(CLLocation*)userLocation {
     
     CLLocationDistance distance = [userLocation distanceFromLocation:self.selectedClue.clueLocation];
     
     NSString *distanceReturned = [NSString stringWithFormat:@"%f",distance];
     
-    if([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue] >= 0){
+    if([distanceReturned doubleValue] <= 500 && [distanceReturned doubleValue] >= 0) {
         return YES;
     }
-    else{
+    else {
         return NO;
     }
 }
@@ -170,7 +170,7 @@ static float MilesToMeters(float miles) {
             [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.selectedClue.clueID type:@"Location" successBlock:^(id response) {
                 [self.navigationController popViewControllerAnimated:YES];
 
-            }failureBlock:^(NSString * errorString){
+            } failureBlock:^(NSString * errorString) {
 
             }];
         }

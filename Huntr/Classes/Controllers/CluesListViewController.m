@@ -59,7 +59,7 @@
 
 - (IBAction)refresh:(UIRefreshControl* )control
 {
-    [[SCSHuntrClient sharedClient]getCluesWithSuccessBlock:^(NSArray *arrayResult) {
+    [[SCSHuntrClient sharedClient] getCluesWithSuccessBlock:^(NSArray *arrayResult) {
         
         self.clues = arrayResult;
         [self.tableView reloadData];
@@ -89,7 +89,7 @@
     static NSString * clueCellIdentifer = @"clueCellIdentifer";
     GameClueCell *cell = [tableView dequeueReusableCellWithIdentifier:clueCellIdentifer];
     if (cell == nil)
-        cell = [[GameClueCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:clueCellIdentifer];
+        cell = [[GameClueCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:clueCellIdentifer];
     
     SCSClue * clue = [self.clues objectAtIndex:indexPath.row];
     cell.descriptionLabel.text = clue.clueDescription;

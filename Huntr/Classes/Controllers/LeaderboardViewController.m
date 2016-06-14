@@ -26,7 +26,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     
     NSString * gameId = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentGameId];
-    [[SCSHuntrClient sharedClient]getScoreboardByGame:gameId successBlock:^(NSArray * arrayResult){
+    [[SCSHuntrClient sharedClient] getScoreboardByGame:gameId successBlock:^(NSArray * arrayResult) {
         
         NSSortDescriptor * rankingSort = [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES];
         NSSortDescriptor * nameSort = [NSSortDescriptor sortDescriptorWithKey:@"teamName" ascending:YES];
@@ -34,7 +34,7 @@
         self.teams = [NSArray arrayWithArray:arrayResult];
         [self.tableView reloadData];
         
-    } failureBlock:^(NSString * errorString){
+    } failureBlock:^(NSString * errorString) {
         
     }];
 }

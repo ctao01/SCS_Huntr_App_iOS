@@ -93,7 +93,7 @@
                                             NSLog(@"cancel");
                                         }
                                         else {
-                                            [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+                                            [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response) {
                                                 [self.navigationController popViewControllerAnimated:true];
                                             } failureBlock:nil];
                                         }
@@ -102,7 +102,7 @@
     
     else
     {
-        [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response){
+        [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response) {
             [self.navigationController popViewControllerAnimated:true];
         } failureBlock:nil];
     }

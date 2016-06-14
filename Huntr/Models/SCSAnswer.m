@@ -21,7 +21,7 @@
         
         CLLocationDegrees longitude = (CLLocationDegrees)[[json objectForKey:@"longitude"] doubleValue];
         CLLocationDegrees latitude = (CLLocationDegrees)[[json objectForKey:@"latitude"] doubleValue];
-        self.answerLocation = [[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+        self.answerLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         self.answerImageUrl = [json objectForKey:@"picture"];
         self.playerName = [json objectForKey:@"playerName"];
         

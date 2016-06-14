@@ -42,7 +42,7 @@
         self.navigationItem.title = @"Change User Name";
         self.descriptionLabel.text = @"Enter User Name";
         self.navigationItem.rightBarButtonItem.title = @"Submit";
-        self.nameField.text = [[NSUserDefaults standardUserDefaults]objectForKey:kCurrentPlayerName];
+        self.nameField.text = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
         
     }
 
@@ -60,7 +60,7 @@
     {
         if (nameFieldText != nil || [nameFieldText length] > 0)
         {
-            if ([self.delegate respondsToSelector:@selector(registerUserDidSave:)]){
+            if ([self.delegate respondsToSelector:@selector(registerUserDidSave:)]) {
                 [self.delegate registerUserDidSave:self];
             }
         }
@@ -69,10 +69,10 @@
     {
         if (nameFieldText != nil || [nameFieldText length] > 0)
         {
-            if ([self.delegate respondsToSelector:@selector(newTeamWillAdd:completion:)]){
-                [self.delegate newTeamWillAdd:self completion:^(BOOL exist){
+            if ([self.delegate respondsToSelector:@selector(newTeamWillAdd:completion:)]) {
+                [self.delegate newTeamWillAdd:self completion:^(BOOL exist) {
                     if (!exist) {
-                        if ([self.delegate respondsToSelector:@selector(newTeamDidAdd:)]){
+                        if ([self.delegate respondsToSelector:@selector(newTeamDidAdd:)]) {
                             [self.delegate newTeamDidAdd:self];
                         }
                     }
@@ -88,7 +88,7 @@
     {
         if (nameFieldText != nil || [nameFieldText length] > 0)
         {
-            if ([self.delegate respondsToSelector:@selector(updateUserDidSave:)]){
+            if ([self.delegate respondsToSelector:@selector(updateUserDidSave:)]) {
                 [self.delegate updateUserDidSave:self];
             }
         }
@@ -100,18 +100,18 @@
 {
     if (self.objectType == SCSCreateObjectTypeNewUser)
     {
-        if ([self.delegate respondsToSelector:@selector(registerUserDidCancel:)]){
+        if ([self.delegate respondsToSelector:@selector(registerUserDidCancel:)]) {
             [self.delegate registerUserDidCancel:self];
         }
     }
     else if (self.objectType == SCSCreateObjectTypeNewTeam) {
-        if ([self.delegate respondsToSelector:@selector(newTeamDidCancel:)]){
+        if ([self.delegate respondsToSelector:@selector(newTeamDidCancel:)]) {
             [self.delegate newTeamDidCancel:self];
         }
         
     }
     else if (self.objectType == SCSCreateObjectTypeUpdateUser) {
-        if ([self.delegate respondsToSelector:@selector(updateUserDidCancel:)]){
+        if ([self.delegate respondsToSelector:@selector(updateUserDidCancel:)]) {
             [self.delegate updateUserDidCancel:self];
         }
         

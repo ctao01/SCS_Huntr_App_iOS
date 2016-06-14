@@ -33,7 +33,7 @@ static NSInteger const UIAlertControllerBlocksFirstOtherButtonIndex = 2;
     if (cancelButtonTitle) {
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle
                                                                style:UIAlertActionStyleCancel
-                                                             handler:^(UIAlertAction *action){
+                                                             handler:^(UIAlertAction *action) {
                                                                  if (tapBlock) {
                                                                      tapBlock(controller, action, UIAlertControllerBlocksCancelButtonIndex);
                                                                  }
@@ -44,7 +44,7 @@ static NSInteger const UIAlertControllerBlocksFirstOtherButtonIndex = 2;
     if (destructiveButtonTitle) {
         UIAlertAction *destructiveAction = [UIAlertAction actionWithTitle:destructiveButtonTitle
                                                                     style:UIAlertActionStyleDestructive
-                                                                  handler:^(UIAlertAction *action){
+                                                                  handler:^(UIAlertAction *action) {
                                                                       if (tapBlock) {
                                                                           tapBlock(controller, action, UIAlertControllerBlocksDestructiveButtonIndex);
                                                                       }
@@ -57,7 +57,7 @@ static NSInteger const UIAlertControllerBlocksFirstOtherButtonIndex = 2;
         
         UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle
                                                               style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction *action){
+                                                            handler:^(UIAlertAction *action) {
                                                                 if (tapBlock) {
                                                                     tapBlock(controller, action, UIAlertControllerBlocksFirstOtherButtonIndex + i);
                                                                 }

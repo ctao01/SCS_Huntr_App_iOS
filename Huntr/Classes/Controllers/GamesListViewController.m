@@ -45,13 +45,13 @@
 
 - (IBAction)refresh:(UIRefreshControl* )control
 {
-    [[SCSHuntrClient sharedClient]getAllGames:^(NSArray * arrayResult){
+    [[SCSHuntrClient sharedClient] getAllGames:^(NSArray * arrayResult) {
         
         self.games = [NSArray arrayWithArray:arrayResult];
         [self.tableView reloadData];
         if (control) [control endRefreshing];
         
-    } failureBlock:^(NSString * errorString){
+    } failureBlock:^(NSString * errorString) {
         
         // TODO: error message
         NSLog(@"%@",errorString);
@@ -64,8 +64,8 @@
 - (void) registerUserDidSave :(NewEntityViewController *)controller {
     
     /* Binding Game Id with Player Name */
-    [[EnvironmentManger sharedManager]registerGame:self.selectedGame.gameID];
-    [[EnvironmentManger sharedManager]registerPlayerName:controller.nameField.text];
+    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID];
+    [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
     
     [controller dismissViewControllerAnimated:YES completion:^{
          [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
@@ -92,7 +92,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCellIdentifier"];
     if (cell == nil)
-        cell = [[GameCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"GameCellIdentifier"];
+        cell = [[GameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"GameCellIdentifier"];
     cell.theGame = [self.games objectAtIndex:indexPath.row];
     return cell;
 }
@@ -101,8 +101,8 @@
 {
     self.selectedGame = [self.games objectAtIndex:indexPath.row];
     
-    [[NSUserDefaults standardUserDefaults]setObject:self.selectedGame.gameID forKey:kCurrentGameId];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    [[NSUserDefaults standardUserDefaults] setObject:self.selectedGame.gameID forKey:kCurrentGameId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     if (self.selectedGame.status == GameStatusCompleted)
     {
@@ -115,7 +115,7 @@
             [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
         }
         else {
-            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager]playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
+            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager] playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
             [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
         }
 

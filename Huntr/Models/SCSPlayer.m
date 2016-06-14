@@ -10,10 +10,10 @@
 
 @implementation SCSPlayer
 
-+ (NSArray *) initWithJSON:(NSArray *) json{
++ (NSArray *) initWithJSON:(NSArray *) json {
     NSMutableArray * playerArray = [[NSMutableArray alloc] init];
     
-    for(NSDictionary * playerValues in json){
+    for(NSDictionary * playerValues in json) {
         [playerArray addObject: [[SCSPlayer alloc] initWithJSON: playerValues]];
     }
     

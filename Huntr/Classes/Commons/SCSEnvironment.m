@@ -33,7 +33,7 @@
 
 - (NSString *) currentPlayer
 {
-    return [[[NSUserDefaults standardUserDefaults]objectForKey:@"current_player"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"current_player"] stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
 
@@ -78,8 +78,8 @@
 /*
 - (void) loadUserDefaults
 {
-    NSDictionary * userDictionary = [[NSUserDefaults standardUserDefaults]objectForKey:@"com.sungard.userdefaults"];
-    [userDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+    NSDictionary * userDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"com.sungard.userdefaults"];
+    [userDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [self.currentPlayer setValue:obj forKey:(NSString *)key];
     }];
 }

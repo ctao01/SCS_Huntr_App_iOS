@@ -11,10 +11,10 @@
 @implementation SCSClue
 
 
-+ (NSArray *) initWithJSON:(NSArray *) json{
++ (NSArray *) initWithJSON:(NSArray *) json {
     NSMutableArray * clueArray = [[NSMutableArray alloc] init];
     
-    for(NSDictionary * clueValues in json){
+    for(NSDictionary * clueValues in json) {
         [clueArray addObject: [[SCSClue alloc] initWithJSON: clueValues]];
     }
     
@@ -33,8 +33,8 @@
         
         if ([json objectForKey:@"answers"] != nil) {
             [[json objectForKey:@"answers"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
-                SCSAnswer * answer = [[SCSAnswer alloc]initWithJSON:obj];
-                if ([answer.teamId isEqualToString:[[NSUserDefaults standardUserDefaults]objectForKey:kCurrentTeamId]])
+                SCSAnswer * answer = [[SCSAnswer alloc] initWithJSON:obj];
+                if ([answer.teamId isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:kCurrentTeamId]])
                 {
                     self.submittedAnswer = answer;
                     self.didSubmit = true;
@@ -42,7 +42,7 @@
                 }
             }];
         }
-        self.clueLocation = [[CLLocation alloc]initWithLatitude:[[json objectForKey:@"latitude"] doubleValue]longitude:[[json objectForKey:@"longitude"] doubleValue]];
+        self.clueLocation = [[CLLocation alloc] initWithLatitude:[[json objectForKey:@"latitude"] doubleValue] longitude:[[json objectForKey:@"longitude"] doubleValue]];
         
 //        _clueID = [json valueForKey:@"_id"];
 //        _clueDescription = [json valueForKey:@"description"];
@@ -53,7 +53,7 @@
 //
 //        _didSubmit = (_submittedAnswer) ? true :false;
 //        
-//        if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc]initWithLatitude:[_latitude doubleValue]longitude:[_longitude doubleValue]];
+//        if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc] initWithLatitude:[_latitude doubleValue] longitude:[_longitude doubleValue]];
 //
 //        
     

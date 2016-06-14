@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1342A01F1D0B62EE00168C59 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 1342A01E1D0B62EE00168C59 /* NSString+UUID.m */; };
 		9520451F1CD2F0D0007C1431 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9520451E1CD2F0D0007C1431 /* main.m */; };
 		9520452A1CD2F0D0007C1431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952045291CD2F0D0007C1431 /* Assets.xcassets */; };
 		9520452D1CD2F0D0007C1431 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9520452B1CD2F0D0007C1431 /* LaunchScreen.storyboard */; };
@@ -71,6 +72,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1342A01D1D0B62EE00168C59 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
+		1342A01E1D0B62EE00168C59 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		9520451A1CD2F0D0007C1431 /* Huntr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Huntr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9520451E1CD2F0D0007C1431 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		952045291CD2F0D0007C1431 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -211,8 +214,8 @@
 			children = (
 				95E9F2261CD41B5100B0B909 /* Assests */,
 				952045BC1CD2F526007C1431 /* Huntr.pch */,
-				952045B91CD2F488007C1431 /* AppDelegate.m */,
 				952045BA1CD2F488007C1431 /* AppDelegate.h */,
+				952045B91CD2F488007C1431 /* AppDelegate.m */,
 				952045881CD2F456007C1431 /* Models */,
 				952045951CD2F456007C1431 /* ThirdParty */,
 				952045861CD2F43D007C1431 /* Constants */,
@@ -264,6 +267,8 @@
 				952045441CD2F40E007C1431 /* UIImage+RoundedCorner.m */,
 				95E4AD2D1CE6C0C500F9F04B /* UIAlertController+Blocks.h */,
 				95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */,
+				1342A01D1D0B62EE00168C59 /* NSString+UUID.h */,
+				1342A01E1D0B62EE00168C59 /* NSString+UUID.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 				952045821CD2F40E007C1431 /* DismissSegue.m in Sources */,
 				952045B51CD2F456007C1431 /* AFURLConnectionOperation.m in Sources */,
 				952045851CD2F40E007C1431 /* TeamAccessoryButton.m in Sources */,
+				1342A01F1D0B62EE00168C59 /* NSString+UUID.m in Sources */,
 				952045831CD2F40E007C1431 /* EnvironmentManger.m in Sources */,
 				952045AD1CD2F456007C1431 /* SCSGame.m in Sources */,
 				952045B01CD2F456007C1431 /* AFHTTPRequestOperation.m in Sources */,

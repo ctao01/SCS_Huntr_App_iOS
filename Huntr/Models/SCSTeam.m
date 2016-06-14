@@ -11,10 +11,10 @@
 
 @implementation SCSTeam
 
-+ (NSArray *) initWithJSON:(NSArray *) json{
++ (NSArray *) initWithJSON:(NSArray *) json {
     NSMutableArray * teamArray = [[NSMutableArray alloc] init];
     
-    for(NSDictionary * teamValues in json){
+    for(NSDictionary * teamValues in json) {
         [teamArray addObject: [[SCSTeam alloc] initWithJSON: teamValues]];
     }
     
