@@ -195,7 +195,7 @@
             [controller dismissViewControllerAnimated:YES completion:nil];
             
         } failureBlock:^(NSString *errorString) {
-            //
+            [UIAlertController showAlertInViewController:self withTitle:@"Error" message:errorString cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
         }];
     }
     else

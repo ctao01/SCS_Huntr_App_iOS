@@ -33,22 +33,25 @@
 {
     [super viewWillAppear:animated];
 
-    if (self.selectedClue.didSubmit) {
-        {
-            self.takePhotoButton.hidden = self.selectedClue.submittedAnswer.isCorrect;
-            if (!self.selectedClue.submittedAnswer.isCorrect)
-            {
-                [self.takePhotoButton setTitle:@"Retake Photo" forState:UIControlStateNormal];
-
-            }
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
-            [self.answerImageView setImage:[UIImage imageWithData:imageData]];
-        }
-    }
-    else
+    if (self.selectedGame.status == GameStatusInProgress)
     {
-        self.takePhotoButton.hidden = false;
-        [self.takePhotoButton setTitle:@"Take Photo" forState:UIControlStateNormal];
+        if (self.selectedClue.didSubmit) {
+            {
+                self.takePhotoButton.hidden = self.selectedClue.submittedAnswer.isCorrect;
+                if (!self.selectedClue.submittedAnswer.isCorrect)
+                {
+                    [self.takePhotoButton setTitle:@"Retake Photo" forState:UIControlStateNormal];
+                    
+                }
+                NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
+                [self.answerImageView setImage:[UIImage imageWithData:imageData]];
+            }
+        }
+        else
+        {
+            self.takePhotoButton.hidden = false;
+            [self.takePhotoButton setTitle:@"Take Photo" forState:UIControlStateNormal];
+        }
     }
 
 }
