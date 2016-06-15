@@ -53,7 +53,7 @@
 
 - (void) refreshUI {
     
-    if (self.selectedGame.status == GameStatusInProgress) {
+    if (self.selectedGame.status == SCSGameStatusInProgress) {
         self.navigationItem.rightBarButtonItem.enabled = [[EnvironmentManger sharedManager] isReadyForGame];
         self.addTeamBtn.enabled = false;
         self.updateNameBtn.enabled = true;
@@ -296,7 +296,7 @@
      accessoryButton inactive:
      1. Arleady joined a team if game is in progress
      */
-    if (self.selectedGame.status == GameStatusInProgress && self.joinedTeamIndexPath != nil)
+    if (self.selectedGame.status == SCSGameStatusInProgress && self.joinedTeamIndexPath != nil)
     {
         if (indexPath.row == self.joinedTeamIndexPath.row) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -423,7 +423,7 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if (self.selectedGame.status == GameStatusNotStarted)
+    if (self.selectedGame.status == SCSGameStatusNotStarted)
     {
         if ([identifier isEqualToString:kAddTeamSegueIdentifier])
         {
@@ -439,7 +439,7 @@
             return YES;
         }
     }
-    else if (self.selectedGame.status == GameStatusInProgress)
+    else if (self.selectedGame.status == SCSGameStatusInProgress)
     {
         if ([identifier isEqualToString:kAddTeamSegueIdentifier])
         {

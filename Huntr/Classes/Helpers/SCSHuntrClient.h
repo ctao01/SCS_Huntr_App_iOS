@@ -7,7 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "SCSPlayer.h"
 
 #define API_VERSION 2.0
@@ -26,13 +26,18 @@ typedef void (^SCSHuntrClientSuccessBlock)(id response);
 typedef void (^SCSHuntrClientSuccessBlockArray)(NSArray * arrayResult);
 typedef void (^SCSHuntrClientFailureBlock)(NSString * errorString);
 
-@interface SCSHuntrClient : AFHTTPRequestOperationManager
+@interface SCSHuntrClient : AFHTTPSessionManager
 
 + (SCSHuntrClient *)sharedClient;
 
 @property (retain, nonatomic) NSString * pushToken;
 
 /*CRUD - Version 1.0 */
+
+- (void) getCluesByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) getAnswersByTeam:(NSString *)teamId andGame:(NSString*)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+
+/*CRUD - Version 2.0 */
 
 - (void) getAllGames:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 - (void) getGameById:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
@@ -45,15 +50,10 @@ typedef void (^SCSHuntrClientFailureBlock)(NSString * errorString);
 - (void) addPlayerToTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 - (void) renamePlayerName:(NSString*)playerName withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
-
-- (void) getCluesByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) getClueById:(NSString *)clueId  successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 - (void) getCluesWithSuccessBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
-
-- (void) getAnswersByTeam:(NSString *)teamId andGame:(NSString*)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
-- (void) postAnswer:(id)answer withClue:(NSString*)clueId type:(NSString*)clueType successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
-
-/*CRUD - Version 2.0 */
+- (void) postAnswer:(id)answer withClue:(SCSClue*)clue successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
 - (void) registerDevice:(NSString*)deviceUUID params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 

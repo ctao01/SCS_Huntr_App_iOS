@@ -55,7 +55,7 @@ static float MilesToMeters(float miles) {
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
     self.pointLabel.textColor =  (self.selectedClue.submittedAnswer.isCorrect) ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
     self.clueTypeImageView.image = [UIImage imageNamed:@"Location"];
-    if(self.selectedGame.status == GameStatusInProgress)
+    if(self.selectedGame.status == SCSGameStatusInProgress)
     {
         if (self.selectedClue.didSubmit == true && self.selectedClue.submittedAnswer.isCorrect == true)
         {
@@ -84,7 +84,7 @@ static float MilesToMeters(float miles) {
             self.answerMapView.showsUserLocation  = true;
         }
     }
-    else if (self.selectedGame.status == GameStatusCompleted)
+    else if (self.selectedGame.status == SCSGameStatusCompleted)
     {
         self.checkInButton.hidden = true;
         
@@ -167,11 +167,11 @@ static float MilesToMeters(float miles) {
         BOOL isCorrect = [self isUserInTheLocation: currentLocation];
         if (isCorrect) {
             NSDictionary * answerInfo = @{@"latitude": [NSNumber numberWithDouble:currentLocation.coordinate.latitude], @"longitude": [NSNumber numberWithDouble:currentLocation.coordinate.longitude]};
-            [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.selectedClue.clueID type:@"Location" successBlock:^(id response) {
+            
+            [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.selectedClue successBlock:^(id response) {
                 [self.navigationController popViewControllerAnimated:YES];
-
-            } failureBlock:^(NSString * errorString) {
-
+            } failureBlock:^(NSString *errorString) {
+                
             }];
         }
         else

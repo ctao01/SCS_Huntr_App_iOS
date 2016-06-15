@@ -8,9 +8,10 @@
 
 #import "SCSHuntrClient.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "AFHTTPRequestOperationManager.h"
+//#import "AFHTTPRequestOperationManager.h"
 #import "SCSEnvironment.h"
 #import "SCSGame.h"
+#import "SCSClue.h"
 
 //TODO: Add Prod/Dev schemes
 //static NSString * const kSCSHuntrAPIBaseURLString = @"http://uzhome.no-ip.org:3000/api";
@@ -20,7 +21,8 @@
 #ifdef DEV
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
 //#define API_SERVER_BASE_URL @"http://localhost:3000"
-#define API_SERVER_BASE_URL @"http://172.19.200.85:3000"
+#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
+//#define API_SERVER_BASE_URL @"http://172.19.200.85:3000"
 //#elif defined(STAGE)
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3033"
 #else
@@ -95,6 +97,11 @@
         [unsingedSSLCertificatePolicy setAllowInvalidCertificates:YES];
         self.securityPolicy = unsingedSSLCertificatePolicy;
         
+        AFHTTPResponseSerializer * respSerializer = self.responseSerializer;
+        NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
+        [responseCodes addIndex:304];
+        respSerializer.acceptableStatusCodes = responseCodes;
+        
         [self.reachabilityManager startMonitoring];
         
     }
@@ -138,21 +145,29 @@
 - (void) getAllGames:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = @"games/simple";
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
             [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                 [array addObject:[[SCSGame alloc] initWithJSON:obj]];
             }];
-            successBlock(array);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(array);
+            });
         }
         else {
             NSLog(@"the only one game: %@", responseObject);
-            failureBlock(@"No Games Found");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureBlock(@"No Games Found");
+            });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
@@ -160,21 +175,29 @@
 {
     NSString * endPoint = [NSString stringWithFormat:@"games/%@",gameId];
     NSString * hostEndPoint = [self urlStringWithEndPoint:endPoint];
-    [self GET:hostEndPoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:hostEndPoint parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
         if ([responseObject isKindOfClass:[NSDictionary class]])
         {
             SCSGame * game = [[SCSGame alloc] initWithJSON:responseObject];
-            successBlock(game);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(game);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.response statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
@@ -192,24 +215,32 @@
             break;
     }
     
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
             [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                 [array addObject:[[SCSTeam alloc] initWithJSON:obj]];
             }];
-            successBlock(array);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(array);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
@@ -228,8 +259,10 @@
             break;
     }
     
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
@@ -240,22 +273,32 @@
             NSSortDescriptor * nameSort = [NSSortDescriptor sortDescriptorWithKey:@"teamName" ascending:YES];
             NSArray * arrayResult = [NSArray new];
             arrayResult = [array sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSort, nil]];
-            successBlock(arrayResult);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(arrayResult);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
-            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+            });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
 - (void) getAllTeamsWithSuccessBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"games/%@/teams", self.gameId];
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
@@ -266,17 +309,23 @@
             NSSortDescriptor * nameSort = [NSSortDescriptor sortDescriptorWithKey:@"teamName" ascending:YES];
             NSArray * arrayResult = [NSArray new];
             arrayResult = [array sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSort, nil]];
-            successBlock(arrayResult);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(arrayResult);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
-            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+            });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
-
 }
 
 - (void) addTeamToGame:(id)gameData successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
@@ -294,7 +343,10 @@
             break;
     }
     
-    [self POST:[self urlStringWithEndPoint:endPoint] parameters:gameData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:gameData progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+
         if (responseObject) {
             /*
              {
@@ -306,13 +358,21 @@
              }
              */
             SCSTeam * newTeam  = [[SCSTeam alloc] initWithJSON:responseObject];
-            successBlock(newTeam);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(newTeam);
+            });
         }
         else  {
-            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+            });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
@@ -330,26 +390,33 @@
             break;
     }
     
-    
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
             [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                 [array addObject:[[SCSPlayer alloc] initWithJSON:obj]];
             }];
-            successBlock(array);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(array);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
-            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+            });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
-
-
 }
 
 - (void) addPlayerToTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
@@ -360,30 +427,36 @@
         case 1:
         {
             endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, currentPlayer];
-            [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (responseObject) successBlock(responseObject);
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                failureBlock([error description]);
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failureBlock([error description]);
+                });
             }];
         }
             break;
         case 2:{
             endPoint = [NSString stringWithFormat:@"teams/%@/players", teamId];
-            [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentPlayer,@"playerName", nil] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentPlayer,@"playerName", nil] progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (responseObject)
                 {
                     if ([[responseObject objectForKey:@"players"] isKindOfClass:[NSArray class]])
                     {
-                        successBlock([responseObject objectForKey:@"players"]);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successBlock([responseObject objectForKey:@"players"]);
+                        });
                     }
-                    else
-                    {
-                        failureBlock(responseObject);
-
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            failureBlock(responseObject);
+                        });
                     }
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                failureBlock([error description]);
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failureBlock([error description]);
+                });
             }];
         }
             break;
@@ -395,76 +468,98 @@
 - (void) renamePlayerName:(NSString*)playerName withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"teams/%@/players/%@", self.teamId, self.playerId];
-    [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:playerName, @"playerName", nil] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:playerName, @"playerName", nil] progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject != nil) {
             NSLog(@"postPlayerName %@",responseObject);
             if ([responseObject objectForKey:@"updated"] != nil) {
-                successBlock([responseObject objectForKey:@"updated"]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successBlock([responseObject objectForKey:@"updated"]);
+                });
             }
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
-
 }
 
 #pragma mark - Clues and Answers
 
 - (void) getCluesByGame:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-   
-    NSString * endPoint = [NSString stringWithFormat:@"clues/%@",gameId];
-     self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    NSMutableIndexSet *responseCodes = [self.responseSerializer.acceptableStatusCodes mutableCopy];
+    [responseCodes addIndex:304];
+    self.responseSerializer.acceptableStatusCodes = responseCodes;
     
+    NSString * endPoint = [NSString stringWithFormat:@"clues/%@",gameId];
     NSString * urlString = [NSString stringWithFormat:@"%@/api/%@",API_SERVER_BASE_URL, endPoint];
     urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    [self GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             NSMutableArray * array = [NSMutableArray new];
             [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                 [array addObject:[[SCSClue alloc] initWithJSON:obj]];
             }];
-            successBlock(array);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(array);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
 - (void) getAnswersByTeam:(NSString *)teamId andGame:(NSString*)gameId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"answers/%@/%@",gameId,teamId];
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+
         if ([responseObject isKindOfClass:[NSArray class]])
         {
-            successBlock(responseObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(responseObject);
+            });
         }
         else
         {
-            NSLog(@"operation error:%ld",[operation.responseObject statusCode]);
-            failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)operation.response.statusCode]);
+            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+            });
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
-
 }
 
 - (void) getCluesWithSuccessBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     // -- 'api/v2/games/:gameID/clues'*/
-    NSString * endPoint = [NSString stringWithFormat:@"games/%@/clues",self.gameId];
-    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * endPoint = [NSString stringWithFormat:@"games/%@/clues", self.gameId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject != nil) {
             if ([responseObject isKindOfClass:[NSArray class]])
             {
@@ -473,114 +568,171 @@
                     SCSClue * clue = [[SCSClue alloc] initWithJSON:obj];
                     [cluesList addObject:clue];
                 }];
-                successBlock (cluesList);
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successBlock (cluesList);
+                });
             }
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
+    }];
+}
+- (void) getClueById:(NSString *)clueId  successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    // /api/v2/games/:gameID/clues/:clueID
+    NSString * endPoint = [NSString stringWithFormat:@"games/%@/clues/%@", self.gameId, clueId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
+        if (responseObject != nil) {
+            
+            
+            if ([responseObject isKindOfClass:[NSDictionary class]])
+            {
+                SCSClue * clue = [[SCSClue alloc] initWithJSON:responseObject];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successBlock(clue);
+                });
+            }
+            else
+            {
+                NSLog(@"operation error:%ld",[httpResponse statusCode]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                });
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
-- (void) postAnswer:(id)answer withClue:(NSString*)clueId type:(NSString*)clueType successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+- (void) postAnswer:(id)answer withClue:(SCSClue*)clue successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-//    NSString * currentTeamId = [[NSUserDefaults standardUserDefaults] objectForKey:@"current_team"];
+    //    NSString * currentTeamId = [[NSUserDefaults standardUserDefaults] objectForKey:@"current_team"];
     // --/api/v2/answers/clues/:clueID/teams/:teamID/players/:playerName/location
     // --/api/v2/answers/clues/:clueID/teams/:teamID/players/:playerName/picture
-    NSString * endPoint = [NSString stringWithFormat:@"answers/clues/%@/teams/%@/players/%@/%@",clueId,self.teamId, self.playerId, [clueType lowercaseString]];
-
-    if ([clueType isEqualToString:@"Location"]) {
-    NSLog(@"%@",[self urlStringWithEndPoint:endPoint]);
-    [self POST:[self urlStringWithEndPoint:endPoint] parameters: answer success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"responseObject");
-        successBlock(responseObject);
+    //
+    // app.post	('/api/v2/answers/clues/:clueID/teams/:teamID/players/:playerID/picture', submitPhotoAnswer);
+    // app.post	('/api/v2/answers/clues/:clueID/teams/:teamID/players/:playerID/location', submitLocationAnswer);
+    
+    if (clue.clueType == SCSClueTypeLocation) {
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    }
-    else
-    {
+        NSString * endPoint = [NSString stringWithFormat:@"answers/clues/%@/teams/%@/players/%@/location", clue.clueID, self.teamId, self.playerId];
         NSLog(@"%@",[self urlStringWithEndPoint:endPoint]);
-
-        NSData *imageData = UIImageJPEGRepresentation(answer, 0.5);
-        NSError * error = nil;
-        NSMutableURLRequest * request = [self.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:[self urlStringWithEndPoint:endPoint] parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
-            [formData appendPartWithFileData:imageData name:@"answer" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
-        }error:&error];
         
-        AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
+        [self POST:[self urlStringWithEndPoint:endPoint] parameters:answer progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"POST Answer JSON: %@", responseObject);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (successBlock) successBlock(responseObject);
-                
             });
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"POST Answer JSON:%@", [error localizedDescription]);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (failureBlock) failureBlock([error description]);
             });
-            
         }];
-        [self.operationQueue addOperation:operation];
     }
-    
+    else if (clue.clueType == SCSClueTypePicture) {
+        
+        NSString * endPoint = [NSString stringWithFormat:@"answers/clues/%@/teams/%@/players/%@/picture", clue.clueID, self.teamId, self.playerId];
+        NSLog(@"%@",[self urlStringWithEndPoint:endPoint]);
+        
+        NSData *imageData = UIImageJPEGRepresentation(answer, 0.5);
+        
+        [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            [formData appendPartWithFileData:imageData name:@"answer" fileName:@"answer.jpg" mimeType:@"image/jpeg"];
+        } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"POST Answer JSON: %@", responseObject);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (successBlock) successBlock(responseObject);
+            });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"POST Answer JSON:%@", [error localizedDescription]);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (failureBlock) failureBlock([error description]);
+            });
+        }];
+    }
+    else {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (failureBlock) failureBlock(@"Posting Answer with unknown clue type.");
+        });
+    }
 }
 
 - (void) registerDevice:(NSString*)deviceUUID params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint = [NSString stringWithFormat:@"devices/%@/register", deviceUUID];
-    [self POST:[self urlStringWithEndPoint:endPoint] parameters:deviceUUID success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject != nil) {
             NSLog(@"registerDevice %@",responseObject);
-            successBlock(responseObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(responseObject);
+            });
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failureBlock([error description]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
     }];
 }
 
 #pragma mark - Override Super GET and POST
 
-- (AFHTTPRequestOperation *)GET:(NSString *)URLString
-                     parameters:(id)parameters
-                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-{
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
-    
-//    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
-    
-    AFHTTPResponseSerializer * respSerializer = operation.responseSerializer;
-    NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
-    [responseCodes addIndex:304];
-    respSerializer.acceptableStatusCodes = responseCodes;
-    [operation setResponseSerializer:respSerializer];
-    
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
+//- (NSURLSessionDataTask *)GET:(NSString *)URLString
+//                     parameters:(id)parameters
+//                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+//                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+//{
+//    AFHTTPResponseSerializer * respSerializer = self.responseSerializer;
+//    NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
+//    [responseCodes addIndex:304];
+//    respSerializer.acceptableStatusCodes = responseCodes;
+//    
+//    
+//    
+//    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+//    
+////    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+//    
+//    NSURLSessionDataTask *task = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+//    
+////    AFHTTPResponseSerializer * respSerializer = httpResponseSerializer;
+//    [operation setResponseSerializer:respSerializer];
+//    
+//    [self.operationQueue addOperation:operation];
+//    
+//    return operation;
+//}
 
 //- (AFHTTPRequestOperation *)POST:(NSString *)URLString
 //                      parameters:(id)parameters
-//                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-//                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+//                         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+//                         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 //{
 //    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
 //    
 ////    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
 //    
-//    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
+//    NSURLSessionDataTask *task = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
 //    
-//    AFHTTPResponseSerializer * respSerializer = operation.responseSerializer;
+//    AFHTTPResponseSerializer * respSerializer = httpResponseSerializer;
 //    NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
 //    [responseCodes addIndex:304];
 //    respSerializer.acceptableStatusCodes = responseCodes;

@@ -20,7 +20,7 @@
     self.clueTypeImageView.image = [UIImage imageNamed:@"Camera"];
     self.descriptionTextView.text = self.selectedClue.clueDescription;
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
-    self.takePhotoButton.hidden = (self.selectedGame.status == GameStatusInProgress) ? false : true;
+    self.takePhotoButton.hidden = (self.selectedGame.status == SCSGameStatusInProgress) ? false : true;
     if (self.selectedClue.submittedAnswer.isCorrect)
     {
         self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
@@ -33,7 +33,7 @@
 {
     [super viewWillAppear:animated];
 
-    if (self.selectedGame.status == GameStatusInProgress)
+    if (self.selectedGame.status == SCSGameStatusInProgress)
     {
         if (self.selectedClue.didSubmit) {
             {
@@ -96,21 +96,18 @@
                                             NSLog(@"cancel");
                                         }
                                         else {
-                                            [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response) {
+                                            [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue successBlock:^(id response) {
                                                 [self.navigationController popViewControllerAnimated:true];
                                             } failureBlock:nil];
                                         }
                                     }];
     }
-    
     else
     {
-        [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue.clueID type:@"Picture" successBlock:^(id response) {
+        [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue successBlock:^(id response) {
             [self.navigationController popViewControllerAnimated:true];
         } failureBlock:nil];
     }
-    
-    
 }
 
 #pragma mark - UIImagePickerDelegate

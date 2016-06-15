@@ -50,7 +50,7 @@
 {
     NSLog(@"%@",[self.navigationController.tabBarController class]);
     
-    if(((GameViewController*)self.navigationController.tabBarController).selectedGame.status == GameStatusCompleted)
+    if(((GameViewController*)self.navigationController.tabBarController).selectedGame.status == SCSGameStatusCompleted)
     {
         if ([self.navigationController.tabBarController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
         {

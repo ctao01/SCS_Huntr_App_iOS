@@ -99,8 +99,8 @@
     
     // Get Bundle Info for Remote Registration (handy if you have more than one app)
     NSString *clientID = [[NSBundle mainBundle] bundleIdentifier];
-    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleNameKey];
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     
     // Get the users Device Model, Display Name, Unique ID, Token & Version Number
     UIDevice *dev = [UIDevice currentDevice];

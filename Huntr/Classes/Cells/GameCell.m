@@ -18,7 +18,7 @@
 {
     self.titleLabel.text = theGame.gameName;
     self.stateLabel.text = theGame.gameStatus;
-    self.durationLabel.hidden = (theGame.status == GameStatusInProgress) ? false: true;
+    self.durationLabel.hidden = (theGame.status == SCSGameStatusInProgress) ? false: true;
     if ([self.stateLabel.text isEqualToString:@"In Progress"])
     {
         //For Test:

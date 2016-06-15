@@ -104,7 +104,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:self.selectedGame.gameID forKey:kCurrentGameId];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if (self.selectedGame.status == GameStatusCompleted)
+    if (self.selectedGame.status == SCSGameStatusCompleted)
     {
         [self performSegueWithIdentifier:kGetGameSegueIdentifier sender:self];
     }

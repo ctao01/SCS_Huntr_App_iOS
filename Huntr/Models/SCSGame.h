@@ -12,19 +12,19 @@
 #import "SCSTeam.h"
 #import "SCSClue.h"
 
-typedef enum {
-    GameStatusNotStarted = 0,
-    GameStatusInProgress = 1,
-    GameStatusCompleted = 2,
-    GameStatusUnknown = 99,
-} GameStatus;
+typedef NS_ENUM(NSInteger, SCSGameStatus) {
+    SCSGameStatusUnknown,
+    SCSGameStatusNotStarted,
+    SCSGameStatusInProgress,
+    SCSGameStatusCompleted,
+};
 
 @interface SCSGame : SCSEntity
 
 @property (retain, nonatomic) NSString *    gameName;
 @property (retain, nonatomic) NSString *    gameID;
 @property (retain, nonatomic) NSString *    gameStatus;
-@property (assign, nonatomic) GameStatus  status;
+@property (assign, nonatomic) SCSGameStatus  status;
 @property (retain, nonatomic) SCSTeam *     myTeam;
 @property (retain, nonatomic) NSString *    myPlayerName;
 

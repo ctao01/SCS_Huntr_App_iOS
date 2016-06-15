@@ -69,7 +69,6 @@
         
         // TODO: error message
         NSLog(@"%@",errorString);
-        
         if (control) [control endRefreshing];
     }];
 }
@@ -107,11 +106,11 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCSClue * clue = [self.clues objectAtIndex:indexPath.row];
-    if (clue.clueType  == ClueTypeLocation)
+    if (clue.clueType  == SCSClueTypeLocation)
     {
         [self performSegueWithIdentifier:kGoToLocAnswerSegueIdentifier sender:self];
     }
-    else if (clue.clueType == ClueTypePicture)
+    else if (clue.clueType == SCSClueTypePicture)
     {
         [self performSegueWithIdentifier:kGoToPicAnswerSegueIdentifier sender:self];
     }
