@@ -483,7 +483,7 @@
         GameViewController * gameViewController = segue.destinationViewController;
         gameViewController.selectedGame = self.selectedGame;
         
-        NSLog(@"%u",self.selectedGame.status);
+        NSLog(@"%ld",(long)self.selectedGame.status);
     }
 }
 

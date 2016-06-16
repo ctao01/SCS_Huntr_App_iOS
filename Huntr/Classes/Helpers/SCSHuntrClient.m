@@ -21,8 +21,8 @@
 #ifdef DEV
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
 //#define API_SERVER_BASE_URL @"http://localhost:3000"
-#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
-//#define API_SERVER_BASE_URL @"http://172.19.200.85:3000"
+//#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
+#define API_SERVER_BASE_URL @"http://172.19.192.158:3000"
 //#elif defined(STAGE)
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3033"
 #else
@@ -189,7 +189,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -232,7 +232,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -280,7 +280,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -316,7 +316,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -364,7 +364,7 @@
             });
         }
         else  {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -407,7 +407,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -516,7 +516,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -543,7 +543,7 @@
         }
         else
         {
-            NSLog(@"operation error:%ld",[httpResponse statusCode]);
+            NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
@@ -602,7 +602,7 @@
             }
             else
             {
-                NSLog(@"operation error:%ld",[httpResponse statusCode]);
+                NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
                 });

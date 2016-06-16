@@ -10,6 +10,8 @@
 #import "SCSEnvironment.h"
 #import "NSString+UUID.h"
 
+#import "SCSPushNotification.h"
+
 @interface AppDelegate ()
 
 @end
@@ -30,7 +32,10 @@
     
     // Handle APN on Terminated state, app launched because of APN
     NSDictionary *payload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    //if (payload) [self.pnListVC addPushNotifWithType:PushNotifTypeTM andUserInfo:payload];
+    if (payload) {
+//        [self.pnListVC addPushNotifWithType:PushNotifTypeTM andUserInfo:payload];
+        SCSPushNotification * pn = [SCSPushNotification pushNotificationWithType:SCSPushNotificationTypeTM andUserInfo:payload];
+    }
     
     // Set root view controller and make windows visible
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -144,14 +149,114 @@
     NSLog(@"Failed to get token, error: %@", error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+/**
+  * Local Notification Received while application was open.
+  */
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+#if !TARGET_IPHONE_SIMULATOR
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Received Push Notification"
+                                                        message:notification.alertBody
+                                                       delegate:self cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+#endif
+    //    if (notification) [[UZNotificationManager sharedManager] didReceiveLocalNotification:notification];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+#if !TARGET_IPHONE_SIMULATOR
+    
+    UIApplicationState state = application.applicationState;
+    SCSPushNotificationType pnType;
+    
     // Detect if APN is received on Background or Foreground state
-    if (application.applicationState == UIApplicationStateInactive) {
-//        [self.pnListVC addPushNotifWithType:PushNotifTypeBG andUserInfo:userInfo];
+    if (state == UIApplicationStateActive) {
+        NSLog(@"UIApplicationStateActive: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeFG;
     }
-    else if (application.applicationState == UIApplicationStateActive) {
-//        [self.pnListVC addPushNotifWithType:PushNotifTypeFG andUserInfo:userInfo];
+    else if (state == UIApplicationStateInactive) {
+        NSLog(@"UIApplicationStateInactive: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeBG;
     }
+    else if (state == UIApplicationStateBackground) {
+        NSLog(@"UIApplicationStateBackground: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeBG;
+    }
+    else {
+        NSLog(@"Unknown State: %@", [userInfo description]);
+        pnType = SSCSPushNotificationTypeUnknown;
+    }
+    
+    SCSPushNotification * pn = [SCSPushNotification pushNotificationWithType:pnType andUserInfo:userInfo];
+    
+    if([userInfo[@"aps"][@"content-available"] intValue] == 1) //it's the silent notification
+    {
+        [self fireLocalNotification:@"Silent Push"];
+    }
+    else {
+        [self fireLocalNotification:@"Loud Push"];
+    }
+    
+#endif
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+#if !TARGET_IPHONE_SIMULATOR
+    
+    
+    UIApplicationState state = application.applicationState;
+    SCSPushNotificationType pnType;
+    
+    // Detect if APN is received on Background or Foreground state
+    if (state == UIApplicationStateActive) {
+        NSLog(@"UIApplicationStateActive: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeFG;
+    }
+    else if (state == UIApplicationStateInactive) {
+        NSLog(@"UIApplicationStateInactive: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeBG;
+    }
+    else if (state == UIApplicationStateBackground) {
+        NSLog(@"UIApplicationStateBackground: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeBG;
+    }
+    else {
+        NSLog(@"Unknown State: %@", [userInfo description]);
+        pnType = SSCSPushNotificationTypeUnknown;
+    }
+    
+    SCSPushNotification * pn = [SCSPushNotification pushNotificationWithType:pnType andUserInfo:userInfo];
+    
+    if([userInfo[@"aps"][@"content-available"] intValue] == 1) //it's the silent notification
+    {
+        if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+        [self fireLocalNotification:@"Silent Push"];
+    }
+    else {
+        if (completionHandler) completionHandler(UIBackgroundFetchResultNoData);
+        [self fireLocalNotification:@"Loud Push"];
+    }
+    
+#endif
+}
+
+- (void) fireLocalNotification:(NSString*)alertBody
+{
+    // Fire off the notification
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    //    localNotification.fireDate = nil;
+    localNotification.alertBody = alertBody;
+    //    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 

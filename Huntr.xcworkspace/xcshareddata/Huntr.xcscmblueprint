@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "10CBCF126831C3BEDF52F166A8C6FA41E0A5528C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "10CBCF126831C3BEDF52F166A8C6FA41E0A5528C" : 0,
+    "17AD94A055CECE2F141F8620E596BB41B8D6D37A" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "45F3E649-3841-4AD7-9DE3-7A3A991AFD2B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "10CBCF126831C3BEDF52F166A8C6FA41E0A5528C" : "scavenger-hunt-app\/",
+    "17AD94A055CECE2F141F8620E596BB41B8D6D37A" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Huntr",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Huntr.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket-fisglobal:joycytao\/scavenger-hunt-app.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "10CBCF126831C3BEDF52F166A8C6FA41E0A5528C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/cpwhite\/huntr-iphone.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "17AD94A055CECE2F141F8620E596BB41B8D6D37A"
+    }
+  ]
+}

@@ -17,7 +17,9 @@ target 'Huntr' do
 
 	pod 'AFNetworking', '~> 3.1'
 	pod 'BBlock', '~> 1.2'
+	
 	pod 'SVProgressHUD', '~> 2.0'
+    #pod 'AFDropdownNotification', '~> 1.0'
 
 	#pod 'GoogleAnalytics-iOS-SDK', '~> 3.12'
 
