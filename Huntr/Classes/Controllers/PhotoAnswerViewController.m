@@ -104,7 +104,9 @@
     }
     else
     {
+        [SVProgressHUD showWithStatus:@"Sumit Answer"];
         [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue successBlock:^(id response) {
+            [SVProgressHUD dismiss];
             [self.navigationController popViewControllerAnimated:true];
         } failureBlock:nil];
     }
