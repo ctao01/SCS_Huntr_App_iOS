@@ -14,14 +14,41 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alley_blue_bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rhc-rE-Qq6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="huntr_login_logo_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="HbY-5Q-Ox7">
+                                <rect key="frame" x="127" y="224" width="124" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="Kne-3S-lSk"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="124" id="LAJ-A5-Uv6"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="rhc-rE-Qq6" secondAttribute="bottom" id="3Tm-P0-CaM"/>
+                            <constraint firstItem="HbY-5Q-Ox7" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="127" id="BHx-iG-7FN"/>
+                            <constraint firstAttribute="trailing" secondItem="rhc-rE-Qq6" secondAttribute="trailing" id="NOq-6L-zy9"/>
+                            <constraint firstItem="rhc-rE-Qq6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="PsN-zs-3DZ"/>
+                            <constraint firstItem="HbY-5Q-Ox7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="1.5" id="WB7-rj-U5h"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="HbY-5Q-Ox7" secondAttribute="trailing" constant="124" id="gpC-7g-KMb"/>
+                            <constraint firstItem="HbY-5Q-Ox7" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="204" id="mMz-7J-vrQ"/>
+                            <constraint firstItem="rhc-rE-Qq6" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="y1O-09-9Xl"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="alley_blue_bg.jpg" width="320" height="568"/>
+        <image name="huntr_login_logo_white.png" width="124" height="38"/>
+    </resources>
 </document>

@@ -22,18 +22,64 @@ PODS:
   - BBlock/Foundation (1.2.1)
   - BBlock/StoreKit (1.2.1)
   - BBlock/UIKit (1.2.1)
+  - CMDQueryStringSerialization (0.4.1):
+    - ISO8601
+  - cocoa-oauth (0.0.1):
+    - NSData+Base64 (~> 1.0)
+  - ISO8601 (0.6.0)
+  - NSData+Base64 (1.0.0)
+  - ReactiveCocoa (4.2.1):
+    - Result (~> 2.0)
+  - Result (2.1.2)
+  - SimpleAuth/Core (0.3.9):
+    - CMDQueryStringSerialization
+    - ReactiveCocoa
+  - SimpleAuth/Facebook (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/FacebookWeb (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/LinkedInWeb (0.3.9):
+    - SimpleAuth/Core
+  - SimpleAuth/Twitter (0.3.9):
+    - cocoa-oauth
+    - SimpleAuth/Core
+  - SimpleAuth/TwitterWeb (0.3.9):
+    - cocoa-oauth
+    - SimpleAuth/Core
   - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1)
   - BBlock (~> 1.2)
+  - SimpleAuth/Facebook (from `https://github.com/adamjmcgrath/SimpleAuth-1.git`, commit `f63bbd69bb042e1d1576696c9c0aa4b01a7c668e`)
+  - SimpleAuth/FacebookWeb (from `https://github.com/adamjmcgrath/SimpleAuth-1.git`, commit `f63bbd69bb042e1d1576696c9c0aa4b01a7c668e`)
+  - SimpleAuth/LinkedInWeb (from `https://github.com/adamjmcgrath/SimpleAuth-1.git`, commit `f63bbd69bb042e1d1576696c9c0aa4b01a7c668e`)
+  - SimpleAuth/Twitter (from `https://github.com/adamjmcgrath/SimpleAuth-1.git`, commit `f63bbd69bb042e1d1576696c9c0aa4b01a7c668e`)
+  - SimpleAuth/TwitterWeb (from `https://github.com/adamjmcgrath/SimpleAuth-1.git`, commit `f63bbd69bb042e1d1576696c9c0aa4b01a7c668e`)
   - SVProgressHUD (~> 2.0)
+
+EXTERNAL SOURCES:
+  SimpleAuth:
+    :commit: f63bbd69bb042e1d1576696c9c0aa4b01a7c668e
+    :git: https://github.com/adamjmcgrath/SimpleAuth-1.git
+
+CHECKOUT OPTIONS:
+  SimpleAuth:
+    :commit: f63bbd69bb042e1d1576696c9c0aa4b01a7c668e
+    :git: https://github.com/adamjmcgrath/SimpleAuth-1.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BBlock: c56d7f72597ffe1634fcdc73836c5c0fed3271be
+  CMDQueryStringSerialization: 4bb0a2f5e7d8d8678d911d88072274952cbef4e5
+  cocoa-oauth: 1200a2170276a62a975f2786d505dab6e2db1fa8
+  ISO8601: d3ea3ba9b752820cf92c6b47a9ee327e9f0e13fc
+  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  ReactiveCocoa: 5a42745f11ea236f405bb9ce5e97c5e3b23562dd
+  Result: 6e722d4a66b1408680dbfcdf51c0b1c4b706316a
+  SimpleAuth: bc7d594f90711a7e6ef7624dce5aa8c8b09770ab
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 434652ef201226545c206a2a99ef1fc4da688b04
+PODFILE CHECKSUM: 2a77263d1a19f015e1931028ac25db0099cff474
 
 COCOAPODS: 1.0.1
