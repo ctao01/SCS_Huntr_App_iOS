@@ -13,6 +13,7 @@
 
 @interface SCSPlayer : SCSEntity
 
+
 @property (retain, nonatomic) NSString *playerID;
 @property (retain, nonatomic) NSString *playerName;
 @property (retain, nonatomic) NSMutableArray *breadcrumbs;

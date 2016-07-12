@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130AC56A1D3462020034CBA8 /* SCSRegisteredPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 130AC5691D3462020034CBA8 /* SCSRegisteredPlayer.m */; };
 		130D9B761D12716900F7C9B8 /* SCSPushNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D9B751D12716900F7C9B8 /* SCSPushNotificationManager.m */; };
 		132DAF691D2630A70002172B /* RegisterUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132DAF681D2630A70002172B /* RegisterUserViewController.m */; };
 		1342A01F1D0B62EE00168C59 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 1342A01E1D0B62EE00168C59 /* NSString+UUID.m */; };
@@ -77,6 +78,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		130AC5681D3462020034CBA8 /* SCSRegisteredPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSRegisteredPlayer.h; sourceTree = "<group>"; };
+		130AC5691D3462020034CBA8 /* SCSRegisteredPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSRegisteredPlayer.m; sourceTree = "<group>"; };
 		130D9B741D12716900F7C9B8 /* SCSPushNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSPushNotificationManager.h; sourceTree = "<group>"; };
 		130D9B751D12716900F7C9B8 /* SCSPushNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSPushNotificationManager.m; sourceTree = "<group>"; };
 		132DAF671D2630A70002172B /* RegisterUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterUserViewController.h; sourceTree = "<group>"; };
@@ -400,6 +403,8 @@
 				952045941CD2F456007C1431 /* SCSTeam.m */,
 				134A340A1D111F4800F0F96D /* SCSPushNotification.h */,
 				134A340B1D111F4800F0F96D /* SCSPushNotification.m */,
+				130AC5681D3462020034CBA8 /* SCSRegisteredPlayer.h */,
+				130AC5691D3462020034CBA8 /* SCSRegisteredPlayer.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				9520457B1CD2F40E007C1431 /* GamesListViewController.m in Sources */,
 				952045781CD2F40E007C1431 /* SCSEnvironment.m in Sources */,
 				9520456E1CD2F40E007C1431 /* NSString+EnumParser.m in Sources */,
+				130AC56A1D3462020034CBA8 /* SCSRegisteredPlayer.m in Sources */,
 				9520457C1CD2F40E007C1431 /* GameViewController.m in Sources */,
 				952045841CD2F40E007C1431 /* SCSHuntrClient.m in Sources */,
 				952045821CD2F40E007C1431 /* DismissSegue.m in Sources */,

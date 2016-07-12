@@ -20,9 +20,9 @@
 
 #ifdef DEV
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
-//#define API_SERVER_BASE_URL @"http://localhost:3000"
+#define API_SERVER_BASE_URL @"http://localhost:3000"
 //#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
-#define API_SERVER_BASE_URL @"http://172.19.192.158:3000"
+//#define API_SERVER_BASE_URL @"http://172.19.192.158:3000"
 //#elif defined(STAGE)
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3033"
 #else
@@ -95,6 +95,7 @@
         
         AFSecurityPolicy * unsingedSSLCertificatePolicy = [[AFSecurityPolicy alloc] init];
         [unsingedSSLCertificatePolicy setAllowInvalidCertificates:YES];
+        [unsingedSSLCertificatePolicy setValidatesDomainName:NO];
         self.securityPolicy = unsingedSSLCertificatePolicy;
         
         AFHTTPResponseSerializer * respSerializer = self.responseSerializer;
@@ -687,6 +688,51 @@
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
+    }];
+}
+
+
+
+- (void) registerPlayer:(NSString*)deviceUUID params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    NSString * endPoint = [NSString stringWithFormat:@"players/%@/register", deviceUUID];
+    [self POST:[self urlStringWithEndPoint:endPoint] parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (responseObject != nil) {
+            NSLog(@"registerPlayer %@",responseObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(responseObject);
+            });
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
+    }];
+}
+
+
+
+- (void) getLinkedInInfo:(NSString*)authToken params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    AFSecurityPolicy* policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+    [policy setValidatesDomainName:NO]; 
+    
+    NSString * endPoint = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,email-address)?oauth2_access_token=%@&format=json", authToken];
+    
+    [self GET:endPoint parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (responseObject != nil) {
+            NSLog(@"GET LinkedInInfo %@",responseObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(responseObject);
+            });
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"GET LinkedInInfo Error:%@", [error localizedDescription]);
         dispatch_async(dispatch_get_main_queue(), ^{
             failureBlock([error description]);
         });
