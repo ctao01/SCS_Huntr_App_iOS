@@ -101,34 +101,34 @@
     }];*/
 }
 
-- (void) checkIfUserNameHasBeenTakenInTheTeam:(SCSTeam*)selectedTeam completion:(void (^)(BOOL))completion
-{
-    NSString * playerName = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
-    [[SCSHuntrClient sharedClient] getPlayersByTeam:selectedTeam.teamID successBlock:^(NSArray *arrayResult) {
-        
-        if (arrayResult.count > 0) {
-            [arrayResult enumerateObjectsUsingBlock:^(SCSPlayer * player, NSUInteger idx, BOOL * stop) {
-                
-                if ([player.playerName isEqualToString:playerName])
-                {
-                    *stop = YES;
-                    completion(YES);
-                }
-                if (idx == arrayResult.count - 1)
-                {
-                    completion(NO);
-                }
-            }];
-        }
-        else {
-            completion(NO);
-        }
-        
-        
-    } failureBlock:^(NSString *errorString) {
-        
-    }];
-}
+//- (void) checkIfUserNameHasBeenTakenInTheTeam:(SCSTeam*)selectedTeam completion:(void (^)(BOOL))completion
+//{
+//    NSString * playerName = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
+//    [[SCSHuntrClient sharedClient] getPlayersByTeam:selectedTeam.teamID successBlock:^(NSArray *arrayResult) {
+//        
+//        if (arrayResult.count > 0) {
+//            [arrayResult enumerateObjectsUsingBlock:^(SCSPlayer * player, NSUInteger idx, BOOL * stop) {
+//                
+//                if ([player.playerName isEqualToString:playerName])
+//                {
+//                    *stop = YES;
+//                    completion(YES);
+//                }
+//                if (idx == arrayResult.count - 1)
+//                {
+//                    completion(NO);
+//                }
+//            }];
+//        }
+//        else {
+//            completion(NO);
+//        }
+//        
+//        
+//    } failureBlock:^(NSString *errorString) {
+//        
+//    }];
+//}
 
 #pragma mark - Actions 
 
@@ -322,23 +322,23 @@
     if (self.joinedTeamIndexPath != nil)
     {
         if (self.joinedTeamIndexPath.row == indexPath.row) return;
-        [self checkIfUserNameHasBeenTakenInTheTeam:team completion:^(BOOL taken) {
-            if(taken == false)
-            {
+//        [self checkIfUserNameHasBeenTakenInTheTeam:team completion:^(BOOL taken) {
+//            if(taken == false)
+//            {
                 [[SCSHuntrClient sharedClient] addPlayerToTeam:team.teamID successBlock:^(id response) {
                     
                     //Get User ID
                     
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                             
-                            NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
-                            NSArray * teamPlayers = [response objectForKey:@"players"];
-                            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
-                                if ([[obj objectForKey:@"name"] isEqualToString:userName])
-                                {
-                                    [[NSUserDefaults standardUserDefaults] setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
-                                }
-                            }];
+//                            NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
+//                            NSArray * teamPlayers = [response objectForKey:@"players"];
+//                            [teamPlayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+//                                if ([[obj objectForKey:@"name"] isEqualToString:userName])
+//                                {
+//                                    [[NSUserDefaults standardUserDefaults] setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
+//                                }
+//                            }];
                             
                             [[EnvironmentManger sharedManager] registerTeam:team.teamID];
                             
@@ -365,30 +365,30 @@
                 }];
                 // switch
                 
-            }
-            else
-            {
-                // Name has been taken ?
-            }
-        }];
-        
+//            }
+//            else
+//            {
+//                // Name has been taken ?
+//            }
+//        }];
+    
     }
     else
     {
-        [self checkIfUserNameHasBeenTakenInTheTeam:team completion:^(BOOL taken) {
-            if(taken == false)
-            {
+//        [self checkIfUserNameHasBeenTakenInTheTeam:team completion:^(BOOL taken) {
+//            if(taken == false)
+//            {
                 [[SCSHuntrClient sharedClient] addPlayerToTeam:team.teamID successBlock:^(id response) {
                     
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                            NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
-//                            NSArray * teamPlayers = [response objectForKey:@"players"];
-                            [response enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
-                                if ([[obj objectForKey:@"name"] isEqualToString:userName])
-                                {
-                                    [[NSUserDefaults standardUserDefaults] setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
-                                }
-                            }];
+//                            NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
+////                            NSArray * teamPlayers = [response objectForKey:@"players"];
+//                            [response enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+//                                if ([[obj objectForKey:@"name"] isEqualToString:userName])
+//                                {
+//                                    [[NSUserDefaults standardUserDefaults] setObject:[obj objectForKey:@"_id"] forKey:kCurrentPlayerId];
+//                                }
+//                            }];
                             
                             [[EnvironmentManger sharedManager] registerTeam:team.teamID];
                             
@@ -408,13 +408,13 @@
                     // TODO: Add Player To Team Error
                 }];
                 
-            }
-            else
-            {
-                // Name has been taken ?
-            }
-        }];
-        
+//            } r
+//            else
+//            {
+//                // Name has been taken ?
+//            }
+//        }];
+    
     }
     
 }

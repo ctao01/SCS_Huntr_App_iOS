@@ -110,14 +110,14 @@
     }
     else
     {
-        if ([[EnvironmentManger sharedManager] hasJoinedGame:self.selectedGame.gameID] == NO)
-        {
-            [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
-        }
-        else {
-            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager] playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
+//        if ([[EnvironmentManger sharedManager] hasJoinedGame:self.selectedGame.gameID] == NO)
+//        {
+//            [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
+//        }
+//        else {
+//            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager] playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
             [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
-        }
+//        }
 
     }
 

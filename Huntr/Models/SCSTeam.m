@@ -29,7 +29,7 @@
         _teamID =[json valueForKey:@"_id"];
         _ranking = [json valueForKey:@"ranking"];
         _score = [json valueForKey:@"score"];
-        _playerList = [SCSPlayer initWithJSON: [json valueForKey: @"players"]];
+//        _playerList = [SCSPlayer initWithJSON: [json valueForKey: @"players"]];
     }
     return self;
 }

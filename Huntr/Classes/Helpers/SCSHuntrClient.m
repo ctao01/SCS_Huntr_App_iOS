@@ -20,8 +20,8 @@
 
 #ifdef DEV
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
-#define API_SERVER_BASE_URL @"http://localhost:3000"
-//#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
+//#define API_SERVER_BASE_URL @"http://localhost:3000"
+#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
 //#define API_SERVER_BASE_URL @"http://172.19.196.222:3000"
 //#elif defined(STAGE)
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3033"
@@ -422,12 +422,12 @@
 
 - (void) addPlayerToTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-    NSString * currentPlayer= [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
+//    NSString * currentPlayer = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
     NSString * endPoint;
     switch (API_CRUD_VERSION) {
         case 1:
         {
-            endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, currentPlayer];
+            endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, self.playerName];
             [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (responseObject) successBlock(responseObject);
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -438,8 +438,8 @@
         }
             break;
         case 2:{
-            endPoint = [NSString stringWithFormat:@"teams/%@/players", teamId];
-            [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentPlayer,@"playerName", nil] progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            endPoint = [NSString stringWithFormat:@"teams/%@/players/%@", teamId, self.playerId];
+            [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (responseObject)
                 {
                     if ([[responseObject objectForKey:@"players"] isKindOfClass:[NSArray class]])
