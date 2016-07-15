@@ -9,17 +9,21 @@
 #ifndef EnvironmentConstants_h
 #define EnvironmentConstants_h
 
-#define KDeviceUUID @"KDeviceUUID"
+#define kDeviceUUID @"kDeviceUUID"
 
-#define KApnsDeviceToken @"KDeviceTokenAPNS"
-#define KApnsAlertEnabled @"KApnsAlertEnabled"
-#define KApnsBadgeEnabled @"KApnsBadgeEnabled"
-#define KApnsSoundEnabled @"KApnsSoundEnabled"
+#define kApnsUserApproval @"kApnsUserApproval"
 
-#define KJoinedGames @"KJoinedGames"
+#define kApnsDeviceToken @"kDeviceTokenAPNS"
+#define kApnsAlertEnabled @"kApnsAlertEnabled"
+#define kApnsBadgeEnabled @"kApnsBadgeEnabled"
+#define kApnsSoundEnabled @"kApnsSoundEnabled"
+
+#define kJoinedGames @"kJoinedGames"
 
 #define kCurrentGameId @"kCurrentGameId"
 #define kCurrentTeamId @"kCurrentTeamId"
+
+#define kCurrentPlayer @"kCurrentPlayer"
 #define kCurrentPlayerName @"kCurrentPlayerName"
 #define kCurrentPlayerId @"kCurrentPlayerId"
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		130AC56A1D3462020034CBA8 /* SCSRegisteredPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 130AC5691D3462020034CBA8 /* SCSRegisteredPlayer.m */; };
+		130AC59B1D359E0F0034CBA8 /* SCSHuntrRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130AC59A1D359E0F0034CBA8 /* SCSHuntrRootViewController.m */; };
 		130D9B761D12716900F7C9B8 /* SCSPushNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D9B751D12716900F7C9B8 /* SCSPushNotificationManager.m */; };
 		132DAF691D2630A70002172B /* RegisterUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132DAF681D2630A70002172B /* RegisterUserViewController.m */; };
 		1342A01F1D0B62EE00168C59 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 1342A01E1D0B62EE00168C59 /* NSString+UUID.m */; };
@@ -80,6 +81,8 @@
 /* Begin PBXFileReference section */
 		130AC5681D3462020034CBA8 /* SCSRegisteredPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSRegisteredPlayer.h; sourceTree = "<group>"; };
 		130AC5691D3462020034CBA8 /* SCSRegisteredPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSRegisteredPlayer.m; sourceTree = "<group>"; };
+		130AC5991D359E0F0034CBA8 /* SCSHuntrRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSHuntrRootViewController.h; sourceTree = "<group>"; };
+		130AC59A1D359E0F0034CBA8 /* SCSHuntrRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSHuntrRootViewController.m; sourceTree = "<group>"; };
 		130D9B741D12716900F7C9B8 /* SCSPushNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSPushNotificationManager.h; sourceTree = "<group>"; };
 		130D9B751D12716900F7C9B8 /* SCSPushNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSPushNotificationManager.m; sourceTree = "<group>"; };
 		132DAF671D2630A70002172B /* RegisterUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterUserViewController.h; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 				952045631CD2F40E007C1431 /* TeamsListViewController.m */,
 				132DAF671D2630A70002172B /* RegisterUserViewController.h */,
 				132DAF681D2630A70002172B /* RegisterUserViewController.m */,
+				130AC5991D359E0F0034CBA8 /* SCSHuntrRootViewController.h */,
+				130AC59A1D359E0F0034CBA8 /* SCSHuntrRootViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -607,6 +612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				130AC59B1D359E0F0034CBA8 /* SCSHuntrRootViewController.m in Sources */,
 				952045811CD2F40E007C1431 /* TeamsListViewController.m in Sources */,
 				9520457F1CD2F40E007C1431 /* NewEntityViewController.m in Sources */,
 				9520451F1CD2F0D0007C1431 /* main.m in Sources */,

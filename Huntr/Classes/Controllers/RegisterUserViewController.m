@@ -7,6 +7,9 @@
 //
 
 #import "RegisterUserViewController.h"
+#import "SCSHuntrRootViewController.h"
+#import "AppDelegate.h"
+#import "SCSRegisteredPlayer.h"
 #import <SimpleAuth/SimpleAuth.h>
 
 @implementation RegisterUserViewController
@@ -15,6 +18,14 @@
     
     [super viewDidLoad];
     [self configureAuthorizaionProviders];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate requestUserToRegisterWithPushNotifications];
 }
 
 #pragma mark - Private
@@ -56,12 +67,25 @@
 
 - (void)registerPlayer:(NSDictionary *)playerInfo
 {
-    NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:KApnsDeviceToken];
+    NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
     
     [[SCSHuntrClient sharedClient] registerPlayer:deviceUUID params:playerInfo withSuccessBlock:^(id response) {
         // Swtitch views.
         // Create a SCSRegisteredPlayer object.
         NSLog(@"\nResponse: %@", response);
+        
+//        SCSHuntrRootViewController *rootController =(SCSHuntrRootViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window]rootViewController];
+        
+        SCSHuntrRootViewController *rootController =(SCSHuntrRootViewController*)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+        [rootController showNavigationComponent];
+        
+        SCSRegisteredPlayer * registeredPlayer = [[SCSRegisteredPlayer alloc] initWithJSON:response];
+        
+        NSData *encodedRegisteredPlayer = [NSKeyedArchiver archivedDataWithRootObject:registeredPlayer];
+        [[NSUserDefaults standardUserDefaults] setObject:encodedRegisteredPlayer forKey:kCurrentPlayer];
+        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerName forKey:kCurrentPlayerName];
+        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerID forKey:kCurrentPlayerId];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
     } failureBlock:^(NSString *errorString) {
         // Alert that user chould not be registered.
@@ -180,7 +204,7 @@
         
         NSDictionary * payload = (NSDictionary *) responseObject;
         
-//        NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:KApnsDeviceToken];
+//        NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
         NSString * authToken = payload[@"credentials"][@"token"];
         
         NSString * authType = payload[@"provider"];
@@ -215,7 +239,7 @@
         
         NSDictionary * payload = (NSDictionary *) responseObject;
         
-        //        NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:KApnsDeviceToken];
+        //        NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
         NSString * authToken = payload[@"credentials"][@"token"];
         
         NSString * authType = payload[@"provider"];
@@ -250,7 +274,7 @@
         
         NSDictionary * payload = (NSDictionary *) responseObject;
         
-        //        NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:KApnsDeviceToken];
+        //        NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
         NSString * authToken = payload[@"credentials"][@"token"];
         
         NSString * authType = payload[@"provider"];

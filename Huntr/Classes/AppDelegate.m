@@ -11,6 +11,7 @@
 #import "NSString+UUID.h"
 
 #import "SCSPushNotification.h"
+#import "SCSHuntrRootViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,14 +22,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Huntrv2" bundle:[NSBundle mainBundle]];
-    UIViewController *vc =[storyboard instantiateInitialViewController];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Huntrv2" bundle:[NSBundle mainBundle]];
+//    UIViewController *vc =[storyboard instantiateInitialViewController];
     
     // Let the device know we want to receive push notifications
-    UIUserNotificationType types = (UIUserNotificationType) (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert);
-    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
+//    [self requestUserToRegisterWithPushNotifications];
     
     // Handle APN on Terminated state, app launched because of APN
     NSDictionary *payload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -38,9 +36,9 @@
     }
     
     // Set root view controller and make windows visible
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = vc;
-    [self.window makeKeyAndVisible];
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.window.rootViewController = vc;
+//    [self.window makeKeyAndVisible];
     
     return YES;
 }
@@ -72,11 +70,12 @@
     
     NSLog(@"My token is: %@", deviceToken);
     
-    NSString *deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:KDeviceUUID];
+    NSString *deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kDeviceUUID];
     
     if (!deviceUUID) {
         deviceUUID = [NSString stringWithNewUUID];
-        [[NSUserDefaults standardUserDefaults] setObject:deviceUUID forKey:KDeviceUUID];
+        [[NSUserDefaults standardUserDefaults] setObject:deviceUUID forKey:kDeviceUUID];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kApnsUserApproval];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -95,10 +94,10 @@
     NSString *pushBadge = (rnTypes & UIUserNotificationTypeBadge) ? @"enabled" : @"disabled";
     NSString *pushSound = (rnTypes & UIUserNotificationTypeSound) ? @"enabled" : @"disabled";
     
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:KApnsDeviceToken];
-    [[NSUserDefaults standardUserDefaults] setObject:pushAlert forKey:KApnsAlertEnabled];
-    [[NSUserDefaults standardUserDefaults] setObject:pushBadge forKey:KApnsBadgeEnabled];
-    [[NSUserDefaults standardUserDefaults] setObject:pushSound forKey:KApnsSoundEnabled];
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:kApnsDeviceToken];
+    [[NSUserDefaults standardUserDefaults] setObject:pushAlert forKey:kApnsAlertEnabled];
+    [[NSUserDefaults standardUserDefaults] setObject:pushBadge forKey:kApnsBadgeEnabled];
+    [[NSUserDefaults standardUserDefaults] setObject:pushSound forKey:kApnsSoundEnabled];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -154,6 +153,7 @@
   */
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    
 #if !TARGET_IPHONE_SIMULATOR
     UIApplicationState state = [application applicationState];
     if (state == UIApplicationStateActive) {
@@ -257,6 +257,42 @@
     localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
     
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
+
+-(void) requestUserToRegisterWithPushNotifications
+{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kApnsUserApproval]) {
+
+        UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Huntr Notification" message:@"In order for Huntr to function properly, please accept the push notification request when prompted." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * thankYouAction = [UIAlertAction actionWithTitle:@"Thank You" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self promptUserToRegisterPushNotifications];
+        }];
+        
+        [alertVC addAction:thankYouAction];
+        alertVC.preferredAction = thankYouAction;
+        
+        [self.window.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    
+    }
+    else {
+    
+        [self promptUserToRegisterPushNotifications];
+    }
+}
+
+
+
+-(void) promptUserToRegisterPushNotifications
+{
+#if !TARGET_IPHONE_SIMULATOR
+  // Let the device know we want to receive push notifications
+    UIUserNotificationType types = (UIUserNotificationType) (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert);
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+#endif
 }
 
 

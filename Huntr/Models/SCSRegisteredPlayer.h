@@ -15,4 +15,6 @@
 @property (retain, nonatomic) NSString *authID;
 @property (retain, nonatomic) NSString *email;
 
+- (id)initWithJSON:(NSDictionary *) json;
+
 @end
