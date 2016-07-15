@@ -56,5 +56,8 @@ typedef void (^SCSHuntrClientFailureBlock)(NSString * errorString);
 - (void) postAnswer:(id)answer withClue:(SCSClue*)clue successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
 - (void) registerDevice:(NSString*)deviceUUID params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+- (void) registerPlayer:(NSString*)deviceUUID params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+
+- (void) getLinkedInInfo:(NSString*)authToken params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
 @end

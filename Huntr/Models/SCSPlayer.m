@@ -30,4 +30,23 @@
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.playerName =[decoder decodeObjectForKey:@"name"];
+        self.playerID =[decoder decodeObjectForKey:@"_id"];
+        self.breadcrumbs = [decoder decodeObjectForKey:@"breadcrumbs"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.playerName forKey:@"name"];
+    [encoder encodeObject:self.playerID forKey:@"_id"];
+    [encoder encodeObject:self.breadcrumbs forKey:@"breadcrumbs"];
+}
+
+
 @end

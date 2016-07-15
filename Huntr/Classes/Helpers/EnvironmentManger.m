@@ -32,7 +32,7 @@
 
 - (BOOL) hasJoinedGame:(NSString *)gameId
 {
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     if (joinedGames != nil)
     {
         NSArray * joinedGameIds = [joinedGames allKeys];
@@ -43,13 +43,13 @@
 
 - (NSString *) playerNameInGame:(NSString *)gameId
 {
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     return  [[joinedGames objectForKey:gameId] objectForKey:kPlayerName];
 }
 
 - (BOOL) hasJoinedTeam:(NSString *)teamId
 {
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     NSString * currentSelectedGame = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentGameId];
     
     NSDictionary * info = [joinedGames objectForKey:currentSelectedGame];
@@ -62,7 +62,7 @@
 
 //- (BOOL) hasJoinedTeam:(NSString *)teamId inGame:(NSString *)gameId
 //{
-//    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+//    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
 //    NSDictionary * info = [joinedGames objectForKey:gameId];
 //    if (info != nil) {
 //        NSString * joinedTeam = [info objectForKey:kTeamId];
@@ -85,11 +85,11 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:gameId forKey:kCurrentGameId];
 
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     if (joinedGames == nil) {
         NSDictionary * info = [NSDictionary new];
         NSDictionary * new = [NSDictionary dictionaryWithObjectsAndKeys:info,gameId, nil];
-        [[NSUserDefaults standardUserDefaults] setObject:new forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:new forKey:kJoinedGames];
         
     }
     else
@@ -97,10 +97,10 @@
         if([joinedGames objectForKey: gameId] == nil)
         {
             NSDictionary * info = [NSDictionary new];
-            NSMutableDictionary * joinedGames = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames]];
+            NSMutableDictionary * joinedGames = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames]];
             [joinedGames setObject:info forKey:gameId];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:KJoinedGames];
-            [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:KJoinedGames];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kJoinedGames];
+            [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:kJoinedGames];
         }
     }
     
@@ -111,12 +111,12 @@
     [[NSUserDefaults standardUserDefaults] setObject:playerName forKey:kCurrentPlayerName];
     
     NSString * selectedGameId = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentGameId];
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     if (joinedGames == nil)
     {
         NSDictionary * info = [NSDictionary dictionaryWithObjectsAndKeys:playerName,kPlayerName, nil];
         joinedGames = [NSDictionary dictionaryWithObjectsAndKeys:info ,selectedGameId, nil];
-        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:kJoinedGames];
     }
     else
     {
@@ -126,20 +126,20 @@
         
         NSMutableDictionary * updatedGame = [NSMutableDictionary dictionaryWithDictionary:joinedGames];
         [updatedGame setObject:updatedInfo forKey:selectedGameId];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:KJoinedGames];
-        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:kJoinedGames];
     }
 }
 /*
 - (void) registerGame:(NSString *)gameId withPlayerName:(NSString *)playerName
 {
     // List all games the user has joined
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     if (joinedGames == nil)
     {
         NSDictionary * info = [NSDictionary dictionaryWithObjectsAndKeys:playerName,kPlayerName, nil];
         joinedGames = [NSDictionary dictionaryWithObjectsAndKeys:info , gameId, nil];
-        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:kJoinedGames];
     }
     else
     {
@@ -149,8 +149,8 @@
         
         NSMutableDictionary * updatedGame = [NSMutableDictionary dictionaryWithDictionary:joinedGames];
         [updatedGame setObject:updatedInfo forKey:gameId];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:KJoinedGames];
-        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:kJoinedGames];
     }
     
     
@@ -162,12 +162,12 @@
     
     NSString * selectedGameId = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentGameId];
 
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     if (joinedGames == nil)
     {
         NSDictionary * info = [NSDictionary dictionaryWithObjectsAndKeys:teamId, kTeamId, nil];
         joinedGames = [NSDictionary dictionaryWithObjectsAndKeys:info, selectedGameId, nil];
-        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:kJoinedGames];
     }
     else
     {
@@ -176,8 +176,8 @@
         
         NSMutableDictionary * updatedGame = [NSMutableDictionary dictionaryWithDictionary:joinedGames];
         [updatedGame setObject:updatedInfo forKey:selectedGameId];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:KJoinedGames];
-        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:kJoinedGames];
     }
 
 }
@@ -187,12 +187,12 @@
 - (void) joinGame:(NSString *)gameId withTeamId:(NSString *)teamId
 {
     // List all games the user has joined
-    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:KJoinedGames];
+    NSDictionary * joinedGames = [[NSUserDefaults standardUserDefaults] objectForKey:kJoinedGames];
     if (joinedGames == nil)
     {
         NSDictionary * info = [NSDictionary dictionaryWithObjectsAndKeys:teamId, kTeamId, nil];
         joinedGames = [NSDictionary dictionaryWithObjectsAndKeys:info , gameId, nil];
-        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:joinedGames forKey:kJoinedGames];
     }
     else
     {
@@ -201,8 +201,8 @@
         
         NSMutableDictionary * updatedGame = [NSMutableDictionary dictionaryWithDictionary:joinedGames];
         [updatedGame setObject:updatedInfo forKey:gameId];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:KJoinedGames];
-        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:KJoinedGames];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kJoinedGames];
+        [[NSUserDefaults standardUserDefaults] setObject:updatedGame forKey:kJoinedGames];
     }
 }
 */

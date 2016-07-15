@@ -1,8 +1,10 @@
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking" "$PODS_CONFIGURATION_BUILD_DIR/BBlock" "$PODS_CONFIGURATION_BUILD_DIR/CMDQueryStringSerialization" "$PODS_CONFIGURATION_BUILD_DIR/ISO8601" "$PODS_CONFIGURATION_BUILD_DIR/NSData+Base64" "$PODS_CONFIGURATION_BUILD_DIR/ReactiveCocoa" "$PODS_CONFIGURATION_BUILD_DIR/Result" "$PODS_CONFIGURATION_BUILD_DIR/SVProgressHUD" "$PODS_CONFIGURATION_BUILD_DIR/SimpleAuth" "$PODS_CONFIGURATION_BUILD_DIR/cocoa-oauth"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/BBlock" "${PODS_ROOT}/Headers/Public/SVProgressHUD"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking" "$PODS_CONFIGURATION_BUILD_DIR/BBlock" "$PODS_CONFIGURATION_BUILD_DIR/SVProgressHUD"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/BBlock" -isystem "${PODS_ROOT}/Headers/Public/SVProgressHUD"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"BBlock" -l"SVProgressHUD" -framework "CoreGraphics" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "StoreKit" -framework "SystemConfiguration"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking/AFNetworking.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/BBlock/BBlock.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/CMDQueryStringSerialization/CMDQueryStringSerialization.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/ISO8601/ISO8601.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/NSData+Base64/NSData_Base64.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/ReactiveCocoa/ReactiveCocoa.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Result/Result.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SVProgressHUD/SVProgressHUD.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SimpleAuth/SimpleAuth.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/cocoa-oauth/cocoa_oauth.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "AFNetworking" -framework "BBlock" -framework "CMDQueryStringSerialization" -framework "ISO8601" -framework "NSData_Base64" -framework "ReactiveCocoa" -framework "Result" -framework "SVProgressHUD" -framework "SimpleAuth" -framework "cocoa_oauth"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="VmX-z0-sAg">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="nAz-x8-5AP">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlayerRegistrationComponent" id="VmX-z0-sAg" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="KRb-id-B1u"/>
+                        <viewControllerLayoutGuide type="bottom" id="QIe-Qb-48t"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="g2r-dy-Vzf" userLabel="Register user View">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alley_blue_bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="eZ6-JC-uPJ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="huntr_login_logo_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="uFr-Yt-ucP">
+                                <rect key="frame" x="99" y="185" width="124" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uFr-Yt-ucP" secondAttribute="height" multiplier="62:19" id="fQ9-ig-YsB"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eZ6-JC-uPJ" firstAttribute="leading" secondItem="g2r-dy-Vzf" secondAttribute="leading" id="P9T-oh-ZQG"/>
+                            <constraint firstAttribute="trailing" secondItem="eZ6-JC-uPJ" secondAttribute="trailing" id="Qa5-dP-E0c"/>
+                            <constraint firstItem="uFr-Yt-ucP" firstAttribute="centerY" secondItem="g2r-dy-Vzf" secondAttribute="centerY" constant="-80" id="Xuu-D6-JQh"/>
+                            <constraint firstItem="eZ6-JC-uPJ" firstAttribute="top" secondItem="g2r-dy-Vzf" secondAttribute="top" id="igT-fw-Gq2"/>
+                            <constraint firstItem="QIe-Qb-48t" firstAttribute="top" secondItem="eZ6-JC-uPJ" secondAttribute="bottom" id="nUk-zg-mD5"/>
+                            <constraint firstItem="uFr-Yt-ucP" firstAttribute="leading" secondItem="g2r-dy-Vzf" secondAttribute="leading" constant="99" id="oWL-Y8-87F"/>
+                            <constraint firstAttribute="trailing" secondItem="uFr-Yt-ucP" secondAttribute="trailing" constant="97" id="qjO-SY-2bn"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0HM-ID-bwA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="12" y="-697"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="alley_blue_bg.jpg" width="320" height="568"/>
+        <image name="huntr_login_logo_white.png" width="124" height="38"/>
+    </resources>
 </document>
