@@ -50,14 +50,17 @@ static float MilesToMeters(float miles) {
 {
     [super viewDidLoad];
     self.answerMapView.delegate = self;
+    
+    BOOL isAnswerCorrect = [self.selectedClue.submittedAnswer.answerState isEqualToString:@"accepted"];
+    BOOL isAnswerPending = [self.selectedClue.submittedAnswer.answerState isEqualToString:@"pending"];
 
     self.descriptionTextView.text = self.selectedClue.clueDescription;
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
-    self.pointLabel.textColor =  (self.selectedClue.submittedAnswer.isCorrect) ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
+    self.pointLabel.textColor =  isAnswerCorrect ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
     self.clueTypeImageView.image = [UIImage imageNamed:@"Location"];
     if(self.selectedGame.status == SCSGameStatusInProgress)
     {
-        if (self.selectedClue.didSubmit == true && self.selectedClue.submittedAnswer.isCorrect == true)
+        if (self.selectedClue.didSubmit == YES && isAnswerCorrect)
         {
             self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
             
@@ -88,7 +91,7 @@ static float MilesToMeters(float miles) {
     {
         self.checkInButton.hidden = true;
         
-        if (self.selectedClue.submittedAnswer.isCorrect) {
+        if (isAnswerCorrect) {
             self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
             
             SCSAnnotation * annotation = [[SCSAnnotation alloc] initWithCoordinate:self.selectedClue.submittedAnswer.answerLocation.coordinate];

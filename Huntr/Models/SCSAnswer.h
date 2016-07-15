@@ -11,8 +11,10 @@
 
 @interface SCSAnswer : SCSEntity
 
-@property (nonatomic) BOOL isCorrect;
-@property (nonatomic) BOOL isPending;
+//@property (nonatomic) BOOL isCorrect;
+//@property (nonatomic) BOOL isPending;
+
+@property (nonatomic , strong) NSString * answerState;
 @property (nonatomic , strong) NSString * teamId;
 @property (nonatomic , strong) NSString * playerName;
 @property (nonatomic , strong) NSString * answerImageUrl;

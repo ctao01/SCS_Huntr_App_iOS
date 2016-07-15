@@ -15,8 +15,10 @@
     
     self = [super init];
     if (self) {
-        self.isPending = [json objectForKey:@"pending"];
-        self.isCorrect = [json objectForKey:@"correctFlag"];
+//        self.isPending = [json objectForKey:@"pending"];
+//        self.isCorrect = [json objectForKey:@"correctFlag"];
+        
+        self.answerState = [json objectForKey:@"answerState"];
         self.teamId = [json objectForKey:@"teamID"];
         
         CLLocationDegrees longitude = (CLLocationDegrees)[[json objectForKey:@"longitude"] doubleValue];

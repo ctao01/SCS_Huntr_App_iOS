@@ -17,11 +17,14 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
+    BOOL isAnswerCorrect = [self.selectedClue.submittedAnswer.answerState isEqualToString:@"accepted"];
+    
     self.clueTypeImageView.image = [UIImage imageNamed:@"Camera"];
     self.descriptionTextView.text = self.selectedClue.clueDescription;
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
     self.takePhotoButton.hidden = (self.selectedGame.status == SCSGameStatusInProgress) ? false : true;
-    if (self.selectedClue.submittedAnswer.isCorrect)
+    if (isAnswerCorrect)
     {
         self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
@@ -32,13 +35,15 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    BOOL isAnswerCorrect = [self.selectedClue.submittedAnswer.answerState isEqualToString:@"accepted"];
 
     if (self.selectedGame.status == SCSGameStatusInProgress)
     {
         if (self.selectedClue.didSubmit) {
             {
-                self.takePhotoButton.hidden = self.selectedClue.submittedAnswer.isCorrect;
-                if (!self.selectedClue.submittedAnswer.isCorrect)
+                self.takePhotoButton.hidden = isAnswerCorrect;
+                if (!isAnswerCorrect)
                 {
                     [self.takePhotoButton setTitle:@"Retake Photo" forState:UIControlStateNormal];
                     
@@ -86,7 +91,9 @@
 
 - (IBAction)submitAnswer:(id)sender
 {
-    if (self.selectedClue.didSubmit && self.selectedClue.submittedAnswer.isPending)
+    BOOL isAnswerPending = [self.selectedClue.submittedAnswer.answerState isEqualToString:@"pending"];
+    
+    if (self.selectedClue.didSubmit && isAnswerPending)
     {
        [UIAlertController showAlertInViewController:self
                                             withTitle:@"Submit Answer"
