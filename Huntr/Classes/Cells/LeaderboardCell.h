@@ -16,4 +16,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *rankLabel;
 @property (nonatomic, strong) IBOutlet UILabel *teamLabel;
 @property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
+
 @end

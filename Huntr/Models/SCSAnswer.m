@@ -8,6 +8,12 @@
 
 #import "SCSAnswer.h"
 
+@interface SCSAnswer()
+
+@property (nonatomic , strong) NSString * answerStateString;
+
+@end
+
 @implementation SCSAnswer
 
 - (id)initWithJSON:(NSDictionary *) json
@@ -15,10 +21,7 @@
     
     self = [super init];
     if (self) {
-//        self.isPending = [json objectForKey:@"pending"];
-//        self.isCorrect = [json objectForKey:@"correctFlag"];
-        
-        self.answerState = [json objectForKey:@"answerState"];
+        self.answerStateString = [json objectForKey:@"answerState"];
         self.teamId = [json objectForKey:@"teamID"];
         
         CLLocationDegrees longitude = (CLLocationDegrees)[[json objectForKey:@"longitude"] doubleValue];
@@ -29,6 +32,25 @@
         
     }
     return  self;
+}
+
+-(SCSAnswerState)answerState
+{
+    if ([self.answerStateString isEqualToString:@"pending"]) return SCSAnswerStatePending;
+    if ([self.answerStateString isEqualToString:@"accepted"]) return SCSAnswerStateAccepted;
+    if ([self.answerStateString isEqualToString:@"rejected"]) return SCSAnswerStateRejected;
+    
+    return SCSAnswerStateUnknown;
+}
+
+-(BOOL) isCorrect
+{
+    return self.answerState == SCSAnswerStateAccepted;
+}
+
+-(BOOL) isPending
+{
+    return self.answerState == SCSAnswerStatePending;
 }
 
 

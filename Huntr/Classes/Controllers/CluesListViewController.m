@@ -84,24 +84,15 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString * clueCellIdentifer = @"clueCellIdentifer";
     GameClueCell *cell = [tableView dequeueReusableCellWithIdentifier:clueCellIdentifer];
-    if (cell == nil)
-        cell = [[GameClueCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:clueCellIdentifer];
     
-    SCSClue * clue = [self.clues objectAtIndex:indexPath.row];
-    BOOL isAnswerCorrect = [clue.submittedAnswer.answerState isEqualToString:@"accepted"];
-    BOOL isAnswerPending = [clue.submittedAnswer.answerState isEqualToString:@"pending"];
+//    if (cell == nil)
+//        cell = [[GameClueCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:clueCellIdentifer];
     
-    cell.descriptionLabel.text = clue.clueDescription;
-    cell.pointLabel.text = [NSString stringWithFormat:@"%i points",[clue.pointValue intValue]];
-    cell.typeImageView.image = ([clue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
-    
-    cell.statusImageView.hidden = (!clue.didSubmit) || isAnswerPending || (clue.didSubmit == true && isAnswerCorrect == false);
-    cell.statusImageView.image = [UIImage imageNamed:@"approval.png"];
-    
-    cell.pendingStatusLabel.hidden = ((clue.didSubmit) && isAnswerPending) ? false : true;
+    cell.theClue = [self.clues objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -130,14 +121,14 @@
         PhotoAnswerViewController * controller = segue.destinationViewController;
         controller.selectedClue = clue;
         controller.selectedGame = self.selectedGame;
-        controller.answerImageView.hidden = false;
+        controller.answerImageView.hidden = NO;
     }
     else if ([[segue identifier] isEqualToString:kGoToLocAnswerSegueIdentifier])
     {
         LocationAnswerViewController * controller = segue.destinationViewController;
         controller.selectedClue = clue;
         controller.selectedGame = self.selectedGame;
-        controller.answerMapView.hidden = false;
+        controller.answerMapView.hidden = NO;
     }
 }
 

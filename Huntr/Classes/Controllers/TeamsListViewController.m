@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.tableView.allowsSelection = false;
+    self.tableView.allowsSelection = NO;
     self.joinedTeamIndexPath = nil;
 }
 
@@ -55,14 +55,14 @@
     
     if (self.selectedGame.status == SCSGameStatusInProgress) {
         self.navigationItem.rightBarButtonItem.enabled = [[EnvironmentManger sharedManager] isReadyForGame];
-        self.addTeamBtn.enabled = false;
-        self.updateNameBtn.enabled = true;
+        self.addTeamBtn.enabled = NO;
+        self.updateNameBtn.enabled = YES;
     }
     else {
         // Not Started
-        self.navigationItem.rightBarButtonItem.enabled = false;
-        self.addTeamBtn.enabled = true;
-        self.updateNameBtn.enabled = true;
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.addTeamBtn.enabled = YES;
+        self.updateNameBtn.enabled = YES;
     }
     self.infoLabel.text = ([[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName]) ? [NSString stringWithFormat:@"Welcome %@",[[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName]]:@"Welcome";
 }
@@ -72,12 +72,12 @@
     [[SCSHuntrClient sharedClient] getAllTeamsWithSuccessBlock:^(NSArray * arrayResult) {
         [arrayResult enumerateObjectsUsingBlock:^(SCSTeam * obj, NSUInteger idx, BOOL * stop) {
             BOOL joined = [[EnvironmentManger sharedManager] hasJoinedTeam:obj.teamID];
-            if (joined == true) {
+            if (joined == YES) {
                 self.joinedTeamIndexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             }
         }];
         
-        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:true];
+        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:YES];
         self.teams = [[[NSArray alloc] initWithArray:arrayResult] sortedArrayUsingDescriptors:[NSArray arrayWithObjects: nameSortDescriptor, nil]];
         if(completion) completion();
     }failureBlock:^(NSString *errorString) {
@@ -87,12 +87,12 @@
         
         [arrayResult enumerateObjectsUsingBlock:^(SCSTeam * obj, NSUInteger idx, BOOL * stop) {
             BOOL joined = [[EnvironmentManger sharedManager] hasJoinedTeam:obj.teamID inGame:self.selectedGame.gameID];
-            if (joined == true) {
+            if (joined == YES) {
                 self.joinedTeamIndexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             }
         }];
         
-        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:true];
+        NSSortDescriptor * nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"teamName" ascending:YES];
         self.teams = [[[NSArray alloc] initWithArray:arrayResult] sortedArrayUsingDescriptors:[NSArray arrayWithObjects: nameSortDescriptor, nil]];
         if(completion) completion();
         
@@ -223,14 +223,14 @@
 - (void) newTeamWillAdd:(NewEntityViewController *)controller completion:(void (^)(BOOL))completion
 
 {
-    __block BOOL isExsitingTeam = false;
+    __block BOOL isExsitingTeam = NO;
     
     if (self.teams.count > 0)
     {
         [self.teams enumerateObjectsUsingBlock:^(SCSTeam* team, NSUInteger idx, BOOL *  stop) {
             if ([team.teamName isEqualToString:controller.nameField.text]) {
-                isExsitingTeam = true;
-                *stop = true;
+                isExsitingTeam = YES;
+                *stop = YES;
             }
         }];
     }
@@ -276,7 +276,9 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:teamCellIdentifer];
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:teamCellIdentifer];
-    cell.textLabel.text = [(SCSTeam*)[self.teams objectAtIndex:indexPath.row] teamName];
+    
+    
+      cell.textLabel.text = [(SCSTeam*)[self.teams objectAtIndex:indexPath.row] teamName];
     
     UIButton * accessoryButton = nil;
     if (self.joinedTeamIndexPath == nil) {
@@ -323,7 +325,7 @@
     {
         if (self.joinedTeamIndexPath.row == indexPath.row) return;
 //        [self checkIfUserNameHasBeenTakenInTheTeam:team completion:^(BOOL taken) {
-//            if(taken == false)
+//            if(taken == NO)
 //            {
                 [[SCSHuntrClient sharedClient] addPlayerToTeam:team.teamID successBlock:^(id response) {
                     
@@ -376,7 +378,7 @@
     else
     {
 //        [self checkIfUserNameHasBeenTakenInTheTeam:team completion:^(BOOL taken) {
-//            if(taken == false)
+//            if(taken == NO)
 //            {
                 [[SCSHuntrClient sharedClient] addPlayerToTeam:team.teamID successBlock:^(id response) {
                     

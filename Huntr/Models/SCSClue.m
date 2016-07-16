@@ -37,8 +37,8 @@
                 if ([answer.teamId isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:kCurrentTeamId]])
                 {
                     self.submittedAnswer = answer;
-                    self.didSubmit = true;
-                    *stop = true;
+                    self.didSubmit = YES;
+                    *stop = YES;
                 }
             }];
         }
@@ -51,7 +51,7 @@
 //        _latitude = [json valueForKey:@"latitude"];
 //        _longitude = [json valueForKey:@"longitude"];
 //
-//        _didSubmit = (_submittedAnswer) ? true :false;
+//        _didSubmit = (_submittedAnswer) ? YES : NO;
 //        
 //        if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc] initWithLatitude:[_latitude doubleValue] longitude:[_longitude doubleValue]];
 //
@@ -59,6 +59,17 @@
     
     }
     return self;
+}
+
+-(SCSClueState)clueState
+{
+    if (self.submittedAnswer == nil) return SCSClueStateUnawswered;
+    
+    if (self.submittedAnswer.answerState == SCSAnswerStatePending) return SCSClueStateAnswerPendingReview;
+    if (self.submittedAnswer.answerState == SCSAnswerStateAccepted) return SCSClueStateAnswerAccepted;
+    if (self.submittedAnswer.answerState == SCSAnswerStateRejected) return SCSClueStateAnswerRejected;
+    
+    return SCSClueStateUnknown;
 }
 
 @end

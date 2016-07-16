@@ -75,9 +75,11 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LeaderboardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeaderboardCellIdentifer"];
-    [cell setTheTeam:[self.teams objectAtIndex:indexPath.row]];
-    // Configure the cell...
+    
+    static NSString * LeaderboardCellIdentifer = @"LeaderboardCellIdentifer";
+    LeaderboardCell *cell = [tableView dequeueReusableCellWithIdentifier:LeaderboardCellIdentifer];
+    
+    cell.theTeam = [self.teams objectAtIndex:indexPath.row];
     
     return cell;
 }

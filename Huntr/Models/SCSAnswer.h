@@ -9,12 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "SCSEntity.h"
 
+typedef NS_ENUM(NSInteger, SCSAnswerState) {
+    SCSAnswerStateUnknown,
+    SCSAnswerStatePending,
+    SCSAnswerStateAccepted,
+    SCSAnswerStateRejected
+};
+
 @interface SCSAnswer : SCSEntity
 
-//@property (nonatomic) BOOL isCorrect;
-//@property (nonatomic) BOOL isPending;
+@property (nonatomic, readonly) SCSAnswerState answerState;
 
-@property (nonatomic , strong) NSString * answerState;
+@property (nonatomic, readonly) BOOL isCorrect;
+@property (nonatomic, readonly) BOOL isPending;
+
 @property (nonatomic , strong) NSString * teamId;
 @property (nonatomic , strong) NSString * playerName;
 @property (nonatomic , strong) NSString * answerImageUrl;
@@ -22,6 +30,5 @@
 @property (nonatomic , strong) NSDate * submittedTime;
 
 - (id)initWithJSON:(NSDictionary *) json;
-
 
 @end

@@ -11,12 +11,12 @@
 
 @interface GameClueCell : UITableViewCell
 
-//@property (nonatomic, strong) SCSClue * theClue;
+@property (nonatomic, strong) SCSClue * theClue;
+
 @property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *pointLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *typeImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *statusImageView;
 @property (nonatomic, strong) IBOutlet UILabel *pendingStatusLabel;
-
 
 @end
