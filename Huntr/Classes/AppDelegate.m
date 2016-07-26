@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "SCSEnvironment.h"
+//#import "SCSEnvironment.h"
 #import "NSString+UUID.h"
 
 #import "SCSPushNotification.h"
@@ -70,13 +70,12 @@
     
     NSLog(@"My token is: %@", deviceToken);
     
-    NSString *deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kDeviceUUID];
+    NSString *deviceUUID = [SCSHuntrEnviromentManager sharedManager].deviceUUID;
     
     if (!deviceUUID) {
         deviceUUID = [NSString stringWithNewUUID];
-        [[NSUserDefaults standardUserDefaults] setObject:deviceUUID forKey:kDeviceUUID];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kApnsUserApproval];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [SCSHuntrEnviromentManager sharedManager].deviceUUID = deviceUUID;
+        [[SCSHuntrEnviromentManager sharedManager] approveDeviceAPNS];
     }
     
 #if !TARGET_IPHONE_SIMULATOR
@@ -262,7 +261,8 @@
 
 -(void) requestUserToRegisterWithPushNotifications
 {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kApnsUserApproval]) {
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:kApnsUserApproval]) {
+    if ( ![SCSHuntrEnviromentManager sharedManager].isDeviceAPNSApproved ) {
 
         UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Huntr Notification" message:@"In order for Huntr to function properly, please accept the push notification request when prompted." preferredStyle:UIAlertControllerStyleAlert];
         

@@ -89,11 +89,7 @@
     static NSString * clueCellIdentifer = @"clueCellIdentifer";
     GameClueCell *cell = [tableView dequeueReusableCellWithIdentifier:clueCellIdentifer];
     
-//    if (cell == nil)
-//        cell = [[GameClueCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:clueCellIdentifer];
-    
     cell.theClue = [self.clues objectAtIndex:indexPath.row];
-    
     return cell;
 }
 

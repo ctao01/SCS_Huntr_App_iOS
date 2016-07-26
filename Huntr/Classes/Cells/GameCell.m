@@ -38,7 +38,7 @@
 - (void) configureView
 {
     self.titleLabel.text = self.theGame.gameName;
-    self.stateLabel.text = self.theGame.gameStatus;
+    self.stateLabel.text = self.theGame.statusText;
     self.durationLabel.hidden = (self.theGame.status == SCSGameStatusInProgress) ? NO: YES;
     
     if ([self.stateLabel.text isEqualToString:@"In Progress"])

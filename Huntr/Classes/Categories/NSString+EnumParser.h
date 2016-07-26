@@ -10,7 +10,7 @@
 
 @interface NSString (EnumParser)
 
-- (SCSGameStatus) statusEnumFromString;
+//- (SCSGameStatus) statusEnumFromString;
 - (SCSClueType) clueTypeFromString;
 
 @end

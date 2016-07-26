@@ -80,7 +80,6 @@
     LeaderboardCell *cell = [tableView dequeueReusableCellWithIdentifier:LeaderboardCellIdentifer];
     
     cell.theTeam = [self.teams objectAtIndex:indexPath.row];
-    
     return cell;
 }
 

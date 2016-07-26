@@ -8,7 +8,7 @@
 
 #import "GamesListViewController.h"
 #import "SCSHuntrClient.h"
-#import "SCSEnvironment.h"
+//#import "SCSEnvironment.h"
 #import "GameCell.h"
 #import "TeamsListViewController.h"
 #import "GameViewController.h"
@@ -64,8 +64,8 @@
 - (void) registerUserDidSave :(NewEntityViewController *)controller {
     
     /* Binding Game Id with Player Name */
-    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID];
-    [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
+//    [[EnvironmentManger sharedManager] registerGame:self.selectedGame.gameID];
+//    [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
     
     [controller dismissViewControllerAnimated:YES completion:^{
          [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
@@ -89,10 +89,11 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCellIdentifier"];
-    if (cell == nil)
-        cell = [[GameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"GameCellIdentifier"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * gameCellIdentifier = @"gameCellIdentifier";
+    GameCell *cell = [tableView dequeueReusableCellWithIdentifier:gameCellIdentifier];
+    
     cell.theGame = [self.games objectAtIndex:indexPath.row];
     return cell;
 }

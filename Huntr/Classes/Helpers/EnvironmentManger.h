@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+#define kGameId @"kGameId"
+#define kTeamId @"kTeamId"
+#define kPlayerName @"kPlayerName"
+
 @interface EnvironmentManger : NSObject
 
 + (instancetype)sharedManager;
 
-- (BOOL) hasJoinedGame:(NSString*)gameId;
+//- (BOOL) hasJoinedGame:(NSString*)gameId;
+
 - (BOOL) hasJoinedTeam:(NSString *)teamId;
 
 - (BOOL) isReadyForGame;
@@ -21,6 +26,6 @@
 - (void) registerPlayerName:(NSString *)playerName;
 - (void) registerTeam:(NSString *)teamId;
 
-- (NSString *) playerNameInGame:(NSString *)gameId;
+//- (NSString *) playerNameInGame:(NSString *)gameId;
 
 @end

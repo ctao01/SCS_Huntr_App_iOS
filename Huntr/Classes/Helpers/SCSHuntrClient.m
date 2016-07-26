@@ -9,7 +9,7 @@
 #import "SCSHuntrClient.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 //#import "AFHTTPRequestOperationManager.h"
-#import "SCSEnvironment.h"
+//#import "SCSEnvironment.h"
 #import "SCSGame.h"
 #import "SCSClue.h"
 
@@ -20,8 +20,8 @@
 
 #ifdef DEV
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
-//#define API_SERVER_BASE_URL @"http://localhost:3000"
-#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
+#define API_SERVER_BASE_URL @"http://localhost:3000"
+//#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
 //#define API_SERVER_BASE_URL @"http://172.19.196.222:3000"
 //#elif defined(STAGE)
 //#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3033"

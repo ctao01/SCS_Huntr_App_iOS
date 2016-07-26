@@ -10,16 +10,16 @@
 
 @implementation NSString (EnumParser)
 
-- (SCSGameStatus) statusEnumFromString
-{
-    NSDictionary<NSString*,NSNumber*> *status = @{
-                                                    @"unknown": @(SCSGameStatusUnknown),
-                                                    @"not started": @(SCSGameStatusNotStarted),
-                                                    @"in progress": @(SCSGameStatusInProgress),
-                                                    @"completed": @(SCSGameStatusCompleted),
-                                                 };
-    return (SCSGameStatus)status[self.lowercaseString].integerValue;
-}
+//- (SCSGameStatus) statusEnumFromString
+//{
+//    NSDictionary<NSString*,NSNumber*> *status = @{
+//                                                    @"unknown": @(SCSGameStatusUnknown),
+//                                                    @"not started": @(SCSGameStatusNotStarted),
+//                                                    @"in progress": @(SCSGameStatusInProgress),
+//                                                    @"completed": @(SCSGameStatusCompleted),
+//                                                 };
+//    return (SCSGameStatus)status[self.lowercaseString].integerValue;
+//}
 
 - (SCSClueType) clueTypeFromString
 {

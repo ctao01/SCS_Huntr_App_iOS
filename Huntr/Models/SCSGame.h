@@ -21,10 +21,12 @@ typedef NS_ENUM(NSInteger, SCSGameStatus) {
 
 @interface SCSGame : SCSEntity
 
+@property (assign, readonly) SCSGameStatus  status;
+@property (assign, readonly) NSString *  statusText;
+
 @property (retain, nonatomic) NSString *    gameName;
 @property (retain, nonatomic) NSString *    gameID;
-@property (retain, nonatomic) NSString *    gameStatus;
-@property (assign, nonatomic) SCSGameStatus  status;
+//@property (retain, nonatomic) NSString *    gameStatus;
 @property (retain, nonatomic) SCSTeam *     myTeam;
 @property (retain, nonatomic) NSString *    myPlayerName;
 

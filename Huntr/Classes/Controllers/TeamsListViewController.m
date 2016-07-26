@@ -10,13 +10,15 @@
 #import "NewEntityViewController.h"
 #import "GameViewController.h"
 #import "SCSHuntrClient.h"
-#import "SCSEnvironment.h"
-#import "EnvironmentManger.h"
+//#import "SCSEnvironment.h"
+//#import "EnvironmentManger.h"
 
 
 @interface TeamsListViewController () <NewEntityControllerDelegate>
+
 @property (nonatomic , strong) NSArray * teams;
 @property (nonatomic , assign) NSIndexPath * joinedTeamIndexPath;
+
 @end
 
 @implementation TeamsListViewController
@@ -54,7 +56,10 @@
 - (void) refreshUI {
     
     if (self.selectedGame.status == SCSGameStatusInProgress) {
-        self.navigationItem.rightBarButtonItem.enabled = [[EnvironmentManger sharedManager] isReadyForGame];
+        
+//        self.navigationItem.rightBarButtonItem.enabled = [[EnvironmentManger sharedManager] isReadyForGame];
+        self.navigationItem.rightBarButtonItem.enabled = [SCSHuntrEnviromentManager sharedManager].hasActiveTeam;
+        
         self.addTeamBtn.enabled = NO;
         self.updateNameBtn.enabled = YES;
     }
@@ -71,7 +76,10 @@
 {
     [[SCSHuntrClient sharedClient] getAllTeamsWithSuccessBlock:^(NSArray * arrayResult) {
         [arrayResult enumerateObjectsUsingBlock:^(SCSTeam * obj, NSUInteger idx, BOOL * stop) {
-            BOOL joined = [[EnvironmentManger sharedManager] hasJoinedTeam:obj.teamID];
+            
+//            BOOL joined = [[EnvironmentManger sharedManager] hasJoinedTeam:obj.teamID];
+            BOOL joined = [[SCSHuntrEnviromentManager sharedManager] isPlayerMemberOfTeamID:obj.teamID];
+            
             if (joined == YES) {
                 self.joinedTeamIndexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             }
@@ -181,30 +189,30 @@
     // TODO: UPDATE USER NAME
     // CASE 1: Not yet selected team - NO API CALLED
     // CASE 2: Already selected team - Update
-    if (self.joinedTeamIndexPath != nil && [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerId] != nil)
-    {
-        //CASE 2
-        
-        [[SCSHuntrClient sharedClient] renamePlayerName:controller.nameField.text withSuccessBlock:^(id response) {
-            
-            [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
-            
-            /* Set Current Player Id */
-            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"playerID"] forKey:kCurrentPlayerId];
-
-            [controller dismissViewControllerAnimated:YES completion:nil];
-            
-        } failureBlock:^(NSString *errorString) {
-            [UIAlertController showAlertInViewController:self withTitle:@"Error" message:errorString cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
-        }];
-    }
-    else
-    {
-        // CASE 1
-        [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
-        /* Set Current Player Name */
-        [controller dismissViewControllerAnimated:YES completion:nil];
-    }
+//    if (self.joinedTeamIndexPath != nil && [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerId] != nil)
+//    {
+//        //CASE 2
+//        
+//        [[SCSHuntrClient sharedClient] renamePlayerName:controller.nameField.text withSuccessBlock:^(id response) {
+//            
+//            [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
+//            
+//            /* Set Current Player Id */
+//            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"playerID"] forKey:kCurrentPlayerId];
+//
+//            [controller dismissViewControllerAnimated:YES completion:nil];
+//            
+//        } failureBlock:^(NSString *errorString) {
+//            [UIAlertController showAlertInViewController:self withTitle:@"Error" message:errorString cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
+//        }];
+//    }
+//    else
+//    {
+//        // CASE 1
+//        [[EnvironmentManger sharedManager] registerPlayerName:controller.nameField.text];
+//        /* Set Current Player Name */
+//        [controller dismissViewControllerAnimated:YES completion:nil];
+//    }
     
 }
 
@@ -274,18 +282,14 @@
     static NSString * teamCellIdentifer = @"teamCellIdentifer";
     
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:teamCellIdentifer];
-    if (cell == nil)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:teamCellIdentifer];
     
-    
-      cell.textLabel.text = [(SCSTeam*)[self.teams objectAtIndex:indexPath.row] teamName];
+    cell.textLabel.text = [(SCSTeam*)[self.teams objectAtIndex:indexPath.row] teamName];
     
     UIButton * accessoryButton = nil;
     if (self.joinedTeamIndexPath == nil) {
         accessoryButton = [UIButton setupNormalStyle];
     }
-    else
-    {
+    else {
         accessoryButton = (indexPath.row == self.joinedTeamIndexPath.row) ? [UIButton setupJoinedStyle] : [UIButton setupNormalStyle];
     }
     
@@ -298,15 +302,16 @@
      accessoryButton inactive:
      1. Arleady joined a team if game is in progress
      */
-    if (self.selectedGame.status == SCSGameStatusInProgress && self.joinedTeamIndexPath != nil)
-    {
+    if (self.selectedGame.status == SCSGameStatusInProgress && self.joinedTeamIndexPath != nil) {
+        
         if (indexPath.row == self.joinedTeamIndexPath.row) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else cell.accessoryView = nil;
     }
-    else
+    else {
         cell.accessoryView = accessoryButton;
+    }
 
     return cell;
 }
@@ -342,7 +347,8 @@
 //                                }
 //                            }];
                             
-                            [[EnvironmentManger sharedManager] registerTeam:team.teamID];
+                            //[[EnvironmentManger sharedManager] registerTeam:team.teamID];
+                            [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
                             
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
@@ -392,7 +398,8 @@
 //                                }
 //                            }];
                             
-                            [[EnvironmentManger sharedManager] registerTeam:team.teamID];
+                            //[[EnvironmentManger sharedManager] registerTeam:team.teamID];
+                            [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 UITableViewCell * cell_new = [tableView cellForRowAtIndexPath:indexPath];
@@ -449,7 +456,8 @@
         }
         else if ([identifier isEqualToString:kGetGameSegueIdentifier])
         {
-            return [[EnvironmentManger sharedManager] isReadyForGame];
+            //return [[EnvironmentManger sharedManager] isReadyForGame];
+            return [SCSHuntrEnviromentManager sharedManager].hasActiveTeam;
         }
         else
         {

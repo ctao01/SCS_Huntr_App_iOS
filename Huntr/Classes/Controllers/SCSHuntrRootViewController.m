@@ -23,10 +23,12 @@
 {
     [super viewDidLoad];
     
-    NSData * storedPlayer = [[NSUserDefaults standardUserDefaults] dataForKey:kCurrentPlayer];
-    id decodedRegisteredPlayer = [NSKeyedUnarchiver unarchiveObjectWithData:storedPlayer];
+//    NSData * storedPlayer = [[NSUserDefaults standardUserDefaults] dataForKey:kCurrentPlayer];
+//    id decodedRegisteredPlayer = [NSKeyedUnarchiver unarchiveObjectWithData:storedPlayer];
     
-    if (decodedRegisteredPlayer && [decodedRegisteredPlayer isKindOfClass:[SCSRegisteredPlayer class]]) {
+    SCSRegisteredPlayer * registeredPlayer = [SCSHuntrEnviromentManager sharedManager].registeredPlayer;
+    
+    if (registeredPlayer) {
         [self showNavigationComponent];
     }
     else {
