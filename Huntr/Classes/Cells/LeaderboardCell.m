@@ -12,9 +12,19 @@
 
 - (void) setTheTeam:(SCSTeam *)theTeam
 {
-    self.rankLabel.text = ([theTeam.ranking integerValue]!= 0) ? [NSString stringWithFormat:@"%i",[theTeam.ranking intValue]]: @"1";
-    self.teamLabel.text = theTeam.teamName;
-    self.scoreLabel.text = [NSString stringWithFormat:@"%i",[theTeam.score intValue]];
+    if (_theTeam != theTeam) {
+        _theTeam = theTeam;
+        [self configureView];
+    }
+}
+
+- (void) configureView
+{
+    if (self.theTeam) {
+        self.rankLabel.text = ([self.theTeam.ranking integerValue]!= 0) ? [NSString stringWithFormat:@"%i",[self.theTeam.ranking intValue]]: @"1";
+        self.teamLabel.text = self.theTeam.teamName;
+        self.scoreLabel.text = [NSString stringWithFormat:@"%i",[self.theTeam.score intValue]];
+    }
 }
 
 @end

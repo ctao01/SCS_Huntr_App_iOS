@@ -18,7 +18,17 @@ typedef NS_ENUM(NSInteger, SCSClueType) {
     SCSClueTypePicture
 };
 
-@interface SCSClue : SCSEntity 
+typedef NS_ENUM(NSInteger, SCSClueState) {
+    SCSClueStateUnknown,
+    SCSClueStateUnawswered,
+    SCSClueStateAnswerPendingReview,
+    SCSClueStateAnswerAccepted,
+    SCSClueStateAnswerRejected
+};
+
+@interface SCSClue : SCSEntity
+
+@property (nonatomic, readonly) SCSClueState clueState;
 
 @property (strong, nonatomic) NSString *clueID;
 @property (strong, nonatomic) NSString *clueDescription;

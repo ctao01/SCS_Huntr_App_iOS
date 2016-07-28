@@ -9,7 +9,7 @@
 #import "SCSHuntrClient.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 //#import "AFHTTPRequestOperationManager.h"
-#import "SCSEnvironment.h"
+//#import "SCSEnvironment.h"
 #import "SCSGame.h"
 #import "SCSClue.h"
 
@@ -422,12 +422,12 @@
 
 - (void) addPlayerToTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-    NSString * currentPlayer= [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
+//    NSString * currentPlayer = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
     NSString * endPoint;
     switch (API_CRUD_VERSION) {
         case 1:
         {
-            endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, currentPlayer];
+            endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, self.playerName];
             [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (responseObject) successBlock(responseObject);
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -438,8 +438,8 @@
         }
             break;
         case 2:{
-            endPoint = [NSString stringWithFormat:@"teams/%@/players", teamId];
-            [self POST:[self urlStringWithEndPoint:endPoint] parameters:[NSDictionary dictionaryWithObjectsAndKeys:currentPlayer,@"playerName", nil] progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            endPoint = [NSString stringWithFormat:@"teams/%@/players/%@", teamId, self.playerId];
+            [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (responseObject)
                 {
                     if ([[responseObject objectForKey:@"players"] isKindOfClass:[NSArray class]])

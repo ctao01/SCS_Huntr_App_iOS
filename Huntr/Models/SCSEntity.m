@@ -25,7 +25,7 @@
 }
 
 - (NSDate *)dateForApiTimeString:(NSString *) apiTimeString {
-    return[dateFormatter dateFromString:apiTimeString];
+    return [dateFormatter dateFromString:apiTimeString];
 }
 
 

@@ -15,7 +15,7 @@
 @property (retain, nonatomic) NSString *teamName;
 @property (retain, nonatomic) NSNumber *ranking;
 @property (retain, nonatomic) NSNumber *score;
-@property (retain, nonatomic) NSArray *playerList;
+//@property (retain, nonatomic) NSArray *playerList;
 
 + (NSArray *) initWithJSON:(NSArray *) json;
 - (id)initWithJSON:(NSDictionary *) json;

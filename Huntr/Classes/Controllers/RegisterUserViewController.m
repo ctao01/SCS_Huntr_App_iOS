@@ -67,7 +67,8 @@
 
 - (void)registerPlayer:(NSDictionary *)playerInfo
 {
-    NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
+//    NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
+    NSString * deviceUUID = [SCSHuntrEnviromentManager sharedManager].deviceUUID;   
     
     [[SCSHuntrClient sharedClient] registerPlayer:deviceUUID params:playerInfo withSuccessBlock:^(id response) {
         // Swtitch views.
@@ -81,11 +82,13 @@
         
         SCSRegisteredPlayer * registeredPlayer = [[SCSRegisteredPlayer alloc] initWithJSON:response];
         
-        NSData *encodedRegisteredPlayer = [NSKeyedArchiver archivedDataWithRootObject:registeredPlayer];
-        [[NSUserDefaults standardUserDefaults] setObject:encodedRegisteredPlayer forKey:kCurrentPlayer];
-        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerName forKey:kCurrentPlayerName];
-        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerID forKey:kCurrentPlayerId];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [SCSHuntrEnviromentManager sharedManager].registeredPlayer = registeredPlayer;
+        
+//        NSData *encodedRegisteredPlayer = [NSKeyedArchiver archivedDataWithRootObject:registeredPlayer];
+//        [[NSUserDefaults standardUserDefaults] setObject:encodedRegisteredPlayer forKey:kCurrentPlayer];
+//        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerName forKey:kCurrentPlayerName];
+//        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerID forKey:kCurrentPlayerId];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
         
     } failureBlock:^(NSString *errorString) {
         // Alert that user chould not be registered.

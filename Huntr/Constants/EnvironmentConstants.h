@@ -23,13 +23,12 @@
 #define kCurrentGameId @"kCurrentGameId"
 #define kCurrentTeamId @"kCurrentTeamId"
 
+#define kPlayerGameDataStore @"kPlayerGameDataStore"
+
 #define kCurrentPlayer @"kCurrentPlayer"
 #define kCurrentPlayerName @"kCurrentPlayerName"
 #define kCurrentPlayerId @"kCurrentPlayerId"
 
-#define kGameId @"kGameId"
-#define kTeamId @"kTeamId"
-#define kPlayerName @"kPlayerName"
 
 #define kGetTeamsSegueIdentifier @"GetTeamsSegueIdentifier"
 #define kRegisterUserSegueIdentifier @"RegisterUserSegueIdentifier"

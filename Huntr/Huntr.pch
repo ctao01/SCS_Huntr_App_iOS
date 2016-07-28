@@ -17,7 +17,9 @@
     #import <Foundation/Foundation.h>
     #import <QuartzCore/QuartzCore.h>
 
-    #import <SVProgressHUD/SVProgressHUD.h>
+    #import "EnvironmentConstants.h"
+//    #import "EnvironmentManger.h"
+    #import "SCSHuntrEnviromentManager.h"
 
     #import "SCSGame.h"
     #import "SCSTeam.h"
@@ -27,8 +29,5 @@
     #import "UIButton+Style.h"
     #import "UIAlertController+Blocks.h"
 
-    #import "EnvironmentConstants.h"
-    #import "EnvironmentManger.h"
     #import "SCSHuntrClient.h"
-
 #endif

@@ -53,17 +53,17 @@ static float MilesToMeters(float miles) {
 
     self.descriptionTextView.text = self.selectedClue.clueDescription;
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
-    self.pointLabel.textColor =  (self.selectedClue.submittedAnswer.isCorrect) ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
+    self.pointLabel.textColor =  self.selectedClue.submittedAnswer.isCorrect ? [UIColor colorWithRed:76.0f/255.0f green:217.0f/255.0f blue:171.0f/255.0f alpha:1.0] : [UIColor darkGrayColor];
     self.clueTypeImageView.image = [UIImage imageNamed:@"Location"];
     if(self.selectedGame.status == SCSGameStatusInProgress)
     {
-        if (self.selectedClue.didSubmit == true && self.selectedClue.submittedAnswer.isCorrect == true)
+        if (self.selectedClue.didSubmit == YES && self.selectedClue.submittedAnswer.isCorrect)
         {
             self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
             
             SCSAnnotation * annotation = [[SCSAnnotation alloc] initWithCoordinate:self.selectedClue.submittedAnswer.answerLocation.coordinate];
             [self.answerMapView addAnnotation:annotation];
-            self.checkInButton.hidden = true;
+            self.checkInButton.hidden = YES;
             
         }
         else
@@ -78,15 +78,15 @@ static float MilesToMeters(float miles) {
             }
             self.locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
             self.locationManager.pausesLocationUpdatesAutomatically = NO;
-            self.checkInButton.hidden = false;
+            self.checkInButton.hidden = NO;
             [self.checkInButton setTitle:@"Check In" forState:UIControlStateNormal];
            
-            self.answerMapView.showsUserLocation  = true;
+            self.answerMapView.showsUserLocation  = YES;
         }
     }
     else if (self.selectedGame.status == SCSGameStatusCompleted)
     {
-        self.checkInButton.hidden = true;
+        self.checkInButton.hidden = YES;
         
         if (self.selectedClue.submittedAnswer.isCorrect) {
             self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
@@ -97,7 +97,7 @@ static float MilesToMeters(float miles) {
         else
         {
             self.pointLabel.textColor = [UIColor lightGrayColor];
-            self.answerMapView.showsUserLocation  = false;
+            self.answerMapView.showsUserLocation  =  NO;
         }
     }
 

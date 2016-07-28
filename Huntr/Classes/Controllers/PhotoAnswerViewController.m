@@ -17,10 +17,11 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
     self.clueTypeImageView.image = [UIImage imageNamed:@"Camera"];
     self.descriptionTextView.text = self.selectedClue.clueDescription;
     self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.selectedClue.pointValue intValue]];
-    self.takePhotoButton.hidden = (self.selectedGame.status == SCSGameStatusInProgress) ? false : true;
+    self.takePhotoButton.hidden = (self.selectedGame.status == SCSGameStatusInProgress) ? NO : YES;
     if (self.selectedClue.submittedAnswer.isCorrect)
     {
         self.pointLabel.textColor = [UIColor colorWithRed:76.0/255.0f green:217.0/255.0f blue:100.0/255.0 alpha:1];
@@ -49,7 +50,7 @@
         }
         else
         {
-            self.takePhotoButton.hidden = false;
+            self.takePhotoButton.hidden =  NO;
             [self.takePhotoButton setTitle:@"Take Photo" forState:UIControlStateNormal];
         }
     }
@@ -97,17 +98,15 @@
                                         }
                                         else {
                                             [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue successBlock:^(id response) {
-                                                [self.navigationController popViewControllerAnimated:true];
+                                                [self.navigationController popViewControllerAnimated:YES];
                                             } failureBlock:nil];
                                         }
                                     }];
     }
     else
     {
-        [SVProgressHUD showWithStatus:@"Sumit Answer"];
         [[SCSHuntrClient sharedClient] postAnswer:self.answerPicture withClue:self.selectedClue successBlock:^(id response) {
-            [SVProgressHUD dismiss];
-            [self.navigationController popViewControllerAnimated:true];
+            [self.navigationController popViewControllerAnimated:YES];
         } failureBlock:nil];
     }
 }
