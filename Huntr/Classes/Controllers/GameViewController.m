@@ -18,6 +18,8 @@
     [super viewDidLoad];
     self.selectedIndex = 0;
     
+//    self.tabBar.items
+    
     CluesListViewController * vcClue = [((UINavigationController*)[self.viewControllers objectAtIndex:1]).viewControllers objectAtIndex:0];
     vcClue.selectedGame = self.selectedGame;
 }

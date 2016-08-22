@@ -39,5 +39,7 @@
 #define kGoToPicAnswerSegueIdentifier @"GoToPicAnswerSegueIdentifier"
 #define kGoToLocAnswerSegueIdentifier @"GoToLocAnswerSegueIdentifier"
 
+#define kGameProfileSegueIdentifier @"GameProfileSegueIdentifier"
+
 
 #endif /* EnvironmentConstants_h */

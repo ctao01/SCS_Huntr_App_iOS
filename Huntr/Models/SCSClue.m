@@ -33,8 +33,11 @@
         
         if ([json objectForKey:@"answers"] != nil) {
             [[json objectForKey:@"answers"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+                
                 SCSAnswer * answer = [[SCSAnswer alloc] initWithJSON:obj];
-                if ([answer.teamId isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:kCurrentTeamId]])
+                NSString * activeTeamID = [SCSHuntrEnviromentManager sharedManager].activeTeamID;
+                
+                if ([answer.teamId isEqualToString:activeTeamID])
                 {
                     self.submittedAnswer = answer;
                     self.didSubmit = YES;

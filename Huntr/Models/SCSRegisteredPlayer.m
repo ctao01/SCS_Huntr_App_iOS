@@ -22,6 +22,7 @@
         self.authType = [json valueForKey:@"authType"];
         self.authID = [json valueForKey:@"authID"];
         self.email = [json valueForKey:@"email"];
+        self.pictureURL = [json valueForKey:@"pictureURL"];
     }
     return self;
 }
@@ -37,6 +38,7 @@
         self.authType = [decoder decodeObjectForKey:@"authType"];
         self.authID = [decoder decodeObjectForKey:@"authID"];
         self.email = [decoder decodeObjectForKey:@"email"];
+        self.pictureURL = [decoder decodeObjectForKey:@"pictureURL"];
     }
     return self;
 }
@@ -51,6 +53,17 @@
     [encoder encodeObject:self.authType forKey:@"authType"];
     [encoder encodeObject:self.authID forKey:@"authID"];
     [encoder encodeObject:self.email forKey:@"email"];
+    [encoder encodeObject:self.pictureURL forKey:@"pictureURL"];
+}
+
+- (SCSGame *)activeGame
+{
+    return [SCSHuntrEnviromentManager sharedManager].activeGame;
+}
+
+- (SCSTeam *)activeTeam
+{
+    return [self.activeGame teamWithId:[SCSHuntrEnviromentManager sharedManager].activeTeamID];
 }
 
 @end

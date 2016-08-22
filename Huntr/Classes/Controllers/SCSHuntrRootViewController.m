@@ -29,6 +29,7 @@
     SCSRegisteredPlayer * registeredPlayer = [SCSHuntrEnviromentManager sharedManager].registeredPlayer;
     
     if (registeredPlayer) {
+//        [self showPlayerRegistrationComponent];
         [self showNavigationComponent];
     }
     else {

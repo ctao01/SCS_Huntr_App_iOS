@@ -55,22 +55,22 @@
 
 - (NSString *) gameId
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentGameId];
+    return [SCSHuntrEnviromentManager sharedManager].activeGameID;
 }
 
 - (NSString *) teamId
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentTeamId];
+    return [SCSHuntrEnviromentManager sharedManager].activeTeamID;
 }
 
 - (NSString *) playerName
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerName];
+    return [SCSHuntrEnviromentManager sharedManager].registeredPlayer.playerName;
 }
 
 - (NSString *) playerId
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentPlayerId];
+    return [SCSHuntrEnviromentManager sharedManager].registeredPlayer.playerID;
 }
 
 - (id) initWithBaseURLString:(NSString *) urlString {
@@ -331,11 +331,10 @@
 
 - (void) addTeamToGame:(id)gameData successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
-    NSString * currentGameId = [[NSUserDefaults standardUserDefaults] objectForKey:@"current_game"];
     NSString * endPoint;
     switch (API_CRUD_VERSION) {
         case 1:
-            endPoint = [NSString stringWithFormat:@"team/%@",currentGameId];
+            endPoint = [NSString stringWithFormat:@"team/%@",self.gameId];
             break;
         case 2:
             endPoint = [NSString stringWithFormat:@"games/%@/teams",self.gameId];
@@ -719,9 +718,9 @@
 - (void) getLinkedInInfo:(NSString*)authToken params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     AFSecurityPolicy* policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
-    [policy setValidatesDomainName:NO]; 
+    [policy setValidatesDomainName:NO];
     
-    NSString * endPoint = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,email-address)?oauth2_access_token=%@&format=json", authToken];
+    NSString * endPoint = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,picture-url,email-address)?oauth2_access_token=%@&format=json", authToken];
     
     [self GET:endPoint parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject != nil) {

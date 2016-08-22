@@ -37,4 +37,6 @@ typedef NS_ENUM(NSInteger, SCSGameStatus) {
 
 - (id) initWithJSON:(NSDictionary *) json;
 
+- (SCSTeam *) teamWithId:(NSString *)teamID;
+
 @end

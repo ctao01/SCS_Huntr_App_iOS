@@ -10,6 +10,9 @@
 #import "SCSHuntrClient.h"
 //#import "SCSEnvironment.h"
 #import "GameCell.h"
+
+#import "SCSGameProfileViewController.h"
+
 #import "TeamsListViewController.h"
 #import "GameViewController.h"
 #import "NewEntityViewController.h"
@@ -18,15 +21,25 @@
 @property (nonatomic , strong) NSArray * games;
 @property (nonatomic , strong) SCSGame * selectedGame;
 @end
-
+//
 @implementation GamesListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
+    self.navigationController.navigationBar.translucent = YES;
+    
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
-    self.navigationController.navigationBarHidden = NO;
-
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -94,7 +107,7 @@
     static NSString * gameCellIdentifier = @"gameCellIdentifier";
     GameCell *cell = [tableView dequeueReusableCellWithIdentifier:gameCellIdentifier];
     
-    cell.theGame = [self.games objectAtIndex:indexPath.row];
+    cell.selectedGame = [self.games objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -102,25 +115,27 @@
 {
     self.selectedGame = [self.games objectAtIndex:indexPath.row];
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.selectedGame.gameID forKey:kCurrentGameId];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self performSegueWithIdentifier:kGameProfileSegueIdentifier sender:self];
     
-    if (self.selectedGame.status == SCSGameStatusCompleted)
-    {
-        [self performSegueWithIdentifier:kGetGameSegueIdentifier sender:self];
-    }
-    else
-    {
-//        if ([[EnvironmentManger sharedManager] hasJoinedGame:self.selectedGame.gameID] == NO)
-//        {
-//            [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
-//        }
-//        else {
-//            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager] playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
-            [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
-//        }
-
-    }
+//    [[NSUserDefaults standardUserDefaults] setObject:self.selectedGame.gameID forKey:kCurrentGameId];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    if (self.selectedGame.status == SCSGameStatusCompleted)
+//    {
+//        [self performSegueWithIdentifier:kGetGameSegueIdentifier sender:self];
+//    }
+//    else
+//    {
+////        if ([[EnvironmentManger sharedManager] hasJoinedGame:self.selectedGame.gameID] == NO)
+////        {
+////            [self performSegueWithIdentifier:kRegisterUserSegueIdentifier sender:self];
+////        }
+////        else {
+////            [[NSUserDefaults standardUserDefaults] setObject: [[EnvironmentManger sharedManager] playerNameInGame:self.selectedGame.gameID ] forKey:kCurrentPlayerName];
+//            [self performSegueWithIdentifier:kGetTeamsSegueIdentifier sender:self];
+////        }
+//
+//    }
 
 }
 
@@ -147,7 +162,11 @@
         TeamsListViewController * vcTeams = segue.destinationViewController;
         vcTeams.selectedGame = self.selectedGame;
     }
-    
+    else if ([[segue identifier] isEqualToString:kGameProfileSegueIdentifier])
+    {
+        SCSGameProfileViewController * gameProfile = segue.destinationViewController;
+        gameProfile.selectedGame = self.selectedGame;
+    }
 }
 
 

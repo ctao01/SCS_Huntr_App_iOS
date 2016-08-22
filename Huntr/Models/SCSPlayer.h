@@ -13,13 +13,10 @@
 
 @interface SCSPlayer : SCSEntity
 
-
 @property (retain, nonatomic) NSString *playerID;
 @property (retain, nonatomic) NSString *playerName;
 @property (retain, nonatomic) NSMutableArray *breadcrumbs;
-
-@property (retain, nonatomic) SCSGame * game;
-@property (retain, nonatomic) SCSTeam * team;
+@property (retain, nonatomic) NSString *pictureURL;
 
 + (NSArray *) initWithJSON:(NSArray *) json;
 - (id)initWithJSON:(NSDictionary *) json;
