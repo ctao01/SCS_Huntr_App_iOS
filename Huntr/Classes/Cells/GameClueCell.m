@@ -23,6 +23,12 @@
     self.statusImageView.image = [UIImage imageNamed:@"approval.png"];
     
     if (self.theClue) {
+        
+        if (self.selectedGame.status == SCSGameStatusCompleted && self.theClue.submittedAnswer == nil) {
+            self.selectionStyle  = UITableViewCellSelectionStyleNone;
+            self.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
         self.descriptionLabel.text = self.theClue.clueDescription;
         self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.theClue.pointValue intValue]];
         self.typeImageView.image = ([self.theClue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
@@ -31,6 +37,9 @@
         self.pendingStatusLabel.hidden = ((self.theClue.didSubmit) && self.theClue.submittedAnswer.isCorrect) ? NO : YES;
     }
     else {
+        
+        self.selectionStyle  = UITableViewCellSelectionStyleNone;
+        
         self.descriptionLabel.text = nil;
         self.pointLabel.text = nil;
         self.typeImageView.image = nil;

@@ -244,7 +244,8 @@
 
 - (BOOL) isPlayerMemberOfTeamID:(NSString *)teamID
 {
-    return [teamID isEqualToString:[self playerTeamIDForGameID:self.activeGameID]];
+    NSString * playerTeamID = [self playerTeamIDForGameID:self.activeGameID];
+    return [teamID isEqualToString:playerTeamID];
 }
 
 - (NSMutableDictionary *) playerGameData

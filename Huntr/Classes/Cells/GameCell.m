@@ -7,6 +7,8 @@
 //
 
 #import "GameCell.h"
+#import "NSDate+SCSHuntrHelpers.h"
+
 @interface GameCell() 
 
 @property (nonatomic, strong) NSTimer * gameTimer;
@@ -16,10 +18,10 @@
 @implementation GameCell
 
 - (void) dealloc {
-    [self.gameTimer invalidate];
+    [self invalidteGameTimer];
 }
 
-- (void) invalidteGameTime
+- (void) invalidteGameTimer
 {
     if (self.gameTimer) {
         [self.gameTimer invalidate];
@@ -27,53 +29,39 @@
     }
 }
 
-- (void) setTheGame:(SCSGame *)theGame
+-(void)updateGameTimer
 {
-    if (_theGame != theGame) {
-        _theGame = theGame;
+    //Get the time left until the specified date
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.durationLabel.text = [self.selectedGame.endDate prettyTimeRemaining];
+    });
+}
+
+- (void) setSelectedGame:(SCSGame *)selectedGame
+{
+    if (_selectedGame != selectedGame) {
+        _selectedGame = selectedGame;
         [self configureView];
     }
 }
 
 - (void) configureView
 {
-    self.titleLabel.text = self.theGame.gameName;
-    self.stateLabel.text = self.theGame.statusText;
-    self.durationLabel.hidden = (self.theGame.status == SCSGameStatusInProgress) ? NO: YES;
+    self.titleLabel.text = self.selectedGame.gameName;
+    self.stateLabel.text = self.selectedGame.statusText;
+    self.durationLabel.hidden = (self.selectedGame.status == SCSGameStatusInProgress) ? NO: YES;
     
-    if ([self.stateLabel.text isEqualToString:@"In Progress"])
+    [self invalidteGameTimer];
+    
+    if (self.selectedGame.status == SCSGameStatusInProgress)
     {
-        [self.gameTimer invalidate];
-        
-        NSInteger ti = ((NSInteger)[self.theGame.endDate timeIntervalSinceNow]);
-        int seconds = ti % 60;
-        int minutes = (ti / 60) % 60;
-        int hours = (ti / 3600) % 24;
-        
-        self.durationLabel.text = [NSString stringWithFormat:@"%dh %dm %ds", hours, minutes, seconds];
-        
-        [NSTimer scheduledTimerWithTimeInterval:1.0
-                                         target:self
-                                       selector:@selector(updateTimer)
-                                       userInfo:nil
-                                        repeats:YES];
-    }
-    else {
-        [self.gameTimer invalidate];
-    }
-}
-
--(void)updateTimer
-{
-    //Get the time left until the specified date
-    NSInteger ti = ((NSInteger)[self.theGame.endDate timeIntervalSinceNow]);
-    if (ti > 0)
-    {
-        int seconds = ti % 60;
-        int minutes = (ti / 60) % 60;
-        int hours = (ti / 3600) % 24;
-        
-        self.durationLabel.text = [NSString stringWithFormat:@"%dh %dm %ds", hours, minutes, seconds];
+        [self updateGameTimer];
+        self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                          target:self
+                                                        selector:@selector(updateGameTimer)
+                                                        userInfo:nil
+                                                         repeats:YES];
     }
 }
 

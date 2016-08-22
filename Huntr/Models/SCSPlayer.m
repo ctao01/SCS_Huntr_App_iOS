@@ -27,6 +27,7 @@
         _playerName =[json valueForKey:@"name"];
         _playerID =[json valueForKey:@"_id"];
         _breadcrumbs = [json valueForKey:@"breadcrumbs"];
+        _pictureURL = [json valueForKey:@"pictureURL"];
     }
     return self;
 }
@@ -37,6 +38,7 @@
         self.playerName =[decoder decodeObjectForKey:@"name"];
         self.playerID =[decoder decodeObjectForKey:@"_id"];
         self.breadcrumbs = [decoder decodeObjectForKey:@"breadcrumbs"];
+        self.pictureURL = [decoder decodeObjectForKey:@"pictureURL"];
     }
     return self;
 }
@@ -46,7 +48,10 @@
     [encoder encodeObject:self.playerName forKey:@"name"];
     [encoder encodeObject:self.playerID forKey:@"_id"];
     [encoder encodeObject:self.breadcrumbs forKey:@"breadcrumbs"];
+    [encoder encodeObject:self.pictureURL forKey:@"pictureURL"];
 }
+
+
 
 
 @end

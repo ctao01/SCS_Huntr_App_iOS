@@ -11,7 +11,7 @@
 
 @interface GameCell : UITableViewCell
 
-@property (nonatomic , strong) SCSGame * theGame;
+@property (nonatomic , strong) SCSGame * selectedGame;
 
 @property (nonatomic , strong) IBOutlet UILabel * titleLabel;
 @property (nonatomic , strong) IBOutlet UILabel * stateLabel;

@@ -77,7 +77,7 @@
         
 //        SCSHuntrRootViewController *rootController =(SCSHuntrRootViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window]rootViewController];
         
-        SCSHuntrRootViewController *rootController =(SCSHuntrRootViewController*)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+        SCSHuntrRootViewController *rootController = (SCSHuntrRootViewController*)[[[UIApplication sharedApplication] delegate] window].rootViewController;
         [rootController showNavigationComponent];
         
         SCSRegisteredPlayer * registeredPlayer = [[SCSRegisteredPlayer alloc] initWithJSON:response];
@@ -184,6 +184,7 @@
                 
                 if (response && [response isKindOfClass:[NSDictionary class]]) {
                     playerInfo[@"email"] = response[@"emailAddress"];
+                    playerInfo[@"pictureURL"] = response[@"pictureUrl"]; // Note the case change.
                 }
                 
                 [self registerPlayer:playerInfo];
@@ -216,6 +217,8 @@
         NSString * firstName = payload[@"user_info"][@"first_name"];
         NSString * lastName = payload[@"user_info"][@"last_name"];
         NSString * playerName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+        NSString * email = payload[@"email"];
+        NSString * pictureURL = payload[@"pictureUrl"]; // Note the case change...
         
 //        if (deviceUUID) playerInfo[@"deviceUUID"] = deviceUUID;
         if (authToken) playerInfo[@"authToken"] = authToken;
@@ -224,6 +227,8 @@
         if (authID) playerInfo[@"authID"] = authID;
         
         if (playerName) playerInfo[@"playerName"] = playerName;
+        if (email) playerInfo[@"email"] = email;
+        if (pictureURL) playerInfo[@"pictureURL"] = pictureURL;
         
         NSLog(@"\playerInfo: %@", playerInfo);
         
@@ -250,6 +255,7 @@
         
         NSString * playerName = payload[@"info"][@"name"];
         NSString * email = payload[@"info"][@"email"];
+        NSString * pictureURL = [NSString stringWithFormat:@"http://graph.facebook.com/v2.7/%@/picture", authID];
         
         //        if (deviceUUID) playerInfo[@"deviceUUID"] = deviceUUID;
         if (authToken) playerInfo[@"authToken"] = authToken;
@@ -259,6 +265,7 @@
         
         if (playerName) playerInfo[@"playerName"] = playerName;
         if (email) playerInfo[@"email"] = email;
+        if (pictureURL) playerInfo[@"pictureURL"] = pictureURL;
         
         NSLog(@"\playerInfo: %@", playerInfo);
         
@@ -285,6 +292,7 @@
         
         NSString * playerName = payload[@"info"][@"name"];
         NSString * email = payload[@"info"][@"email"];
+        NSString * pictureURL = payload[@"info"][@"image"];
         
         //        if (deviceUUID) playerInfo[@"deviceUUID"] = deviceUUID;
         if (authToken) playerInfo[@"authToken"] = authToken;
@@ -294,6 +302,7 @@
         
         if (playerName) playerInfo[@"playerName"] = playerName;
         if (email) playerInfo[@"email"] = email;
+        if (pictureURL) playerInfo[@"pictureURL"] = pictureURL;
         
         NSLog(@"\playerInfo: %@", playerInfo);
         

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCSGame.h"
 #import "SCSClue.h"
 
 @interface GameClueCell : UITableViewCell
 
-@property (nonatomic, strong) SCSClue * theClue;
+@property (nonatomic, weak) SCSGame * selectedGame;
+@property (nonatomic, weak) SCSClue * theClue;
 
 @property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *pointLabel;
