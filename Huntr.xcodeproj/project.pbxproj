@@ -70,6 +70,9 @@
 		954247F41D01274A00E3CE07 /* reject@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F11D01274A00E3CE07 /* reject@2x.png */; };
 		954247F51D01274A00E3CE07 /* approved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F21D01274A00E3CE07 /* approved@2x.png */; };
 		954247F71D0128EA00E3CE07 /* approval@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F61D0128EA00E3CE07 /* approval@2x.png */; };
+		9569EF931D6D477A00C827F5 /* SCSVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EF921D6D477A00C827F5 /* SCSVisualEffectView.m */; };
+		9569EFBD1D6E012000C827F5 /* UINavigationBar+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFBC1D6E012000C827F5 /* UINavigationBar+Styles.m */; };
+		9569EFC81D6E04BC00C827F5 /* SCSClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFC71D6E04BC00C827F5 /* SCSClueViewController.m */; };
 		95E4AD2F1CE6C0C500F9F04B /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */; };
 		95E9F2341CD41B5100B0B909 /* Camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2271CD41B5100B0B909 /* Camera@2x.png */; };
 		95E9F2351CD41B5100B0B909 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2281CD41B5100B0B909 /* Checkmark@2x.png */; };
@@ -201,6 +204,38 @@
 		954247F11D01274A00E3CE07 /* reject@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reject@2x.png"; sourceTree = "<group>"; };
 		954247F21D01274A00E3CE07 /* approved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approved@2x.png"; sourceTree = "<group>"; };
 		954247F61D0128EA00E3CE07 /* approval@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approval@2x.png"; sourceTree = "<group>"; };
+		9569EF911D6D477A00C827F5 /* SCSVisualEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSVisualEffectView.h; sourceTree = "<group>"; };
+		9569EF921D6D477A00C827F5 /* SCSVisualEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSVisualEffectView.m; sourceTree = "<group>"; };
+		9569EF941D6D4E2100C827F5 /* map-car@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-car@2x.png"; sourceTree = "<group>"; };
+		9569EF951D6D4E2100C827F5 /* map-car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-car.png"; sourceTree = "<group>"; };
+		9569EF961D6D4E2100C827F5 /* map-checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-checkin.png"; sourceTree = "<group>"; };
+		9569EF971D6D4E2100C827F5 /* map-checkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-checkin@2x.png"; sourceTree = "<group>"; };
+		9569EF981D6D4E2100C827F5 /* photo-gallery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-gallery.png"; sourceTree = "<group>"; };
+		9569EF991D6D4E2100C827F5 /* photo-gallery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-gallery@2x.png"; sourceTree = "<group>"; };
+		9569EF9A1D6D4E2100C827F5 /* camera-flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-flash.png"; sourceTree = "<group>"; };
+		9569EF9B1D6D4E2100C827F5 /* camera-flash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-flash@2x.png"; sourceTree = "<group>"; };
+		9569EF9C1D6D4E2100C827F5 /* camera-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-switch.png"; sourceTree = "<group>"; };
+		9569EF9D1D6D4E2100C827F5 /* camera-switch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-switch@2x.png"; sourceTree = "<group>"; };
+		9569EFA81D6D4EA900C827F5 /* SCSLocationTypeClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSLocationTypeClueViewController.h; sourceTree = "<group>"; };
+		9569EFA91D6D4EA900C827F5 /* SCSLocationTypeClueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSLocationTypeClueViewController.m; sourceTree = "<group>"; };
+		9569EFAB1D6D4FC000C827F5 /* UIView+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animations.h"; sourceTree = "<group>"; };
+		9569EFAC1D6D4FC000C827F5 /* UIView+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animations.m"; sourceTree = "<group>"; };
+		9569EFAE1D6D576300C827F5 /* ViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUtils.h; sourceTree = "<group>"; };
+		9569EFAF1D6D576300C827F5 /* ViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
+		9569EFB11D6D57A000C827F5 /* SCSCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSCameraViewController.h; sourceTree = "<group>"; };
+		9569EFB21D6D57A000C827F5 /* SCSCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSCameraViewController.m; sourceTree = "<group>"; };
+		9569EFB41D6D5A2100C827F5 /* SCSPictureTypeClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSPictureTypeClueViewController.h; sourceTree = "<group>"; };
+		9569EFB51D6D5A2100C827F5 /* SCSPictureTypeClueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSPictureTypeClueViewController.m; sourceTree = "<group>"; };
+		9569EFB71D6DEB2100C827F5 /* map-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-marker.png"; sourceTree = "<group>"; };
+		9569EFB81D6DEB2100C827F5 /* map-marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-marker@2x.png"; sourceTree = "<group>"; };
+		9569EFBB1D6E012000C827F5 /* UINavigationBar+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Styles.h"; sourceTree = "<group>"; };
+		9569EFBC1D6E012000C827F5 /* UINavigationBar+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Styles.m"; sourceTree = "<group>"; };
+		9569EFBE1D6E044100C827F5 /* clueIndicatorAccepted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clueIndicatorAccepted@2x.png"; sourceTree = "<group>"; };
+		9569EFBF1D6E044100C827F5 /* clueIndicatorPending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clueIndicatorPending@2x.png"; sourceTree = "<group>"; };
+		9569EFC01D6E044100C827F5 /* clueIndicatorRejected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clueIndicatorRejected@2x.png"; sourceTree = "<group>"; };
+		9569EFC11D6E044100C827F5 /* clueIndicatorUnanswered@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clueIndicatorUnanswered@2x.png"; sourceTree = "<group>"; };
+		9569EFC61D6E04BC00C827F5 /* SCSClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSClueViewController.h; sourceTree = "<group>"; };
+		9569EFC71D6E04BC00C827F5 /* SCSClueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSClueViewController.m; sourceTree = "<group>"; };
 		95E4AD2D1CE6C0C500F9F04B /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
 		95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		95E9F2271CD41B5100B0B909 /* Camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera@2x.png"; sourceTree = "<group>"; };
@@ -344,6 +379,10 @@
 				1342A01E1D0B62EE00168C59 /* NSString+UUID.m */,
 				13A2C6A71D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.h */,
 				13A2C6A81D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.m */,
+				9569EFAB1D6D4FC000C827F5 /* UIView+Animations.h */,
+				9569EFAC1D6D4FC000C827F5 /* UIView+Animations.m */,
+				9569EFBB1D6E012000C827F5 /* UINavigationBar+Styles.h */,
+				9569EFBC1D6E012000C827F5 /* UINavigationBar+Styles.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -397,6 +436,8 @@
 				13E426651D6400CA002307D8 /* ProfileViewController.m */,
 				138B997A1D680535001CC134 /* SCSGameProfileViewController.h */,
 				138B997B1D680535001CC134 /* SCSGameProfileViewController.m */,
+				9569EFC61D6E04BC00C827F5 /* SCSClueViewController.h */,
+				9569EFC71D6E04BC00C827F5 /* SCSClueViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -427,6 +468,8 @@
 			children = (
 				9520456C1CD2F40E007C1431 /* TeamAccessoryButton.h */,
 				9520456D1CD2F40E007C1431 /* TeamAccessoryButton.m */,
+				9569EF911D6D477A00C827F5 /* SCSVisualEffectView.h */,
+				9569EF921D6D477A00C827F5 /* SCSVisualEffectView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -685,12 +728,14 @@
 				13E4266C1D640223002307D8 /* AvatarImageView.m in Sources */,
 				9520456E1CD2F40E007C1431 /* NSString+EnumParser.m in Sources */,
 				130AC56A1D3462020034CBA8 /* SCSRegisteredPlayer.m in Sources */,
+				9569EFBD1D6E012000C827F5 /* UINavigationBar+Styles.m in Sources */,
 				9520457C1CD2F40E007C1431 /* GameViewController.m in Sources */,
 				952045841CD2F40E007C1431 /* SCSHuntrClient.m in Sources */,
 				952045821CD2F40E007C1431 /* DismissSegue.m in Sources */,
 				952045851CD2F40E007C1431 /* TeamAccessoryButton.m in Sources */,
 				13A2C6A91D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.m in Sources */,
 				1342A01F1D0B62EE00168C59 /* NSString+UUID.m in Sources */,
+				9569EF931D6D477A00C827F5 /* SCSVisualEffectView.m in Sources */,
 				952045831CD2F40E007C1431 /* EnvironmentManger.m in Sources */,
 				952045AD1CD2F456007C1431 /* SCSGame.m in Sources */,
 				952045AA1CD2F456007C1431 /* SCSAnswer.m in Sources */,
@@ -698,6 +743,7 @@
 				952045AC1CD2F456007C1431 /* SCSEntity.m in Sources */,
 				132DAF691D2630A70002172B /* RegisterUserViewController.m in Sources */,
 				952045771CD2F40E007C1431 /* TeamCell.m in Sources */,
+				9569EFC81D6E04BC00C827F5 /* SCSClueViewController.m in Sources */,
 				9520457E1CD2F40E007C1431 /* LocationAnswerViewController.m in Sources */,
 				952045801CD2F40E007C1431 /* PhotoAnswerViewController.m in Sources */,
 				952045761CD2F40E007C1431 /* LeaderboardCell.m in Sources */,

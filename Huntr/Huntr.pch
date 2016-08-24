@@ -28,6 +28,7 @@
     #import "NSString+EnumParser.h"
     #import "UIButton+Style.h"
     #import "UIAlertController+Blocks.h"
+    #import "UINavigationBar+Styles.h"
 
     #import "SCSHuntrClient.h"
 #endif

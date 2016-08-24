@@ -45,20 +45,7 @@
                 }
             }];
         }
-        self.clueLocation = [[CLLocation alloc] initWithLatitude:[[json objectForKey:@"latitude"] doubleValue] longitude:[[json objectForKey:@"longitude"] doubleValue]];
-        
-//        _clueID = [json valueForKey:@"_id"];
-//        _clueDescription = [json valueForKey:@"description"];
-//        _type = [json valueForKey:@"type"];
-//        _pointValue = [json valueForKey:@"pointValue"];
-//        _latitude = [json valueForKey:@"latitude"];
-//        _longitude = [json valueForKey:@"longitude"];
-//
-//        _didSubmit = (_submittedAnswer) ? YES : NO;
-//        
-//        if(_longitude != nil && _latitude != nil)_clueLocation = [[CLLocation alloc] initWithLatitude:[_latitude doubleValue] longitude:[_longitude doubleValue]];
-//
-//        
+        self.clueLocation = [[CLLocation alloc] initWithLatitude:[[json objectForKey:@"latitude"] doubleValue] longitude:[[json objectForKey:@"longitude"] doubleValue]]; 
     
     }
     return self;
