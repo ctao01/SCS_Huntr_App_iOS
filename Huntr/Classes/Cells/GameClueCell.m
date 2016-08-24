@@ -20,8 +20,6 @@
 
 - (void) configureView
 {
-    self.statusImageView.image = [UIImage imageNamed:@"approval.png"];
-    
     if (self.theClue) {
         
         if (self.selectedGame.status == SCSGameStatusCompleted && self.theClue.submittedAnswer == nil) {
@@ -33,8 +31,26 @@
         self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.theClue.pointValue intValue]];
         self.typeImageView.image = ([self.theClue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
         
-        self.statusImageView.hidden = (!self.theClue.didSubmit) || self.theClue.submittedAnswer.isPending || (self.theClue.didSubmit == YES && self.theClue.submittedAnswer.isCorrect == NO);
-        self.pendingStatusLabel.hidden = ((self.theClue.didSubmit) && self.theClue.submittedAnswer.isCorrect) ? NO : YES;
+//        self.statusImageView.hidden = (!self.theClue.didSubmit) || self.theClue.submittedAnswer.isPending || (self.theClue.didSubmit == YES && self.theClue.submittedAnswer.isCorrect == NO);
+//        self.pendingStatusLabel.hidden = ((self.theClue.didSubmit) && self.theClue.submittedAnswer.isCorrect) ? NO : YES;
+        
+        if (self.theClue.clueState == SCSClueStateAnswerPendingReview)
+        {
+            self.statusImageView.image = [UIImage imageNamed:@"clueIndicatorPending"];
+        }
+        else if (self.theClue.clueState == SCSClueStateAnswerAccepted)
+        {
+            self.statusImageView.image = [UIImage imageNamed:@"clueIndicatorAccepted"];
+
+        }
+        else if (self.theClue.clueState == SCSClueStateAnswerRejected)
+        {
+            self.statusImageView.image = [UIImage imageNamed:@"clueIndicatorRejected"];
+        }
+        else
+        {
+            self.statusImageView.image = [UIImage imageNamed:@"clueIndicatorUnanswered"];
+        }
     }
     else {
         
@@ -45,7 +61,6 @@
         self.typeImageView.image = nil;
         
         self.statusImageView.hidden = YES;
-        self.pendingStatusLabel.hidden = YES;
     }
 }
 

@@ -71,7 +71,28 @@
 		954247F51D01274A00E3CE07 /* approved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F21D01274A00E3CE07 /* approved@2x.png */; };
 		954247F71D0128EA00E3CE07 /* approval@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F61D0128EA00E3CE07 /* approval@2x.png */; };
 		9569EF931D6D477A00C827F5 /* SCSVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EF921D6D477A00C827F5 /* SCSVisualEffectView.m */; };
+		9569EF9E1D6D4E2100C827F5 /* map-car@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF941D6D4E2100C827F5 /* map-car@2x.png */; };
+		9569EF9F1D6D4E2100C827F5 /* map-car.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF951D6D4E2100C827F5 /* map-car.png */; };
+		9569EFA01D6D4E2100C827F5 /* map-checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF961D6D4E2100C827F5 /* map-checkin.png */; };
+		9569EFA11D6D4E2100C827F5 /* map-checkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF971D6D4E2100C827F5 /* map-checkin@2x.png */; };
+		9569EFA21D6D4E2100C827F5 /* photo-gallery.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF981D6D4E2100C827F5 /* photo-gallery.png */; };
+		9569EFA31D6D4E2100C827F5 /* photo-gallery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF991D6D4E2100C827F5 /* photo-gallery@2x.png */; };
+		9569EFA41D6D4E2100C827F5 /* camera-flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF9A1D6D4E2100C827F5 /* camera-flash.png */; };
+		9569EFA51D6D4E2100C827F5 /* camera-flash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF9B1D6D4E2100C827F5 /* camera-flash@2x.png */; };
+		9569EFA61D6D4E2100C827F5 /* camera-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF9C1D6D4E2100C827F5 /* camera-switch.png */; };
+		9569EFA71D6D4E2100C827F5 /* camera-switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF9D1D6D4E2100C827F5 /* camera-switch@2x.png */; };
+		9569EFAA1D6D4EA900C827F5 /* SCSLocationTypeClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFA91D6D4EA900C827F5 /* SCSLocationTypeClueViewController.m */; };
+		9569EFAD1D6D4FC000C827F5 /* UIView+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFAC1D6D4FC000C827F5 /* UIView+Animations.m */; };
+		9569EFB01D6D576300C827F5 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFAF1D6D576300C827F5 /* ViewUtils.m */; };
+		9569EFB31D6D57A000C827F5 /* SCSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFB21D6D57A000C827F5 /* SCSCameraViewController.m */; };
+		9569EFB61D6D5A2100C827F5 /* SCSPictureTypeClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFB51D6D5A2100C827F5 /* SCSPictureTypeClueViewController.m */; };
+		9569EFB91D6DEB2100C827F5 /* map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EFB71D6DEB2100C827F5 /* map-marker.png */; };
+		9569EFBA1D6DEB2100C827F5 /* map-marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EFB81D6DEB2100C827F5 /* map-marker@2x.png */; };
 		9569EFBD1D6E012000C827F5 /* UINavigationBar+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFBC1D6E012000C827F5 /* UINavigationBar+Styles.m */; };
+		9569EFC21D6E044100C827F5 /* clueIndicatorAccepted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EFBE1D6E044100C827F5 /* clueIndicatorAccepted@2x.png */; };
+		9569EFC31D6E044100C827F5 /* clueIndicatorPending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EFBF1D6E044100C827F5 /* clueIndicatorPending@2x.png */; };
+		9569EFC41D6E044100C827F5 /* clueIndicatorRejected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EFC01D6E044100C827F5 /* clueIndicatorRejected@2x.png */; };
+		9569EFC51D6E044100C827F5 /* clueIndicatorUnanswered@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EFC11D6E044100C827F5 /* clueIndicatorUnanswered@2x.png */; };
 		9569EFC81D6E04BC00C827F5 /* SCSClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EFC71D6E04BC00C827F5 /* SCSClueViewController.m */; };
 		95E4AD2F1CE6C0C500F9F04B /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E4AD2E1CE6C0C500F9F04B /* UIAlertController+Blocks.m */; };
 		95E9F2341CD41B5100B0B909 /* Camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F2271CD41B5100B0B909 /* Camera@2x.png */; };
@@ -438,6 +459,12 @@
 				138B997B1D680535001CC134 /* SCSGameProfileViewController.m */,
 				9569EFC61D6E04BC00C827F5 /* SCSClueViewController.h */,
 				9569EFC71D6E04BC00C827F5 /* SCSClueViewController.m */,
+				9569EFA81D6D4EA900C827F5 /* SCSLocationTypeClueViewController.h */,
+				9569EFA91D6D4EA900C827F5 /* SCSLocationTypeClueViewController.m */,
+				9569EFB41D6D5A2100C827F5 /* SCSPictureTypeClueViewController.h */,
+				9569EFB51D6D5A2100C827F5 /* SCSPictureTypeClueViewController.m */,
+				9569EFB11D6D57A000C827F5 /* SCSCameraViewController.h */,
+				9569EFB21D6D57A000C827F5 /* SCSCameraViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -445,6 +472,8 @@
 		952045641CD2F40E007C1431 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				9569EFAE1D6D576300C827F5 /* ViewUtils.h */,
+				9569EFAF1D6D576300C827F5 /* ViewUtils.m */,
 				952045651CD2F40E007C1431 /* DismissSegue.h */,
 				952045661CD2F40E007C1431 /* DismissSegue.m */,
 				130D9B741D12716900F7C9B8 /* SCSPushNotificationManager.h */,
@@ -515,6 +544,22 @@
 		95E9F2261CD41B5100B0B909 /* Assests */ = {
 			isa = PBXGroup;
 			children = (
+				9569EFBE1D6E044100C827F5 /* clueIndicatorAccepted@2x.png */,
+				9569EFBF1D6E044100C827F5 /* clueIndicatorPending@2x.png */,
+				9569EFC01D6E044100C827F5 /* clueIndicatorRejected@2x.png */,
+				9569EFC11D6E044100C827F5 /* clueIndicatorUnanswered@2x.png */,
+				9569EFB71D6DEB2100C827F5 /* map-marker.png */,
+				9569EFB81D6DEB2100C827F5 /* map-marker@2x.png */,
+				9569EF941D6D4E2100C827F5 /* map-car@2x.png */,
+				9569EF951D6D4E2100C827F5 /* map-car.png */,
+				9569EF961D6D4E2100C827F5 /* map-checkin.png */,
+				9569EF971D6D4E2100C827F5 /* map-checkin@2x.png */,
+				9569EF981D6D4E2100C827F5 /* photo-gallery.png */,
+				9569EF991D6D4E2100C827F5 /* photo-gallery@2x.png */,
+				9569EF9A1D6D4E2100C827F5 /* camera-flash.png */,
+				9569EF9B1D6D4E2100C827F5 /* camera-flash@2x.png */,
+				9569EF9C1D6D4E2100C827F5 /* camera-switch.png */,
+				9569EF9D1D6D4E2100C827F5 /* camera-switch@2x.png */,
 				139FCC7D1D335C66002ABAB2 /* alley_blue_bg@2x.jpg */,
 				139FCC7B1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png */,
 				139FCC6B1D30A9EE002ABAB2 /* alley_bg@2x.jpg */,
@@ -616,11 +661,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9569EFC21D6E044100C827F5 /* clueIndicatorAccepted@2x.png in Resources */,
+				9569EFA51D6D4E2100C827F5 /* camera-flash@2x.png in Resources */,
 				9520452D1CD2F0D0007C1431 /* LaunchScreen.storyboard in Resources */,
 				95E9F2381CD41B5100B0B909 /* find-discover.png in Resources */,
+				9569EFA01D6D4E2100C827F5 /* map-checkin.png in Resources */,
+				9569EFA61D6D4E2100C827F5 /* camera-switch.png in Resources */,
 				95E9F2371CD41B5100B0B909 /* find-discover-2x.png in Resources */,
 				95E9F23C1CD41B5100B0B909 /* limo-icon.png in Resources */,
 				95E9F23D1CD41B5100B0B909 /* limo-icon2x.png in Resources */,
+				9569EFC41D6E044100C827F5 /* clueIndicatorRejected@2x.png in Resources */,
 				139FCC731D30A9EE002ABAB2 /* alley_bg@2x.jpg in Resources */,
 				954247F41D01274A00E3CE07 /* reject@2x.png in Resources */,
 				139FCC7C1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png in Resources */,
@@ -628,16 +678,25 @@
 				139FCC7E1D335C66002ABAB2 /* alley_blue_bg@2x.jpg in Resources */,
 				139FCC771D30A9EE002ABAB2 /* login_linkedIn_liBlue@2x.png in Resources */,
 				9520452A1CD2F0D0007C1431 /* Assets.xcassets in Resources */,
+				9569EF9E1D6D4E2100C827F5 /* map-car@2x.png in Resources */,
 				139FCC781D30A9EE002ABAB2 /* login_linkedIn_white@2x.png in Resources */,
 				95E9F23B1CD41B5100B0B909 /* Leaderboard@2x.png in Resources */,
+				9569EFA71D6D4E2100C827F5 /* camera-switch@2x.png in Resources */,
+				9569EFC51D6E044100C827F5 /* clueIndicatorUnanswered@2x.png in Resources */,
 				139FCC761D30A9EE002ABAB2 /* login_facebook_white@2x.png in Resources */,
+				9569EFB91D6DEB2100C827F5 /* map-marker.png in Resources */,
 				952045361CD2F3D6007C1431 /* Huntrv2.storyboard in Resources */,
 				139FCC7A1D30A9EE002ABAB2 /* login_twitter_white@2x.png in Resources */,
 				139FCC741D30A9EE002ABAB2 /* huntr_login_logo@2x.png in Resources */,
 				95E9F23E1CD41B5100B0B909 /* location@2x.png in Resources */,
+				9569EFA41D6D4E2100C827F5 /* camera-flash.png in Resources */,
 				139FCC791D30A9EE002ABAB2 /* login_twitter_twBlue@2x.png in Resources */,
+				9569EF9F1D6D4E2100C827F5 /* map-car.png in Resources */,
+				9569EFA21D6D4E2100C827F5 /* photo-gallery.png in Resources */,
 				954247F71D0128EA00E3CE07 /* approval@2x.png in Resources */,
+				9569EFA31D6D4E2100C827F5 /* photo-gallery@2x.png in Resources */,
 				954247F31D01274A00E3CE07 /* pending@2x.png in Resources */,
+				9569EFBA1D6DEB2100C827F5 /* map-marker@2x.png in Resources */,
 				95E9F2401CD41B5100B0B909 /* start-button.png in Resources */,
 				95E9F23A1CD41B5100B0B909 /* hunt-green-white.png in Resources */,
 				13BA67981D47169D00EB932C /* Huntrv3.storyboard in Resources */,
@@ -647,6 +706,8 @@
 				954247F51D01274A00E3CE07 /* approved@2x.png in Resources */,
 				139FCC751D30A9EE002ABAB2 /* login_facebook_fbBlue@2x.png in Resources */,
 				95E9F23F1CD41B5100B0B909 /* start-button-2x.png in Resources */,
+				9569EFA11D6D4E2100C827F5 /* map-checkin@2x.png in Resources */,
+				9569EFC31D6E044100C827F5 /* clueIndicatorPending@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,7 +782,9 @@
 				9520457D1CD2F40E007C1431 /* LeaderboardViewController.m in Sources */,
 				952045711CD2F40E007C1431 /* UIImage+Alpha.m in Sources */,
 				130D9B761D12716900F7C9B8 /* SCSPushNotificationManager.m in Sources */,
+				9569EFAA1D6D4EA900C827F5 /* SCSLocationTypeClueViewController.m in Sources */,
 				952045AF1CD2F456007C1431 /* SCSTeam.m in Sources */,
+				9569EFB61D6D5A2100C827F5 /* SCSPictureTypeClueViewController.m in Sources */,
 				13E426691D640124002307D8 /* TWTButton.m in Sources */,
 				9520457B1CD2F40E007C1431 /* GamesListViewController.m in Sources */,
 				952045781CD2F40E007C1431 /* SCSEnvironment.m in Sources */,
@@ -742,6 +805,8 @@
 				952045751CD2F40E007C1431 /* GameClueCell.m in Sources */,
 				952045AC1CD2F456007C1431 /* SCSEntity.m in Sources */,
 				132DAF691D2630A70002172B /* RegisterUserViewController.m in Sources */,
+				9569EFAD1D6D4FC000C827F5 /* UIView+Animations.m in Sources */,
+				9569EFB01D6D576300C827F5 /* ViewUtils.m in Sources */,
 				952045771CD2F40E007C1431 /* TeamCell.m in Sources */,
 				9569EFC81D6E04BC00C827F5 /* SCSClueViewController.m in Sources */,
 				9520457E1CD2F40E007C1431 /* LocationAnswerViewController.m in Sources */,
@@ -753,6 +818,7 @@
 				952045721CD2F40E007C1431 /* UIImage+Resize.m in Sources */,
 				952045741CD2F40E007C1431 /* GameCell.m in Sources */,
 				952045BB1CD2F488007C1431 /* AppDelegate.m in Sources */,
+				9569EFB31D6D57A000C827F5 /* SCSCameraViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

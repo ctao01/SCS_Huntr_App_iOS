@@ -19,6 +19,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *pointLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *typeImageView;
 @property (nonatomic, strong) IBOutlet UIImageView *statusImageView;
-@property (nonatomic, strong) IBOutlet UILabel *pendingStatusLabel;
+//@property (nonatomic, strong) IBOutlet UILabel *pendingStatusLabel;
 
 @end

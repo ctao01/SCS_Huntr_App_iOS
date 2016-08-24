@@ -10,6 +10,9 @@
 #import "PhotoAnswerViewController.h"
 #import "LocationAnswerViewController.h"
 
+#import "SCSLocationTypeClueViewController.h"
+#import "SCSPictureTypeClueViewController.h"
+
 #import <AFNetworking/UIKit+AFNetworking.h>
 
 #import "NSDate+SCSHuntrHelpers.h"
@@ -81,7 +84,7 @@
         if (!errorString) {
             
             [self refreshUI];
-                [self.tableView reloadData];
+            [self.tableView reloadData];
             
 //            if (self.contentToDisplay == SCSProfileContentTypeTeams) {
 //                [self refreshTeamsListWithCompletion:^(NSString *errorString) {
@@ -430,17 +433,15 @@
     
     if ([[segue identifier] isEqualToString:kGoToPicAnswerSegueIdentifier])
     {
-        PhotoAnswerViewController * controller = segue.destinationViewController;
+        SCSPictureTypeClueViewController * controller = segue.destinationViewController;
         controller.selectedClue = clue;
-        controller.selectedGame = self.selectedGame;
-        controller.answerImageView.hidden = NO;
+//        controller.selectedGame = self.selectedGame;
     }
     else if ([[segue identifier] isEqualToString:kGoToLocAnswerSegueIdentifier])
     {
-        LocationAnswerViewController * controller = segue.destinationViewController;
+        SCSLocationTypeClueViewController * controller = segue.destinationViewController;
         controller.selectedClue = clue;
-        controller.selectedGame = self.selectedGame;
-        controller.answerMapView.hidden = NO;
+//        controller.selectedGame = self.selectedGame;
     }
 }
 
