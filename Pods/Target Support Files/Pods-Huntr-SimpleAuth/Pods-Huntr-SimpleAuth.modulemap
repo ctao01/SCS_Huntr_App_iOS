@@ -1,0 +1,15 @@
+framework module SimpleAuth {
+  umbrella header "Pods-Huntr-SimpleAuth-umbrella.h"
+
+  export *
+  module * { export * }
+
+  private header "SimpleAuthFacebookProvider.h"
+  private header "SimpleAuthFacebookWebLoginViewController.h"
+  private header "SimpleAuthFaceBookWebProvider.h"
+  private header "SimpleAuthLinkedInWebLoginViewController.h"
+  private header "SimpleAuthLinkedInWebProvider.h"
+  private header "SimpleAuthTwitterProvider.h"
+  private header "SimpleAuthTwitterWebLoginViewController.h"
+  private header "SimpleAuthTwitterWebProvider.h"
+}

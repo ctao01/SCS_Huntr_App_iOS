@@ -36,7 +36,7 @@ target 'Huntr' do
     pod 'SimpleAuth/TwitterWeb', :git => 'https://github.com/adamjmcgrath/SimpleAuth-1.git', :commit => 'f63bbd69bb042e1d1576696c9c0aa4b01a7c668e'
     pod 'SimpleAuth/LinkedInWeb', :git => 'https://github.com/adamjmcgrath/SimpleAuth-1.git', :commit => 'f63bbd69bb042e1d1576696c9c0aa4b01a7c668e'
 
-    
+    pod 'LLSimpleCamera', '~> 4.1'
 #    post_install do |installer_representation|
 #        workDir = Dir.pwd
 #        xcconfigFilename = "#{workDir}/Pods/Pods.xcconfig"
