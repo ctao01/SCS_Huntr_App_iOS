@@ -29,6 +29,7 @@
 #define kCurrentPlayerName @"kCurrentPlayerName"
 #define kCurrentPlayerId @"kCurrentPlayerId"
 
+#define kGetCustomCamera @"kGetCustomCamera"
 
 #define kGetTeamsSegueIdentifier @"GetTeamsSegueIdentifier"
 #define kRegisterUserSegueIdentifier @"RegisterUserSegueIdentifier"
