@@ -10,6 +10,8 @@
 #import "PhotoAnswerViewController.h"
 #import "LocationAnswerViewController.h"
 
+#import "SCSPushNotificationManager.h"
+
 #import "SCSLocationTypeClueViewController.h"
 #import "SCSPictureTypeClueViewController.h"
 
@@ -55,11 +57,29 @@
 {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationGameStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationTeamStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationClueStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationAnswerStatusUpdate object:nil];
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     
+    [self refresh:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationGameStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationTeamStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationClueStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationAnswerStatusUpdate object:nil];
+}
+
+- (void)handlePushNotification:(NSNotification *)note
+{
     [self refresh:nil];
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "GamesListViewController.h"
+
+#import "SCSPushNotificationManager.h"
 #import "SCSHuntrClient.h"
 //#import "SCSEnvironment.h"
 #import "GameCell.h"
@@ -33,6 +35,8 @@
 {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationGameStatusUpdate object:nil];
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = nil;
@@ -40,12 +44,17 @@
     
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
+    
+    [self refresh:nil];
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationGameStatusUpdate object:nil];
+}
+
+- (void)handlePushNotification:(NSNotification *)note
+{
     [self refresh:nil];
 }
 

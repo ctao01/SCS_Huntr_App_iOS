@@ -9,6 +9,9 @@
 #import "SCSLocationTypeClueViewController.h"
 #import <MapKit/MapKit.h>
 
+#import "SCSPushNotificationManager.h"
+#import "SCSPushNotification.h"
+
 @interface SCSHutrAnnotation : NSObject <MKAnnotation> {
     CLLocationCoordinate2D _coordinate;
 }
@@ -85,6 +88,32 @@ static float MilesToMeters(float miles) {
     
     [self updateByGameAndClue];
     
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationClueStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationAnswerStatusUpdate object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationGameStatusUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SCSPushNotificationTeamStatusUpdate object:nil];
+}
+
+- (void)handlePushNotification:(NSNotification *)note
+{
+    SCSPushNotification * pn = note.userInfo[@"pn"];
+    NSString * gameID = pn.aps[@"gameID"];
+    NSString * teamID = pn.aps[@"teamID"];
+    NSString * clueID = pn.aps[@"clueID"];
+    
+    if ([clueID isEqualToString:self.selectedClue.clueID]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
