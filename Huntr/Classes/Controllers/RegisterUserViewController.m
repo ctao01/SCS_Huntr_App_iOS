@@ -8,7 +8,10 @@
 
 #import "RegisterUserViewController.h"
 #import "SCSHuntrRootViewController.h"
-#import "AppDelegate.h"
+
+
+#import "SCSPushNotificationManager.h"
+
 #import "SCSRegisteredPlayer.h"
 #import <SimpleAuth/SimpleAuth.h>
 
@@ -24,8 +27,7 @@
 {
     [super viewDidAppear:animated];
     
-    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [appDelegate requestUserToRegisterWithPushNotifications];
+    [[SCSPushNotificationManager sharedClient] requestUserToRegisterWithPushNotifications];
 }
 
 #pragma mark - Private
