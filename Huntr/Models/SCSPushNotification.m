@@ -10,14 +10,41 @@
 
 @implementation SCSPushNotification
 
-
-+ (SCSPushNotification *)pushNotificationWithType:(SCSPushNotificationType)pushNotificationType andUserInfo:(NSDictionary *)userInfo
++ (SCSPushNotification *)pushNotificationWithUserInfo:(NSDictionary *)userInfo
 {
-    SCSPushNotification * pushNotification = [[SCSPushNotification alloc] initWithType:pushNotificationType andUserInfo:userInfo];
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    SCSPushNotificationType pnType;
+    
+    // Detect if APN is received on Background or Foreground state
+    if (state == UIApplicationStateActive) {
+        NSLog(@"UIApplicationStateActive: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeFG;
+    }
+    else if (state == UIApplicationStateInactive) {
+        NSLog(@"UIApplicationStateInactive: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeBG;
+    }
+    else if (state == UIApplicationStateBackground) {
+        NSLog(@"UIApplicationStateBackground: %@", [userInfo description]);
+        pnType = SCSPushNotificationTypeBG;
+    }
+    else {
+        NSLog(@"Unknown State: %@", [userInfo description]);
+        pnType = SSCSPushNotificationTypeUnknown;
+    }
+    
+    SCSPushNotification * pushNotification = [self pushNotificationWithUserInfo:userInfo andType:pnType];
+    
     return pushNotification;
 }
 
-- (id)initWithType:(SCSPushNotificationType)pushNotificationType andUserInfo:(NSDictionary *)userInfo
++ (SCSPushNotification *)pushNotificationWithUserInfo:(NSDictionary *)userInfo andType:(SCSPushNotificationType)pushNotificationType
+{
+    SCSPushNotification * pushNotification = [[SCSPushNotification alloc] initWithdUserInfo:userInfo andType:pushNotificationType];
+    return pushNotification;
+}
+
+- (id)initWithdUserInfo:(NSDictionary *)userInfo andType:(SCSPushNotificationType)pushNotificationType
 {
     self = [super init];
     if (self) {

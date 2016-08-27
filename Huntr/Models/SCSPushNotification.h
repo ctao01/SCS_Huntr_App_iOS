@@ -41,9 +41,11 @@ typedef NS_ENUM(NSInteger, SCSPushNotificationType) {
 
 @property (nonatomic, readonly) BOOL contentAvaliable;
 
-+ (SCSPushNotification *)pushNotificationWithType:(SCSPushNotificationType)pushNotificationType andUserInfo:(NSDictionary *)userInfo;
++ (SCSPushNotification *)pushNotificationWithUserInfo:(NSDictionary *)userInfo;
 
-- (id)initWithType:(SCSPushNotificationType)pushNotificationType andUserInfo:(NSDictionary *)userInfo;
++ (SCSPushNotification *)pushNotificationWithUserInfo:(NSDictionary *)userInfo andType:(SCSPushNotificationType)pushNotificationType;
+
+- (id)initWithdUserInfo:(NSDictionary *)userInfo andType:(SCSPushNotificationType)pushNotificationType;
 
 - (id)payloadValueWithKey:(NSString *)key;
 
