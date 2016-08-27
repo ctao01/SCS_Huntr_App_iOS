@@ -315,6 +315,11 @@
     [[SCSHuntrClient sharedClient] addTeamToGame:parameter successBlock:^(id object) {
         [self refresh:nil];
     } failureBlock:^(NSString *errorString) {
+        
+        if ([errorString rangeOfString:@"status code: 409" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            errorString = [NSString stringWithFormat:@"A team with a name similar to %@ already exits. Please pick a different name.", teamName];
+        }
+        
         UIAlertController * errorAlertController = [UIAlertController alertControllerWithTitle:@"Error" message:errorString preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * actionOk = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [errorAlertController dismissViewControllerAnimated:YES completion:nil];
@@ -372,6 +377,9 @@
                     [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
                     [self refresh:nil];
                 } failureBlock:^(NSString *errorString) {
+                    if ([errorString rangeOfString:@"status code: 409" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                        [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
+                    }
                     [self refresh:nil];
                 }];
             };
