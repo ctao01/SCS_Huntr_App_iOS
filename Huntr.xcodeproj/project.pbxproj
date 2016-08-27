@@ -31,7 +31,7 @@
 		13E426691D640124002307D8 /* TWTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E426681D640124002307D8 /* TWTButton.m */; };
 		13E4266C1D640223002307D8 /* AvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E4266B1D640223002307D8 /* AvatarImageView.m */; };
 		13FC177A1D4BDF2200E4605B /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FC17771D4BDF2200E4605B /* FXBlurView.m */; };
-		55C3B42E33524EC97962011F /* Pods_Huntr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AD809A57199FCF507ADFEE /* Pods_Huntr.framework */; };
+		55C3B42E33524EC97962011F /* Pods_Huntr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AD809A57199FCF507ADFEE /* Pods_Huntr.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9520451F1CD2F0D0007C1431 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9520451E1CD2F0D0007C1431 /* main.m */; };
 		9520452A1CD2F0D0007C1431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952045291CD2F0D0007C1431 /* Assets.xcassets */; };
 		9520452D1CD2F0D0007C1431 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9520452B1CD2F0D0007C1431 /* LaunchScreen.storyboard */; };
@@ -620,6 +620,7 @@
 		952045121CD2F0D0007C1431 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = SCS;
@@ -874,6 +875,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -921,6 +923,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1003,6 +1006,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1071,6 +1075,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
