@@ -51,6 +51,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'AFNetworking.framework'
   install_framework 'BBlock.framework'
   install_framework 'CMDQueryStringSerialization.framework'
+  install_framework 'HexColors.framework'
   install_framework 'ISO8601.framework'
   install_framework 'LLSimpleCamera.framework'
   install_framework 'NSData_Base64.framework'
@@ -58,12 +59,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Result.framework'
   install_framework 'SVProgressHUD.framework'
   install_framework 'SimpleAuth.framework'
+  install_framework 'TSMessages.framework'
   install_framework 'cocoa_oauth.framework'
 fi
 if [[ "$CONFIGURATION" == "Stage" ]]; then
   install_framework 'AFNetworking.framework'
   install_framework 'BBlock.framework'
   install_framework 'CMDQueryStringSerialization.framework'
+  install_framework 'HexColors.framework'
   install_framework 'ISO8601.framework'
   install_framework 'LLSimpleCamera.framework'
   install_framework 'NSData_Base64.framework'
@@ -71,12 +74,14 @@ if [[ "$CONFIGURATION" == "Stage" ]]; then
   install_framework 'Result.framework'
   install_framework 'SVProgressHUD.framework'
   install_framework 'SimpleAuth.framework'
+  install_framework 'TSMessages.framework'
   install_framework 'cocoa_oauth.framework'
 fi
 if [[ "$CONFIGURATION" == "Production" ]]; then
   install_framework 'AFNetworking.framework'
   install_framework 'BBlock.framework'
   install_framework 'CMDQueryStringSerialization.framework'
+  install_framework 'HexColors.framework'
   install_framework 'ISO8601.framework'
   install_framework 'LLSimpleCamera.framework'
   install_framework 'NSData_Base64.framework'
@@ -84,12 +89,14 @@ if [[ "$CONFIGURATION" == "Production" ]]; then
   install_framework 'Result.framework'
   install_framework 'SVProgressHUD.framework'
   install_framework 'SimpleAuth.framework'
+  install_framework 'TSMessages.framework'
   install_framework 'cocoa_oauth.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'AFNetworking.framework'
   install_framework 'BBlock.framework'
   install_framework 'CMDQueryStringSerialization.framework'
+  install_framework 'HexColors.framework'
   install_framework 'ISO8601.framework'
   install_framework 'LLSimpleCamera.framework'
   install_framework 'NSData_Base64.framework'
@@ -97,5 +104,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Result.framework'
   install_framework 'SVProgressHUD.framework'
   install_framework 'SimpleAuth.framework'
+  install_framework 'TSMessages.framework'
   install_framework 'cocoa_oauth.framework'
 fi

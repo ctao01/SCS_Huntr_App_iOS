@@ -26,6 +26,7 @@ PODS:
     - ISO8601
   - cocoa-oauth (0.0.1):
     - NSData+Base64 (~> 1.0)
+  - HexColors (2.2.1)
   - ISO8601 (0.6.0)
   - LLSimpleCamera (4.2.0)
   - NSData+Base64 (1.0.0)
@@ -48,6 +49,8 @@ PODS:
     - cocoa-oauth
     - SimpleAuth/Core
   - SVProgressHUD (2.0.3)
+  - TSMessages (0.9.12):
+    - HexColors (~> 2.2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1)
@@ -64,6 +67,7 @@ DEPENDENCIES:
   - SimpleAuth/TwitterWeb (from `https://github.com/adamjmcgrath/SimpleAuth-1.git`,
     commit `f63bbd69bb042e1d1576696c9c0aa4b01a7c668e`)
   - SVProgressHUD (~> 2.0)
+  - TSMessages
 
 EXTERNAL SOURCES:
   SimpleAuth:
@@ -80,6 +84,7 @@ SPEC CHECKSUMS:
   BBlock: c56d7f72597ffe1634fcdc73836c5c0fed3271be
   CMDQueryStringSerialization: 4bb0a2f5e7d8d8678d911d88072274952cbef4e5
   cocoa-oauth: 1200a2170276a62a975f2786d505dab6e2db1fa8
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
   ISO8601: d3ea3ba9b752820cf92c6b47a9ee327e9f0e13fc
   LLSimpleCamera: ed7813ce4827ff3e34c6af159c99b5b56e54d1c6
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
@@ -87,5 +92,6 @@ SPEC CHECKSUMS:
   Result: 18e1a7597fbcca5923c565b40a25a98afafdee02
   SimpleAuth: bc7d594f90711a7e6ef7624dce5aa8c8b09770ab
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
 COCOAPODS: 0.37.1
