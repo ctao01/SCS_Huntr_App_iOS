@@ -9,6 +9,8 @@
 #ifndef EnvironmentConstants_h
 #define EnvironmentConstants_h
 
+#define kAppWindow [[[UIApplication sharedApplication] delegate] window]
+
 #define kDeviceUUID @"kDeviceUUID"
 
 #define kApnsUserApproval @"kApnsUserApproval"
@@ -42,5 +44,15 @@
 
 #define kGameProfileSegueIdentifier @"GameProfileSegueIdentifier"
 
+/* Notification */
+#define kDidRegisterForRemoteNotificationsWithDeviceToken @"DidRegisterForRemoteNotificationsWithDeviceToken"
+
+#define SCSPushNotificationGameStatusUpdate @"SCSPushNotificationGameStatusUpdate"
+#define SCSPushNotificationTeamStatusUpdate @"SCSPushNotificationTeamStatusUpdate"
+#define SCSPushNotificationTeamStatusPlayerAdded @"SCSPushNotificationTeamStatusPlayerAdded"
+#define SCSPushNotificationTeamStatusPlayerRemoved @"SCSPushNotificationTeamStatusPlayerRemoved"
+#define SCSPushNotificationClueStatusUpdate @"SCSPushNotificationClueStatusUpdate"
+#define SCSPushNotificationAnswerStatusUpdate @"SCSPushNotificationAnswerStatusUpdate"
+#define SCSPushNotificationPlayerStatusUpdate @"SCSPushNotificationPlayerStatusUpdate"
 
 #endif /* EnvironmentConstants_h */

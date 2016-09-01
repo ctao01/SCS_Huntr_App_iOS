@@ -15,19 +15,42 @@
 #import "SCSRegisteredPlayer.h"
 #import <SimpleAuth/SimpleAuth.h>
 
+@interface RegisterUserViewController ()
+
+@property (nonatomic, weak) IBOutlet UILabel * registeredLabel;
+@property (nonatomic, weak) IBOutlet UIButton * facebookBtn;
+@property (nonatomic, weak) IBOutlet UIButton * twitterBtn;
+@property (nonatomic, weak) IBOutlet UIButton * linkedinBtn;
+
+@property (nonatomic, assign) BOOL isOnRegistering;
+@end
+
 @implementation RegisterUserViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     [self configureAuthorizaionProviders];
+    self.isOnRegistering = false;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [[SCSPushNotificationManager sharedClient] requestUserToRegisterWithPushNotifications];
+    if(self.isOnRegistering == false)
+    {
+        [[SCSPushNotificationManager sharedClient] requestUserToRegisterWithPushNotifications];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willDisplayRegisterOptions) name:kDidRegisterForRemoteNotificationsWithDeviceToken object:nil];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 #pragma mark - Private
@@ -69,6 +92,7 @@
 
 - (void)registerPlayer:(NSDictionary *)playerInfo
 {
+    
 //    NSString * deviceUUID = [[NSUserDefaults standardUserDefaults] stringForKey:kApnsDeviceToken];
     NSString * deviceUUID = [SCSHuntrEnviromentManager sharedManager].deviceUUID;   
     
@@ -76,31 +100,28 @@
         // Swtitch views.
         // Create a SCSRegisteredPlayer object.
         NSLog(@"\nResponse: %@", response);
-        
-//        SCSHuntrRootViewController *rootController =(SCSHuntrRootViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window]rootViewController];
-        
+        self.isOnRegistering = false;
+
         SCSHuntrRootViewController *rootController = (SCSHuntrRootViewController*)[[[UIApplication sharedApplication] delegate] window].rootViewController;
         [rootController showNavigationComponent];
         
         SCSRegisteredPlayer * registeredPlayer = [[SCSRegisteredPlayer alloc] initWithJSON:response];
         
         [SCSHuntrEnviromentManager sharedManager].registeredPlayer = registeredPlayer;
-        
-//        NSData *encodedRegisteredPlayer = [NSKeyedArchiver archivedDataWithRootObject:registeredPlayer];
-//        [[NSUserDefaults standardUserDefaults] setObject:encodedRegisteredPlayer forKey:kCurrentPlayer];
-//        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerName forKey:kCurrentPlayerName];
-//        [[NSUserDefaults standardUserDefaults] setObject:registeredPlayer.playerID forKey:kCurrentPlayerId];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+
         
     } failureBlock:^(NSString *errorString) {
         // Alert that user chould not be registered.
         NSLog(@"\nResponse Error:%@", errorString);
+        self.isOnRegistering = false;
+
     }];
 }
 
 
 - (IBAction)registerUserFacebook:(id)sender {
     
+    self.isOnRegistering = true;
     [SimpleAuth authorize:@"facebook" completion:^(id responseObject, NSError *error) {
         
         NSLog(@"\nResponse: %@\nError:%@", responseObject, error);
@@ -117,6 +138,8 @@
                 }
                 else {
                     // Deal with error or response object being a dictionary.
+                    self.isOnRegistering = false;
+
                 }
             }];
         }
@@ -129,6 +152,7 @@
             }
             else {
                 // Deal with error or response object being a dictionary.
+                self.isOnRegistering = false;
             }
             
         }
@@ -137,6 +161,7 @@
 
 - (IBAction)registerUserTwitter:(id)sender {
     
+    self.isOnRegistering = true;
     [SimpleAuth authorize:@"twitter" completion:^(id responseObject, NSError *error) {
         
         NSLog(@"\nResponse: %@\nError:%@", responseObject, error);
@@ -152,6 +177,8 @@
                 }
                 else {
                     // Deal with error or response object being a dictionary.
+                    self.isOnRegistering = false;
+
                 }
             }];
         }
@@ -164,6 +191,8 @@
             }
             else {
                 // Deal with error or response object being a dictionary.
+                self.isOnRegistering = false;
+
             }
 
         }
@@ -172,6 +201,7 @@
 
 - (IBAction)registerUserLinkedIn:(id)sender {
     
+    self.isOnRegistering = true;
     [SimpleAuth authorize:@"linkedin-web" completion:^(id responseObject, NSError *error) {
         
         NSLog(@"\nResponse: %@\nError:%@", responseObject, error);
@@ -190,14 +220,19 @@
                 }
                 
                 [self registerPlayer:playerInfo];
+
                 
             } failureBlock:^(NSString *errorString) {
                 
                 [self registerPlayer:playerInfo];
+                self.isOnRegistering = false;
+
             }];
         }
         else {
             // Deal with error or response object being a dictionary.
+            self.isOnRegistering = false;
+
         }
     }];
 }
@@ -313,6 +348,14 @@
     else {
         return nil;
     }
+}
+
+- (void) willDisplayRegisterOptions
+{
+    self.registeredLabel.alpha = 1;
+    self.facebookBtn.alpha = 1;
+    self.twitterBtn.alpha = 1;
+    self.linkedinBtn.alpha = 1;
 }
 
 @end

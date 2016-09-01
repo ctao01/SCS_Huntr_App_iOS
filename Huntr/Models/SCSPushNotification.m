@@ -63,6 +63,15 @@
     return nil;
 }
 
+- (NSDictionary *) payload
+{
+    if (self.userInfo != nil) {
+        NSDictionary * payload = self.userInfo[@"payload"];
+        if (payload) return payload;
+    }
+    return nil;
+}
+
 - (NSNumber *) badge
 {
     if (self.aps != nil) {

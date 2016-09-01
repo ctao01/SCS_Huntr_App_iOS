@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const SCSPushNotificationGameStatusUpdate;
-extern NSString * const SCSPushNotificationTeamStatusUpdate;
-extern NSString * const SCSPushNotificationClueStatusUpdate;
-extern NSString * const SCSPushNotificationAnswerStatusUpdate;
-extern NSString * const SCSPushNotificationPlayerStatusUpdate;
+//extern NSString * const SCSPushNotificationGameStatusUpdate;
+//extern NSString * const SCSPushNotificationTeamStatusUpdate;
+//extern NSString * const SCSPushNotificationClueStatusUpdate;
+//extern NSString * const SCSPushNotificationAnswerStatusUpdate;
+//extern NSString * const SCSPushNotificationPlayerStatusUpdate;
 
 @interface SCSPushNotificationManager : NSObject
 
@@ -35,7 +35,6 @@ extern NSString * const SCSPushNotificationPlayerStatusUpdate;
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
-
 
 #pragma mark - User Action Functions
 

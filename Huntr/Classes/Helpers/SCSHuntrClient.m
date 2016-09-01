@@ -376,6 +376,41 @@
     }];
 }
 
+- (void) getTeamById:(NSString *)teamId gameId:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    NSString * endPoint = [NSString stringWithFormat:@"games/%@/teams/%@",gameId, teamId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
+        if (responseObject != nil) {
+            NSLog(@"%@",responseObject);
+            
+            if ([responseObject isKindOfClass:[NSDictionary class]])
+            {                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successBlock(responseObject[@"name"]);
+                });
+            }
+            else
+            {
+                NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                });
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
+    }];
+
+}
+
+
+
 - (void) getPlayersByTeam:(NSString *)teamId successBlock:(SCSHuntrClientSuccessBlockArray)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
 {
     NSString * endPoint ;
@@ -485,6 +520,40 @@
         });
     }];
 }
+
+
+- (void) getPlayerById:(NSString *)playerId  successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock
+{
+    NSString * endPoint = [NSString stringWithFormat:@"players/%@", playerId];
+    [self GET:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (id)task.response;
+        
+        if (responseObject != nil) {
+            
+            
+            if ([responseObject isKindOfClass:[NSDictionary class]])
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successBlock(responseObject[@"name"]);
+                });
+            }
+            else
+            {
+                NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                });
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failureBlock([error description]);
+        });
+    }];
+}
+
 
 #pragma mark - Clues and Answers
 
@@ -737,6 +806,7 @@
         });
     }];
 }
+
 
 #pragma mark - Override Super GET and POST
 

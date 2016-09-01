@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, SCSPushNotificationType) {
 @property (nonatomic) NSDictionary *userInfo;
 
 @property (nonatomic, readonly) NSDictionary *aps;
+@property (nonatomic, readonly) NSDictionary *payload;
 
 @property (nonatomic, readonly) NSNumber *badge;
 @property (nonatomic, readonly) NSString *sound;

@@ -11,34 +11,76 @@
 
 #import "NSString+UUID.h"
 
-NSString * const SCSPushNotificationGameStatusUpdate = @"SCSPushNotificationGameStatusUpdate";
-NSString * const SCSPushNotificationTeamStatusUpdate = @"SCSPushNotificationTeamStatusUpdate";
-NSString * const SCSPushNotificationClueStatusUpdate = @"SCSPushNotificationClueStatusUpdate";
-NSString * const SCSPushNotificationAnswerStatusUpdate = @"SCSPushNotificationAnswerStatusUpdate";
-NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPlayerStatusUpdate";
+#import "SCSHuntrRootViewController.h"
+#import "RegisterUserViewController.h"
+
+#import <TSMessages/TSMessageView.h>
+@interface SCSPushNotification ()
+
+@end
 
 @implementation SCSPushNotificationManager
 
+
 - (void)performPushNotification:(SCSPushNotification *)pushNotification
 {
+    /*
+     aps =     {
+         "content-available" = 1;
+     };
+     messageFrom = "Game Master";
+     payload =     {
+         gameID = 57883313c327d30ac28b5f03;
+         teamID = 57c5a31fdbf6599b475dcecb;
+         type = TSUPN;
+     };
+     */
+    
 //    TSUPN GSUPN CSUPN ASUPN PSUPN
     
     NSDictionary * postPayload = nil;
     if (pushNotification) postPayload = @{@"pn":pushNotification};
     
-    if ([pushNotification.aps[@"type"] isEqualToString:@"GSUPN"]) {
+    if ([pushNotification.payload[@"type"] isEqualToString:@"GSUPN"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationGameStatusUpdate object:self userInfo:postPayload];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self handelGameStatusUpdatePushNotification:pushNotification];
+        });
+        
     }
-    else if ([pushNotification.aps[@"type"] isEqualToString:@"TSUPM"]) {
+    else if ([pushNotification.payload[@"type"] isEqualToString:@"TSUPN"]) {
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationTeamStatusUpdate object:self userInfo:postPayload];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self handleTeamStatusUpdatePushNotification:pushNotification];
+        });
+
     }
-    else if ([pushNotification.aps[@"type"] isEqualToString:@"CSUPN"]) {
+    
+    else if ([pushNotification.payload[@"type"] isEqualToString:@"PAPN"] ||
+             [pushNotification.payload[@"type"] isEqualToString:@"PRPN"]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationTeamStatusUpdate object:self userInfo:postPayload];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self handlePlayersOnTeamStatusUpdatePushNotification:pushNotification];
+        });
+    }
+    else if ([pushNotification.payload[@"type"] isEqualToString:@"CSUPN"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationClueStatusUpdate object:self userInfo:postPayload];
     }
-    else if ([pushNotification.aps[@"type"] isEqualToString:@"ASUPN"]) {
+    else if ([pushNotification.payload[@"type"] isEqualToString:@"ASUPN"]) {
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationAnswerStatusUpdate object:self userInfo:postPayload];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationTeamStatusUpdate object:self userInfo:postPayload];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self handleAnswerStatusUpdatePushNotification:pushNotification];
+        });
+        
     }
-    else if ([pushNotification.aps[@"type"] isEqualToString:@"PSUPN"]) {
+    else if ([pushNotification.payload[@"type"] isEqualToString:@"PSUPN"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationPlayerStatusUpdate object:self userInfo:postPayload];
     }
 }
@@ -136,7 +178,9 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
                                  };
     
     [[SCSHuntrClient sharedClient] registerDevice:deviceUUID params:deviceData withSuccessBlock:^(id response) {
-        NSLog(@"registerDevice: %@",response);
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDidRegisterForRemoteNotificationsWithDeviceToken object:nil];
+        
     } failureBlock:^(NSString *errorString) {
         NSLog(@"registerDevice error: %@",errorString);
     }];
@@ -161,11 +205,9 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
 #if !TARGET_IPHONE_SIMULATOR
     UIApplicationState state = [application applicationState];
     if (state == UIApplicationStateActive) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Received Push Notification"
-                                                        message:notification.alertBody
-                                                       delegate:self cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        
+        UIViewController * vc = [(UINavigationController *)kAppWindow.rootViewController visibleViewController];
+        [UIAlertController showAlertInViewController:vc withTitle:@"Received Push Notification" message:notification.alertBody cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
     }
 #endif
     //    if (notification) [[UZNotificationManager sharedManager] didReceiveLocalNotification:notification];
@@ -174,13 +216,14 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
 #if !TARGET_IPHONE_SIMULATOR
-    
+
     SCSPushNotification * pn = [SCSPushNotification pushNotificationWithUserInfo:userInfo];
     [self performPushNotification:pn];
     
     if([userInfo[@"aps"][@"content-available"] intValue] == 1) //it's the silent notification
     {
 //        [self fireLocalNotification:@"Silent Push"];
+        
     }
     else {
 //        [self fireLocalNotification:@"Loud Push"];
@@ -205,7 +248,6 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
     }
 }
 
-
 #pragma mark - User Action Functions
 
 - (void)requestUserToRegisterWithPushNotifications
@@ -227,7 +269,7 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
     }
     else {
         
-        [self promptUserToRegisterPushNotifications];
+//        [self promptUserToRegisterPushNotifications];
     }
 }
 
@@ -239,6 +281,7 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
     UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
 //#endif
 }
 
@@ -255,6 +298,138 @@ NSString * const SCSPushNotificationPlayerStatusUpdate = @"SCSPushNotificationPl
     localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
     
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
+- (void) handelGameStatusUpdatePushNotification:(SCSPushNotification *) notification
+{
+    NSString * gameId = notification.payload[@"gameID"];
+    [[SCSHuntrClient sharedClient]getGameById:gameId successBlock:^(id response) {
+        
+        NSString * gameName = [(SCSGame*)response gameName];
+        SCSGameStatus status = [(SCSGame*)response status];
+        NSString * subtitle;
+        if (status == SCSGameStatusNotStarted){
+            subtitle = [NSString stringWithFormat:@"New game \"%@\" created !!!", gameName];
+        }
+        else if (status == SCSGameStatusInProgress) {
+            subtitle = [NSString stringWithFormat:@"Game \"%@\" begins!!!", gameName];
+        }
+        else if (status == SCSGameStatusCompleted ) {
+            subtitle = [NSString stringWithFormat:@"Game \"%@\" is end!!!", gameName];
+
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                        subtitle:subtitle
+                                            type:TSMessageNotificationTypeMessage];
+        });
+        
+    } failureBlock:nil];
+
+}
+
+- (void) handleTeamStatusUpdatePushNotification:(SCSPushNotification *) notification
+{
+    NSString * gameId = notification.payload[@"gameID"];
+    NSString * teamId = notification.payload[@"teamID"];
+    
+    [[SCSHuntrClient sharedClient]getGameById:gameId successBlock:^(id response) {
+        
+        __block NSString * gameName = [(SCSGame*)response gameName];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
+                NSString *  teamName = response;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                                subtitle:[NSString stringWithFormat:@"Team %@ removed from Game %@", teamName, gameName]
+                                                    type:TSMessageNotificationTypeMessage];
+                });
+                
+                
+            } failureBlock:nil];
+            
+        });
+    } failureBlock:nil];
+
+}
+
+- (void) handlePlayersOnTeamStatusUpdatePushNotification:(SCSPushNotification *) notification
+{
+    NSString * gameId = notification.payload[@"gameID"];
+    NSString * playerId = notification.payload[@"playerID"];
+    NSString * teamId = notification.payload[@"teamID"];
+    NSString * type = notification.payload[@"type"];
+    
+    [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
+        __block NSString * teamName = response;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[SCSHuntrClient sharedClient] getPlayerById:playerId successBlock:^(id response) {
+                NSString * playerName = response;
+                NSString * subtitle = nil;
+                if ([type isEqualToString:@"PAPN"])
+                {
+                    subtitle = [NSString stringWithFormat:@"%@ just joins %@", playerName, teamName];
+                }
+                else
+                {
+                    subtitle = [NSString stringWithFormat:@"oops %@ left %@", playerName, teamName];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                                subtitle:subtitle
+                                                    type:TSMessageNotificationTypeMessage];
+                });
+                
+
+                
+            } failureBlock:nil];
+        });
+    } failureBlock:nil];
+}
+
+- (void) handleAnswerStatusUpdatePushNotification:(SCSPushNotification *) notification
+{
+    NSString * gameId = notification.payload[@"gameID"];
+    NSString * clueId = notification.payload[@"clueID"];
+    NSString * teamId = notification.payload[@"teamID"];
+    NSString * answerId = notification.payload[@"answerID"];
+    
+    BOOL isFirstAnswer = (answerId == nil);
+    
+    [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
+        __block NSString * teamName = response;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[SCSHuntrClient sharedClient]getClueById:clueId successBlock:^(id response) {
+                NSString * subtitle;
+                SCSClueState status = [(SCSClue*)response clueState];
+                NSString * desc = [(SCSClue*)response clueDescription];
+                if (isFirstAnswer)
+                {
+                    subtitle = [NSString stringWithFormat:@"Hurry up ~~~ \"%@\" is the  first team submit answer to clue \"%@\"", teamName, desc];
+
+                }
+                else
+                {
+                    if (status == SCSClueStateAnswerAccepted) {
+                        subtitle = [NSString stringWithFormat:@"Wee ~~~ Team \"%@\" earend points from \"%@\"", teamName, desc];
+                    }
+                    else if (status == SCSClueStateAnswerPendingReview) {
+                        subtitle = [NSString stringWithFormat:@"Good Job ! Your team has submitted answer to clue"];
+                    }
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                                subtitle:subtitle
+                                                    type:TSMessageNotificationTypeMessage];
+                });
+
+            } failureBlock:nil];
+        });
+    } failureBlock:nil];
 }
 
 

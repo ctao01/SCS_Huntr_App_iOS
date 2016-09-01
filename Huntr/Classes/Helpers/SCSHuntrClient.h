@@ -60,4 +60,11 @@ typedef void (^SCSHuntrClientFailureBlock)(NSString * errorString);
 
 - (void) getLinkedInInfo:(NSString*)authToken params:(NSDictionary*)params withSuccessBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
 
+- (void) getPlayerById:(NSString *)playerId  successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+
+- (void) getTeamById:(NSString *)teamId gameId:(NSString *)gameId successBlock:(SCSHuntrClientSuccessBlock)successBlock failureBlock:(SCSHuntrClientFailureBlock)failureBlock;
+
+- (NSString *)getTeamNameByIds:(NSString *)teamId gameId:(NSString *)gameId;
+
+
 @end

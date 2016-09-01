@@ -54,7 +54,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alley_blue_bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Mbp-aH-CGg">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPr-wD-eoT" userLabel="LinkedIn Button">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPr-wD-eoT" userLabel="LinkedIn Button">
                                 <rect key="frame" x="215" y="458" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="asq-7q-mtk"/>
@@ -65,7 +65,7 @@
                                     <action selector="registerUserLinkedIn:" destination="E3e-tI-Za6" eventType="touchUpInside" id="BF5-Mp-dHU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29Z-Ne-DHw" userLabel="Twittter Button">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29Z-Ne-DHw" userLabel="Twittter Button">
                                 <rect key="frame" x="130" y="458" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="hVw-8t-Bqn"/>
@@ -76,7 +76,7 @@
                                     <action selector="registerUserTwitter:" destination="E3e-tI-Za6" eventType="touchUpInside" id="dI9-Px-ei9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bih-QD-N5F" userLabel="Facebook Button">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bih-QD-N5F" userLabel="Facebook Button">
                                 <rect key="frame" x="45" y="458" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="1kV-OT-y1w"/>
@@ -93,7 +93,7 @@
                                     <constraint firstAttribute="width" secondItem="kqF-r5-V6G" secondAttribute="height" multiplier="62:19" id="FnE-SY-mff"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC2-yk-e1Y">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC2-yk-e1Y">
                                 <rect key="frame" x="65" y="405" width="190" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="Yji-LA-o7N"/>
@@ -124,6 +124,12 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="facebookBtn" destination="bih-QD-N5F" id="EAj-fM-wQg"/>
+                        <outlet property="linkedinBtn" destination="mPr-wD-eoT" id="WNo-IB-LrY"/>
+                        <outlet property="registeredLabel" destination="dC2-yk-e1Y" id="6gF-yS-cre"/>
+                        <outlet property="twitterBtn" destination="29Z-Ne-DHw" id="MEZ-N6-UQE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnj-6F-t92" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1289,7 +1295,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34r-Kh-ItB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <connections>
-                                    <segue destination="UdQ-3P-Bro" kind="embed" identifier="GetCustomCamera" id="5Nd-FF-jtM"/>
+                                    <segue destination="UdQ-3P-Bro" kind="embed" identifier="kGetCustomCamera" id="5Nd-FF-jtM"/>
                                 </connections>
                             </containerView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4DR-56-R29" customClass="SCSVisualEffectView">
@@ -1361,11 +1367,12 @@
                             </button>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVz-Ki-mva">
                                 <rect key="frame" x="125" y="483" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="KqY-Pj-4T1"/>
                                     <constraint firstAttribute="height" constant="70" id="LXY-vW-Zay"/>
                                 </constraints>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="buttonPressed:" destination="lDL-gl-poB" eventType="touchUpInside" id="3dj-uO-JHX"/>
                                 </connections>

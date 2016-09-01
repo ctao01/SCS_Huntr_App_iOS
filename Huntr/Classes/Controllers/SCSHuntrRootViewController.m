@@ -23,13 +23,9 @@
 {
     [super viewDidLoad];
     
-//    NSData * storedPlayer = [[NSUserDefaults standardUserDefaults] dataForKey:kCurrentPlayer];
-//    id decodedRegisteredPlayer = [NSKeyedUnarchiver unarchiveObjectWithData:storedPlayer];
-    
     SCSRegisteredPlayer * registeredPlayer = [SCSHuntrEnviromentManager sharedManager].registeredPlayer;
     
     if (registeredPlayer) {
-//        [self showPlayerRegistrationComponent];
         [self showNavigationComponent];
     }
     else {
