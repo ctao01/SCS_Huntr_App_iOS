@@ -19,8 +19,9 @@
 //static NSString * const kSCSHuntrAPIBaseURLString = @"http://BAPKAG.local:3000/";
 
 #ifdef DEV
-//#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
-#define API_SERVER_BASE_URL @"http://localhost:3000"
+#define API_SERVER_BASE_URL @"http://ec2-54-173-88-68.compute-1.amazonaws.com:3333"
+//#define API_SERVER_BASE_URL @"http://localhost:3000"
+//#define API_SERVER_BASE_URL @"http://192.168.1.80:3000"
 //#define API_SERVER_BASE_URL @"http://192.168.1.108:3000" // JML Home
 //#define API_SERVER_BASE_URL @"http://172.19.196.222:3000"
 //#elif defined(STAGE)
@@ -102,7 +103,7 @@
         NSMutableIndexSet *responseCodes = [respSerializer.acceptableStatusCodes mutableCopy];
         [responseCodes addIndex:304];
         respSerializer.acceptableStatusCodes = responseCodes;
-        
+
         [self.reachabilityManager startMonitoring];
         
     }
