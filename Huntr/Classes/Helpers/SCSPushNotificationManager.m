@@ -320,7 +320,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                        subtitle:subtitle
+                                        subtitle:NSLocalizedString(subtitle, nil)
                                             type:TSMessageNotificationTypeMessage];
         });
         
@@ -340,9 +340,10 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
                 NSString *  teamName = response;
+                NSString * subtitle  =[NSString stringWithFormat:@"Team %@ removed from Game %@", teamName, gameName];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                                subtitle:[NSString stringWithFormat:@"Team %@ removed from Game %@", teamName, gameName]
+                                                subtitle:NSLocalizedString(subtitle, nil)
                                                     type:TSMessageNotificationTypeMessage];
                 });
                 
@@ -378,7 +379,7 @@
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                                subtitle:subtitle
+                                                subtitle:NSLocalizedString(subtitle, nil)
                                                     type:TSMessageNotificationTypeMessage];
                 });
                 
@@ -423,7 +424,7 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                                subtitle:subtitle
+                                                subtitle:NSLocalizedString(subtitle, nil)
                                                     type:TSMessageNotificationTypeMessage];
                 });
 
