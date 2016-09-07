@@ -8,6 +8,8 @@
 
 #import "SCSPictureTypeClueViewController.h"
 #import "SCSCameraViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+
 @interface SCSPictureTypeClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton * flashButton;
@@ -38,15 +40,25 @@
     
     self.answerImageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    
-    if (self.selectedClue.clueState != SCSClueStateUnawswered)
-    {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
-        [self.answerImageView setImage:[UIImage imageWithData:imageData]];
-        [self displayCamaraCaptureScreen:false withAnimated:false withCompletion:nil];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.selectedClue.clueState != SCSClueStateUnawswered || self.selectedClue.clueState != SCSClueStateUnknown) {
+        [SVProgressHUD show];
+        [self displayCamaraCaptureScreen:false withAnimated:false withCompletion:^{
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
+            [self.answerImageView setImage:[UIImage imageWithData:imageData]];
+            [SVProgressHUD dismiss];
+        }];
     }
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -56,8 +68,12 @@
 #pragma mark - Segue Methods
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:kGetCustomCamera]) {
-        self.vcCustomCamera = segue.destinationViewController;
+    
+    if (self.selectedClue.clueState == SCSClueStateUnawswered || self.selectedClue.clueState == SCSClueStateUnknown)
+    {
+        if ([segue.identifier isEqualToString:kGetCustomCamera]) {
+            self.vcCustomCamera = segue.destinationViewController;
+        }
     }
 }
 

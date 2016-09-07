@@ -66,6 +66,7 @@
 		952045AE1CD2F456007C1431 /* SCSPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045921CD2F456007C1431 /* SCSPlayer.m */; };
 		952045AF1CD2F456007C1431 /* SCSTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045941CD2F456007C1431 /* SCSTeam.m */; };
 		952045BB1CD2F488007C1431 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 952045B91CD2F488007C1431 /* AppDelegate.m */; };
+		952D6B101D80A5C8009D4B35 /* answer_placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 952D6B0F1D80A5C8009D4B35 /* answer_placeholder.jpg */; };
 		954247F31D01274A00E3CE07 /* pending@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F01D01274A00E3CE07 /* pending@2x.png */; };
 		954247F41D01274A00E3CE07 /* reject@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F11D01274A00E3CE07 /* reject@2x.png */; };
 		954247F51D01274A00E3CE07 /* approved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F21D01274A00E3CE07 /* approved@2x.png */; };
@@ -221,6 +222,7 @@
 		952045B91CD2F488007C1431 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
 		952045BA1CD2F488007C1431 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		952045BC1CD2F526007C1431 /* Huntr.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Huntr.pch; sourceTree = "<group>"; };
+		952D6B0F1D80A5C8009D4B35 /* answer_placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = answer_placeholder.jpg; sourceTree = "<group>"; };
 		954247F01D01274A00E3CE07 /* pending@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pending@2x.png"; sourceTree = "<group>"; };
 		954247F11D01274A00E3CE07 /* reject@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reject@2x.png"; sourceTree = "<group>"; };
 		954247F21D01274A00E3CE07 /* approved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approved@2x.png"; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 		95E9F2261CD41B5100B0B909 /* Assests */ = {
 			isa = PBXGroup;
 			children = (
+				952D6B0F1D80A5C8009D4B35 /* answer_placeholder.jpg */,
 				9569EFBE1D6E044100C827F5 /* clueIndicatorAccepted@2x.png */,
 				9569EFBF1D6E044100C827F5 /* clueIndicatorPending@2x.png */,
 				9569EFC01D6E044100C827F5 /* clueIndicatorRejected@2x.png */,
@@ -627,7 +630,7 @@
 				TargetAttributes = {
 					952045191CD2F0D0007C1431 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = PX5UB8933J;
+						DevelopmentTeam = 72SF9FJJEW;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -669,6 +672,7 @@
 				9569EFA01D6D4E2100C827F5 /* map-checkin.png in Resources */,
 				9569EFA61D6D4E2100C827F5 /* camera-switch.png in Resources */,
 				95E9F2371CD41B5100B0B909 /* find-discover-2x.png in Resources */,
+				952D6B101D80A5C8009D4B35 /* answer_placeholder.jpg in Resources */,
 				95E9F23C1CD41B5100B0B909 /* limo-icon.png in Resources */,
 				95E9F23D1CD41B5100B0B909 /* limo-icon2x.png in Resources */,
 				9569EFC41D6E044100C827F5 /* clueIndicatorRejected@2x.png in Resources */,
@@ -956,7 +960,7 @@
 				INFOPLIST_FILE = Huntr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Capco.Huntr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Huntr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Huntr/Huntr-Bridging-Header.h";
@@ -977,7 +981,7 @@
 				INFOPLIST_FILE = Huntr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Capco.Huntr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Huntr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Huntr/Huntr-Bridging-Header.h";
@@ -1045,7 +1049,7 @@
 				INFOPLIST_FILE = Huntr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Capco.Huntr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Huntr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Huntr/Huntr-Bridging-Header.h";
@@ -1114,7 +1118,7 @@
 				INFOPLIST_FILE = Huntr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Capco.Huntr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scs.Huntr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Huntr/Huntr-Bridging-Header.h";

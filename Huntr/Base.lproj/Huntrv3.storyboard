@@ -1279,7 +1279,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAJ-ru-ruC">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S6x-SJ-Woj">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="answer_placeholder.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="S6x-SJ-Woj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     </imageView>
                                 </subviews>
@@ -1442,6 +1442,7 @@
     <resources>
         <image name="Leaderboard.png" width="32" height="32"/>
         <image name="alley_blue_bg.jpg" width="320" height="568"/>
+        <image name="answer_placeholder.jpg" width="1280" height="1920"/>
         <image name="camera-flash.png" width="16" height="24"/>
         <image name="camera-switch.png" width="29" height="22"/>
         <image name="clue.png" width="32" height="32"/>

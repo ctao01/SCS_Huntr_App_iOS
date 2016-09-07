@@ -117,7 +117,9 @@
         PhotoAnswerViewController * controller = segue.destinationViewController;
         controller.selectedClue = clue;
         controller.selectedGame = self.selectedGame;
-        controller.answerImageView.hidden = NO;
+        if (clue.clueState != SCSClueStateUnawswered || clue.clueState != SCSClueStateUnknown) {
+            controller.answerImageView.hidden = NO;
+        }
     }
     else if ([[segue identifier] isEqualToString:kGoToLocAnswerSegueIdentifier])
     {
