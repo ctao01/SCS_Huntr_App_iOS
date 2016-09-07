@@ -16,11 +16,15 @@
     NSInteger ti = ((NSInteger)[self timeIntervalSinceNow]);
     if (ti > 0)
     {
-        int seconds = ti % 60;
-        int minutes = (ti / 60) % 60;
-        int hours = (ti / 3600) % 24;
-        
-        return [NSString stringWithFormat:@"%dh %dm %ds", hours, minutes, seconds];
+//        int seconds = ti % 60;
+//        int minutes = (ti / 60) % 60;
+//        int hours = (ti / 3600) % 24;
+
+        long seconds = ti % 60;   // remainder is seconds
+        ti /= 60;                 // total number of mins
+        long minutes = ti % 60;   // remainder is minutes
+        long hours = ti / 60;      // number of hours
+        return [NSString stringWithFormat:@"%ldh %02ldm %02lds", hours, minutes, seconds];
     }
     
     return [NSString stringWithFormat:@"%dh %dm %ds", 0, 0, 0];
