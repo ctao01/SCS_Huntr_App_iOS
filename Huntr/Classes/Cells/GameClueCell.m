@@ -29,7 +29,7 @@
         
         self.descriptionLabel.text = self.theClue.clueDescription;
         self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.theClue.pointValue intValue]];
-        self.typeImageView.image = ([self.theClue.type isEqualToString:@"Picture"]) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
+        self.typeImageView.image = (self.theClue.clueType == SCSClueTypePicture) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
         
 //        self.statusImageView.hidden = (!self.theClue.didSubmit) || self.theClue.submittedAnswer.isPending || (self.theClue.didSubmit == YES && self.theClue.submittedAnswer.isCorrect == NO);
 //        self.pendingStatusLabel.hidden = ((self.theClue.didSubmit) && self.theClue.submittedAnswer.isCorrect) ? NO : YES;

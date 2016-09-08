@@ -45,7 +45,10 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.selectedClue.clueState != SCSClueStateUnawswered || self.selectedClue.clueState != SCSClueStateUnknown) {
+    if (self.selectedClue.clueState == SCSClueStateAnswerPendingReview ||
+        self.selectedClue.clueState == SCSClueStateAnswerAccepted ||
+        self.selectedClue.clueState == SCSClueStateAnswerRejected) {
+        
         [SVProgressHUD show];
         [self displayCamaraCaptureScreen:false withAnimated:false withCompletion:^{
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
