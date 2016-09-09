@@ -145,7 +145,8 @@ static float MilesToMeters(float miles) {
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.selectedClue.submittedAnswer.answerLocation.coordinate, MilesToMeters(5), MilesToMeters(5));
         [self zoomMapToFitRegion:region animateWithDuration:0.4f completion:nil];
         
-        
+        self.mapView.showsUserLocation = false;
+        self.mapView.userInteractionEnabled = false;
     }
 }
 

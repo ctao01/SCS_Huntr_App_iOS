@@ -51,6 +51,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.alpha = 0;
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -97,7 +102,7 @@
 
 #pragma mark - IBAction Functions
 
-- (IBAction)refresh:(UIRefreshControl* )control
+- (void)refresh:(UIRefreshControl* )control
 {
     [self refreshGameWithCompletion:^(NSString *errorString) {
         if (control) [control endRefreshing];
@@ -249,13 +254,11 @@
 //        SCSGame * oldGame = self.selectedGame;
         self.selectedGame = (SCSGame*)response;
         
-        self.teams = self.selectedGame.teamList;
+        NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES];
+        self.teams = [self.selectedGame.teamList sortedArrayUsingDescriptors:@[sortDescriptor]];            
+
         self.clues = self.selectedGame.clueList;
         
-//        if (self.selectedGame.status != oldGame.status) {
-//            // Game Status Changed
-//            [self refreshUI];
-//        }
         
         if(completion) completion(nil);
         
