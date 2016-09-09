@@ -71,6 +71,7 @@
 		954247F41D01274A00E3CE07 /* reject@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F11D01274A00E3CE07 /* reject@2x.png */; };
 		954247F51D01274A00E3CE07 /* approved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F21D01274A00E3CE07 /* approved@2x.png */; };
 		954247F71D0128EA00E3CE07 /* approval@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 954247F61D0128EA00E3CE07 /* approval@2x.png */; };
+		955467A71D824F360013A200 /* SCSMessageDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 955467A61D824F360013A200 /* SCSMessageDesign.json */; };
 		9569EF931D6D477A00C827F5 /* SCSVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9569EF921D6D477A00C827F5 /* SCSVisualEffectView.m */; };
 		9569EF9E1D6D4E2100C827F5 /* map-car@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF941D6D4E2100C827F5 /* map-car@2x.png */; };
 		9569EF9F1D6D4E2100C827F5 /* map-car.png in Resources */ = {isa = PBXBuildFile; fileRef = 9569EF951D6D4E2100C827F5 /* map-car.png */; };
@@ -227,6 +228,7 @@
 		954247F11D01274A00E3CE07 /* reject@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reject@2x.png"; sourceTree = "<group>"; };
 		954247F21D01274A00E3CE07 /* approved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approved@2x.png"; sourceTree = "<group>"; };
 		954247F61D0128EA00E3CE07 /* approval@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approval@2x.png"; sourceTree = "<group>"; };
+		955467A61D824F360013A200 /* SCSMessageDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SCSMessageDesign.json; sourceTree = "<group>"; };
 		9569EF911D6D477A00C827F5 /* SCSVisualEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSVisualEffectView.h; sourceTree = "<group>"; };
 		9569EF921D6D477A00C827F5 /* SCSVisualEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSVisualEffectView.m; sourceTree = "<group>"; };
 		9569EF941D6D4E2100C827F5 /* map-car@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-car@2x.png"; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 		9520451C1CD2F0D0007C1431 /* Huntr */ = {
 			isa = PBXGroup;
 			children = (
+				955467A61D824F360013A200 /* SCSMessageDesign.json */,
 				13616D7E1D41B4FD00A0A71C /* To Delete */,
 				95E9F2261CD41B5100B0B909 /* Assests */,
 				952045BC1CD2F526007C1431 /* Huntr.pch */,
@@ -709,6 +712,7 @@
 				95E9F2341CD41B5100B0B909 /* Camera@2x.png in Resources */,
 				95E9F2351CD41B5100B0B909 /* Checkmark@2x.png in Resources */,
 				954247F51D01274A00E3CE07 /* approved@2x.png in Resources */,
+				955467A71D824F360013A200 /* SCSMessageDesign.json in Resources */,
 				139FCC751D30A9EE002ABAB2 /* login_facebook_fbBlue@2x.png in Resources */,
 				95E9F23F1CD41B5100B0B909 /* start-button-2x.png in Resources */,
 				9569EFA11D6D4E2100C827F5 /* map-checkin@2x.png in Resources */,

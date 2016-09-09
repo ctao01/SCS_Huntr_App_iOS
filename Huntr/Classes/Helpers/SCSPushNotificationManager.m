@@ -93,6 +93,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [[SCSPushNotificationManager alloc] init];
+        [TSMessage addCustomDesignFromFileWithName:@"SCSMessageDesign.json"];
     });
     
     return _sharedClient;
