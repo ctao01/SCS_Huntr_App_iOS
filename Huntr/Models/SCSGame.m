@@ -49,28 +49,28 @@
 
 - (SCSGameStatus) status
 {
-    if (self.endDate == nil || self.startDate == nil)
-        return SCSGameStatusNotStarted;
-    if (self.endDate != nil) {
-        NSTimeInterval endTimeInterval = self.endDate ? self.endDate.timeIntervalSince1970 : DBL_MAX;
-        NSTimeInterval nowTimeInterval = [NSDate new].timeIntervalSince1970;
-        if (nowTimeInterval > endTimeInterval)
-                   return SCSGameStatusCompleted;
-        else
-            return SCSGameStatusInProgress;
-    }
+//    if (self.endDate == nil || self.startDate == nil)
+//        return SCSGameStatusNotStarted;
+//    if (self.endDate != nil) {
+//        NSTimeInterval endTimeInterval = self.endDate ? self.endDate.timeIntervalSince1970 : DBL_MAX;
+//        NSTimeInterval nowTimeInterval = [NSDate new].timeIntervalSince1970;
+//        if (nowTimeInterval > endTimeInterval)
+//                   return SCSGameStatusCompleted;
+//        else
+//            return SCSGameStatusInProgress;
+//    }
     
 // Need to change server or app
-//    NSTimeInterval nowTimeInterval = [NSDate new].timeIntervalSince1970;
-//    NSTimeInterval startTimeInterval = self.startDate ? self.startDate.timeIntervalSince1970 : 0;
-//    NSTimeInterval endTimeInterval = self.endDate ? self.endDate.timeIntervalSince1970 : DBL_MAX;
-//    
-//    if (nowTimeInterval < startTimeInterval)
-//        return SCSGameStatusNotStarted;
-//    if (nowTimeInterval > endTimeInterval)
-//        return SCSGameStatusCompleted;
-//    if (nowTimeInterval < endTimeInterval && nowTimeInterval >= startTimeInterval)
-//        return SCSGameStatusInProgress;
+    NSTimeInterval nowTimeInterval = [NSDate new].timeIntervalSince1970;
+    NSTimeInterval startTimeInterval = self.startDate ? self.startDate.timeIntervalSince1970 : DBL_MAX;
+    NSTimeInterval endTimeInterval = self.endDate ? self.endDate.timeIntervalSince1970 : DBL_MAX;
+    
+    if (nowTimeInterval < startTimeInterval)
+        return SCSGameStatusNotStarted;
+    if (nowTimeInterval > endTimeInterval)
+        return SCSGameStatusCompleted;
+    if (nowTimeInterval < endTimeInterval && nowTimeInterval >= startTimeInterval)
+        return SCSGameStatusInProgress;
     
     return SCSGameStatusUnknown;
 }
