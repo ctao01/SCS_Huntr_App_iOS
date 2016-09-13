@@ -1339,7 +1339,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="photo-gallery.png"/>
                                 <connections>
-                                    <action selector="chooseFromGallery:" destination="lDL-gl-poB" eventType="touchUpInside" id="yTI-FA-y9h"/>
+                                    <action selector="getPhotoButtonPressed:" destination="lDL-gl-poB" eventType="touchUpInside" id="fQc-aM-4WI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x8j-fG-fyz">
@@ -1411,7 +1411,7 @@
                         <outlet property="cameraView" destination="34r-Kh-ItB" id="hg9-ey-rb6"/>
                         <outlet property="clueDescTextView" destination="hlM-6v-WQ7" id="ad2-l5-U7Q"/>
                         <outlet property="flashButton" destination="ihp-Rc-lhZ" id="srs-8J-a9v"/>
-                        <outlet property="galleryButton" destination="yQQ-L5-b2y" id="2Wn-xi-p4x"/>
+                        <outlet property="getPhotoButton" destination="yQQ-L5-b2y" id="xkx-Ad-8yR"/>
                         <outlet property="roundButton" destination="YVz-Ki-mva" id="zfv-Tt-ELB"/>
                         <outlet property="switchButton" destination="x8j-fG-fyz" id="eOm-J3-lje"/>
                     </connections>

@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak) IBOutlet UIButton * flashButton;
 @property (nonatomic, weak) IBOutlet UIButton * switchButton;
-@property (nonatomic, weak) IBOutlet UIButton * galleryButton;
+@property (nonatomic, weak) IBOutlet UIButton * getPhotoButton;
 
 @property (nonatomic, weak) IBOutlet UIView * cameraView;
 @property (nonatomic, strong) SCSCameraViewController * vcCustomCamera;
@@ -39,7 +39,10 @@
     self.answerScrollView.delegate = self;
     
     self.answerImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
+//    if (self.selectedClue.clueState == SCSClueStateUnawswered || self.selectedClue.clueState == SCSClueStateUnknown)
+//    {
+//        [self performSegueWithIdentifier:kGetCustomCamera sender:self];
+//    }
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -72,11 +75,8 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if (self.selectedClue.clueState == SCSClueStateUnawswered || self.selectedClue.clueState == SCSClueStateUnknown)
-    {
-        if ([segue.identifier isEqualToString:kGetCustomCamera]) {
-            self.vcCustomCamera = segue.destinationViewController;
-        }
+    if ([segue.identifier isEqualToString:kGetCustomCamera]) {
+        self.vcCustomCamera = segue.destinationViewController;
     }
 }
 
@@ -106,12 +106,28 @@
     [self.vcCustomCamera.camera togglePosition];
 }
 
-- (IBAction) chooseFromGallery:(id)sender
+- (void) chooseFromGallery:(id)sender
 {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePickerController.delegate = (id)self;
     [self  presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (IBAction)getPhotoButtonPressed:(id)sender
+{
+    if (self.cameraView.alpha == 1)
+    {
+        // choose from lib
+        [self chooseFromGallery:sender];
+
+        
+    }
+    else
+    {
+        [self.vcCustomCamera.camera start];
+        [self displayCamaraCaptureScreen:true withAnimated:true withCompletion:nil];
+    }
 }
 
 - (IBAction) buttonPressed:(UIButton *)buttton
@@ -140,7 +156,7 @@
                 self.roundButton.backgroundColor = [UIColor colorWithRed:246.0f/255.0f green:78.0f/255.0f blue:77.0f/255.0f alpha:0.8f];
                 [self.roundButton setTitle:@"Submit" forState:UIControlStateNormal];
                 [self.roundButton setTintColor:[UIColor whiteColor]];
-
+                
             }];
         }
         else {
@@ -182,10 +198,14 @@
             self.answerScrollView.alpha = 0;
             self.roundButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
             [self.roundButton setTitle:@"" forState:UIControlStateNormal];
+            self.roundButton.alpha = 1;
+            
             self.cameraView.alpha = 1;
             self.flashButton.alpha = 1;
             self.switchButton.alpha = 1;
-            self.galleryButton.alpha = 1;
+//            self.getPhotoButton.alpha = 1;
+            [self.getPhotoButton setImage:[UIImage imageNamed:@"photo-gallery"]
+                                 forState:UIControlStateNormal];
             
         }];
     }
@@ -196,14 +216,20 @@
             self.cameraView.alpha = 0;
             self.flashButton.alpha = 0;
             self.switchButton.alpha = 0;
-            self.galleryButton.alpha = 0;
+//            self.getPhotoButton.alpha = 0;
             
             if (self.selectedClue.clueState != SCSClueStateUnawswered) {
                 self.roundButton.alpha = 0;
             }
             
+            if (self.selectedClue.clueState == SCSClueStateAnswerAccepted || self.selectedClue.clueState == SCSClueStateAnswerPendingReview) {
+                self.getPhotoButton.alpha = 0;
+            }
+            
             self.answerScrollView.contentSize = self.answerImageView.image.size;
             self.answerScrollView.alpha = 1;
+            [self.getPhotoButton setImage:[UIImage imageNamed:@"camera_mode"] forState:UIControlStateNormal];
+
             
 
         } completion:^(BOOL finished) {
