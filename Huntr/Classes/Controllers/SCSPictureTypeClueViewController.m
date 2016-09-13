@@ -131,7 +131,8 @@
 {
     [self.vcCustomCamera.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
         if(!error) {
-            NSLog(@"Took a picture: %@", [image description]);
+            
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
             self.answerImageView.contentMode = UIViewContentModeScaleAspectFill;
             self.answerImageView.image = image;
             
