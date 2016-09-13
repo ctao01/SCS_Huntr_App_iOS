@@ -8,6 +8,7 @@
 
 #import "SCSLocationTypeClueViewController.h"
 #import <MapKit/MapKit.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #import "SCSPushNotificationManager.h"
 #import "SCSPushNotification.h"
@@ -155,9 +156,13 @@ static float MilesToMeters(float miles) {
 - (IBAction) checkin:(id)sender
 {
     [UIAlertController showAlertInViewController:self withTitle:@"Huntr Notification" message:@"Are you sure to submit the answer?" cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex){
+        
         if (buttonIndex == controller.firstOtherButtonIndex) {
+            [SVProgressHUD show];
             BOOL correctLocation = [self isUserInTheLocation:self.currentLocation];
+            
             if (correctLocation == false){
+                [SVProgressHUD dismiss];
                 [UIAlertController showAlertInViewController:self withTitle:@"Error" message:@"You are not here" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
             }
             else
@@ -165,8 +170,13 @@ static float MilesToMeters(float miles) {
                 NSDictionary * answerInfo = @{@"latitude": [NSNumber numberWithDouble:self.currentLocation.coordinate.latitude], @"longitude": [NSNumber numberWithDouble:self.currentLocation.coordinate.longitude]};
                 
                 [[SCSHuntrClient sharedClient] postAnswer:answerInfo withClue:self.selectedClue successBlock:^(id response) {
+                    
+                    [SVProgressHUD dismiss];
                     [self.navigationController popViewControllerAnimated:YES];
+                    
                 } failureBlock:^(NSString *errorString) {
+                    
+                    [SVProgressHUD dismiss];
                     [UIAlertController showAlertInViewController:self withTitle:@"Error" message:@"Oops! Something wrong" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
                 }];
 
@@ -174,22 +184,6 @@ static float MilesToMeters(float miles) {
         }
         
     }];
-    
-    
-//    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Huntr Notification" message:@"Are you sure to submit the answer?" preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-//        
-//    }];
-//    
-//    UIAlertAction * yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action ) {
-//        [self.navigationController popViewControllerAnimated:true];
-//        
-//    }];
-//    
-//    [alertVC addAction:cancelAction];
-//    [alertVC addAction:yesAction];
-//    
-//    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 #pragma mark - MKMapView Delegate

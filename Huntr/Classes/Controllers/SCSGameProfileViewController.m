@@ -16,6 +16,7 @@
 #import "SCSPictureTypeClueViewController.h"
 
 #import <AFNetworking/UIKit+AFNetworking.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #import "NSDate+SCSHuntrHelpers.h"
 
@@ -396,13 +397,17 @@
             cell.team = team;
             
             cell.teamButtonActionBlock = ^{
+                [SVProgressHUD show];
+                
                 [[SCSHuntrClient sharedClient] addPlayerToTeam:team.teamID successBlock:^(id response) {
                     [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
+                    [SVProgressHUD dismiss];
                     [self refresh:nil];
                 } failureBlock:^(NSString *errorString) {
                     if ([errorString rangeOfString:@"status code: 409" options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
                     }
+                    [SVProgressHUD dismiss];
                     [self refresh:nil];
                 }];
             };

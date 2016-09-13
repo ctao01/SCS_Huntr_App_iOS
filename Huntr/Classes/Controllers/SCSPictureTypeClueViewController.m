@@ -156,11 +156,15 @@
     [UIAlertController showAlertInViewController:self withTitle:@"Huntr Notification" message:@"Are you sure to submit the answer?"  cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
         if( buttonIndex == controller.firstOtherButtonIndex )
         {
+            [SVProgressHUD show];
             [[SCSHuntrClient sharedClient] postAnswer:[self.answerImageView image]
                                              withClue:self.selectedClue successBlock:^(id response) {
+                                                 [SVProgressHUD dismiss];
                                                  [self.navigationController popViewControllerAnimated: YES];
 
                                              } failureBlock:^(NSString * errorString) {
+                                                 [SVProgressHUD dismiss];
+
                                                  [UIAlertController showAlertInViewController:self withTitle:@"Error" message:@"Oops! Something wrong" cancelButtonTitle:@"Ok" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:nil];
                                              }];
         }
