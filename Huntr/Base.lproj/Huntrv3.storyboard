@@ -988,7 +988,7 @@
                                                         <constraint firstAttribute="width" constant="32" id="hMo-5N-2dC"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-wX-kkT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-wX-kkT">
                                                     <rect key="frame" x="62" y="30" width="163" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="YcG-Pw-rUr"/>
