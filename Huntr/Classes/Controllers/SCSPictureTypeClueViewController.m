@@ -11,6 +11,9 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 
 @interface SCSPictureTypeClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
+{
+    BOOL retakePhotoAction;
+}
 
 @property (nonatomic, weak) IBOutlet UIButton * flashButton;
 @property (nonatomic, weak) IBOutlet UIButton * switchButton;
@@ -21,6 +24,7 @@
 
 @property (nonatomic, weak) IBOutlet UIScrollView * answerScrollView;
 @property (nonatomic, weak) IBOutlet UIImageView * answerImageView;
+
 
 @end
 
@@ -43,6 +47,7 @@
 //    {
 //        [self performSegueWithIdentifier:kGetCustomCamera sender:self];
 //    }
+    retakePhotoAction = false;
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -125,8 +130,21 @@
     }
     else
     {
-        [self.vcCustomCamera.camera start];
-        [self displayCamaraCaptureScreen:true withAnimated:true withCompletion:nil];
+        if (self.selectedClue.clueState == SCSClueStateAnswerRejected && retakePhotoAction == false) {
+            [UIAlertController showAlertInViewController:self withTitle:@"Huntr" message:@"Are you sure to resubmit the answer." cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
+                if (buttonIndex == controller.firstOtherButtonIndex) {
+                    retakePhotoAction = true;
+                    [self.vcCustomCamera.camera start];
+                    [self displayCamaraCaptureScreen:true withAnimated:true withCompletion:nil];
+                }
+            }];
+        }
+        else
+        {
+            [self.vcCustomCamera.camera start];
+            [self displayCamaraCaptureScreen:true withAnimated:true withCompletion:nil];
+        }
+        
     }
 }
 
@@ -220,6 +238,9 @@
             
             if (self.selectedClue.clueState != SCSClueStateUnawswered) {
                 self.roundButton.alpha = 0;
+                if (retakePhotoAction == true) {
+                    self.roundButton.alpha = 1;
+                }
             }
             
             if (self.selectedClue.clueState == SCSClueStateAnswerAccepted || self.selectedClue.clueState == SCSClueStateAnswerPendingReview) {
