@@ -22,8 +22,10 @@
 {
     if (self.theClue) {
         
-        if (self.selectedGame.status == SCSGameStatusCompleted && self.theClue.submittedAnswer == nil) {
-            self.selectionStyle  = UITableViewCellSelectionStyleNone;
+        if (self.selectedGame.status == SCSGameStatusCompleted ) {
+            if (self.theClue.clueState == SCSClueStateUnawswered) {
+                self.selectionStyle  = UITableViewCellSelectionStyleNone;
+            }
             self.accessoryType = UITableViewCellAccessoryNone;
         }
         

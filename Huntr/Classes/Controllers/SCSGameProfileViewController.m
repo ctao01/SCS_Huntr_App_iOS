@@ -151,7 +151,7 @@
     }
     else {
         self.contentToDisplay = SCSProfileContentTypeClues;
-        self.tableView.allowsSelection = (self.selectedGame.status == SCSGameStatusInProgress);
+        self.tableView.allowsSelection = (self.selectedGame.status == SCSGameStatusInProgress || self.selectedGame.status == SCSGameStatusCompleted );
     }
     
 //    [self.tableView reloadData];
@@ -446,7 +446,7 @@
         
         SCSClue * clue = [self.clues objectAtIndex:indexPath.row];
         
-        if (self.selectedGame.status == SCSGameStatusInProgress || clue.submittedAnswer != nil) {
+        if (self.selectedGame.status == SCSGameStatusInProgress || (self.selectedGame.status == SCSGameStatusCompleted && clue.clueState != SCSClueStateUnawswered )) {
             
             if (clue.clueType  == SCSClueTypeLocation)
             {
