@@ -130,7 +130,7 @@
     }
     else
     {
-        if (self.selectedClue.clueState == SCSClueStateAnswerRejected && retakePhotoAction == false) {
+        if (self.selectedClue.clueState == SCSClueStateAnswerRejected && retakePhotoAction == false || (self.selectedClue.clueState == SCSClueStateAnswerPendingReview && retakePhotoAction == false)) {
             [UIAlertController showAlertInViewController:self withTitle:@"Huntr" message:@"Are you sure to resubmit the answer." cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
                 if (buttonIndex == controller.firstOtherButtonIndex) {
                     retakePhotoAction = true;
@@ -243,7 +243,7 @@
                 }
             }
             
-            if (self.selectedClue.clueState == SCSClueStateAnswerAccepted || self.selectedClue.clueState == SCSClueStateAnswerPendingReview) {
+            if (self.selectedClue.clueState == SCSClueStateAnswerAccepted) {
                 self.getPhotoButton.alpha = 0;
             }
             

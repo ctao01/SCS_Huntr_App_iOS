@@ -112,28 +112,6 @@
             [self refreshUI];
             [self.tableView reloadData];
             
-//            if (self.contentToDisplay == SCSProfileContentTypeTeams) {
-//                [self refreshTeamsListWithCompletion:^(NSString *errorString) {
-//                    if (!errorString) {
-//                        [self.tableView reloadData];
-//                    }
-//                    else {
-//                        NSLog(@"%@",errorString);
-//                    }
-//                    if (control) [control endRefreshing];
-//                }];
-//            }
-//            else if (self.contentToDisplay == SCSProfileContentTypeClues) {
-//                [self refreshClueListWithCompletion:^(NSString *errorString) {
-//                    if (!errorString) {
-//                        [self.tableView reloadData];
-//                    }
-//                    else {
-//                        NSLog(@"%@",errorString);
-//                    }
-//                    if (control) [control endRefreshing];
-//                }];
-//            }
         }
         else {
             NSLog(@"%@",errorString);
