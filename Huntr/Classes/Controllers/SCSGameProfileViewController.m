@@ -53,10 +53,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.alpha = 0;
-    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshControl];
+//    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+//    refreshControl.alpha = 0;
+//    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+//    [self.tableView addSubview:refreshControl];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -172,7 +172,7 @@
         SCSTeam * activeTeam = activePlayer.activeTeam;
         if (activeTeam) {
             self.subtitleLabel.text = activeTeam.teamName;
-            self.subtitleLabel.textColor = [UIColor blackColor];
+            self.subtitleLabel.textColor = [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f  blue:204.0f/255.0f alpha:1];
         }
         else {
             self.subtitleLabel.text = @"No Team Selected Currently";
@@ -358,9 +358,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.contentToDisplay == SCSProfileContentTypeClues) return 90.0;
+    if (self.contentToDisplay == SCSProfileContentTypeClues) return 80.0;
     
-    return 44.0;
+    return 45.0;
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -459,6 +459,44 @@
         }
     }
 }
+
+- (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.contentToDisplay == SCSProfileContentTypeTeams) {
+        return NO;
+    }
+    else if (self.contentToDisplay == SCSProfileContentTypeClues) {
+        
+        SCSClue * clue = [self.clues objectAtIndex:indexPath.row];
+        
+        if (self.selectedGame.status == SCSGameStatusInProgress || (self.selectedGame.status == SCSGameStatusCompleted && clue.clueState != SCSClueStateUnawswered )) {
+            
+            return YES;
+        }
+    }
+
+    return YES;
+}
+
+//
+//- (void) tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+//    // Add your Colour.
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    [self setCellColor:[UIColor colorWithWhite:0.0 alpha:1.000] ForCell:cell];  //highlight colour
+//}
+//
+//- (void) tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+//    // Reset Colour.
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    [self setCellColor:[UIColor clearColor] ForCell:cell]; //normal color
+//    
+//}
+//
+//- (void) setCellColor:(UIColor *)color ForCell:(UITableViewCell *)cell {
+//    cell.contentView.backgroundColor = color;
+//    cell.backgroundColor = color;
+//}
+
 
 #pragma mark - Navigation
 

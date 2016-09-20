@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UIButton (Style)
+
 + (id) setupJoinedStyle;
 + (id) setupNormalStyle;
++ (id) setupLightGrayStyle;
 
 @end

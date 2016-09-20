@@ -10,6 +10,24 @@
 
 @implementation LeaderboardCell
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted) {
+        self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
 - (void) setTheTeam:(SCSTeam *)theTeam
 {
     if (_theTeam != theTeam) {

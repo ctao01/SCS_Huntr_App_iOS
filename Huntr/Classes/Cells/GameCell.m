@@ -17,6 +17,24 @@
 
 @implementation GameCell
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted) {
+        self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
 - (void) dealloc {
     [self invalidteGameTimer];
 }
@@ -64,7 +82,6 @@
                                                          repeats:YES];
     }
 }
-
 
 
 @end

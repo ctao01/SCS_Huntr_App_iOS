@@ -195,6 +195,7 @@
     
 #if TARGET_IPHONE_SIMULATOR
     [[SCSHuntrEnviromentManager sharedManager] approveDeviceAPNS];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDidRegisterForRemoteNotificationsWithDeviceToken object:nil];
 #endif
 }
 

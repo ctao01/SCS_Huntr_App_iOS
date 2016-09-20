@@ -10,6 +10,24 @@
 
 @implementation GameClueCell
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted) {
+        self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
 - (void) setTheClue:(SCSClue *)theClue
 {
     if (_theClue != theClue) {
@@ -31,7 +49,7 @@
         
         self.descriptionLabel.text = self.theClue.clueDescription;
         self.pointLabel.text = [NSString stringWithFormat:@"%i points",[self.theClue.pointValue intValue]];
-        self.typeImageView.image = (self.theClue.clueType == SCSClueTypePicture) ? [UIImage imageNamed:@"Camera"]:[UIImage imageNamed:@"location"];
+        self.typeImageView.image = (self.theClue.clueType == SCSClueTypePicture) ? [UIImage imageNamed:@"photoClue"]:[UIImage imageNamed:@"locationClue"];
         
 //        self.statusImageView.hidden = (!self.theClue.didSubmit) || self.theClue.submittedAnswer.isPending || (self.theClue.didSubmit == YES && self.theClue.submittedAnswer.isCorrect == NO);
 //        self.pendingStatusLabel.hidden = ((self.theClue.didSubmit) && self.theClue.submittedAnswer.isCorrect) ? NO : YES;

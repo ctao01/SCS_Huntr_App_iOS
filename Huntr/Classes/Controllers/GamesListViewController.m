@@ -38,10 +38,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePushNotification:) name:SCSPushNotificationGameStatusUpdate object:nil];
     
     self.navigationController.navigationBarHidden = NO;
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = nil;
     self.navigationController.navigationBar.translucent = YES;
-    
+
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
     

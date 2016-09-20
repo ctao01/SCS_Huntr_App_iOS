@@ -211,9 +211,11 @@
     if (_registeredPlayer == nil)  {
         
         NSData * storedPlayer = [[NSUserDefaults standardUserDefaults] dataForKey:kCurrentPlayer];
-        SCSRegisteredPlayer * decodedRegisteredPlayer = (SCSRegisteredPlayer *)[NSKeyedUnarchiver unarchiveObjectWithData:storedPlayer];
-        _registeredPlayer = decodedRegisteredPlayer;
         
+        if (storedPlayer) {
+            SCSRegisteredPlayer * decodedRegisteredPlayer = (SCSRegisteredPlayer *)[NSKeyedUnarchiver unarchiveObjectWithData:storedPlayer];
+            _registeredPlayer = decodedRegisteredPlayer;
+        }
     }
     
     return _registeredPlayer;

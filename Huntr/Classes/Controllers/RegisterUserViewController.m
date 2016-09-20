@@ -37,7 +37,7 @@
 {
     [super viewDidAppear:animated];
 
-        [[SCSPushNotificationManager sharedClient] requestUserToRegisterWithPushNotifications];
+    [[SCSPushNotificationManager sharedClient] requestUserToRegisterWithPushNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willDisplayRegisterOptions) name:kDidRegisterForRemoteNotificationsWithDeviceToken object:nil];
 }
 

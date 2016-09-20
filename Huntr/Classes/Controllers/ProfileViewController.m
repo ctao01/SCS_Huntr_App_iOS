@@ -10,9 +10,8 @@
 #import "FXBlurView.h"
 
 #define offset_HeaderStop 40.0
-#define distance_W_LabelHeader 30.0
+#define distance_W_LabelHeader 31.0
 
-#define kPullToRefreshDistance 64.0
 #define kPullToRefreshDistance 64.0
 
 @interface ProfileViewController () <UIScrollViewDelegate>
@@ -28,6 +27,8 @@
     [super viewDidLoad];
     
     self.tableView.contentInset = UIEdgeInsetsMake(self.headerView.frame.size.height, 0, 0, 0);
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLayoutSubviews
@@ -38,7 +39,7 @@
         // Header - Normal Image
         self.headerImageView = [[UIImageView alloc] initWithFrame:self.headerView.bounds];
         self.headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.headerImageView.image = [UIImage imageNamed:@"header_bg"];
+        self.headerImageView.image = [UIImage imageNamed:@"header_2_bg"];
         [self.headerView insertSubview:self.headerImageView belowSubview:self.headerTitleLabel];
     }
     
@@ -46,7 +47,7 @@
         // Header - Blurred Image
         self.headerBlurImageView = [[UIImageView alloc] initWithFrame:self.headerView.bounds];
         self.headerBlurImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.headerBlurImageView.image = [[UIImage imageNamed:@"header_bg"] blurredImageWithRadius:10 iterations:20 tintColor:[UIColor clearColor]];
+        self.headerBlurImageView.image = [[UIImage imageNamed:@"header_2_bg"] blurredImageWithRadius:10 iterations:20 tintColor:[UIColor clearColor]];
         self.headerBlurImageView.alpha = 0.0;
         [self.headerView insertSubview:self.headerBlurImageView belowSubview:self.headerTitleLabel];
     }
@@ -112,6 +113,10 @@
         //  ------------ Blur
         
         self.headerBlurImageView.alpha = MIN(1.0, (offset - alignToNameLabel)/distance_W_LabelHeader);
+        
+//        if (self.navigationItem.backBarButtonItem) {
+//            self.navigationItem.backBarButtonItem.ap
+//        }
         
         // Avatar -----------
         

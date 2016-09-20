@@ -11,6 +11,24 @@
 
 @implementation TeamCell
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted) {
+        self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+    }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
 - (void) setTeam:(SCSTeam *)team
 {
     if (_team != team) _team = team;
@@ -35,7 +53,7 @@
 - (void) configureView
 {
     if (self.team) {
-        self.textLabel.text = self.team.teamName;
+        self.titleLabel.text = self.team.teamName;
         self.selectionStyle  = UITableViewCellSelectionStyleNone;
         
         if ([[SCSHuntrEnviromentManager sharedManager] isPlayerMemberOfTeamID:self.team.teamID]) {
@@ -44,13 +62,13 @@
             self.accessoryView = nil;
         }
         else {
-            UIButton * accessoryButton = [UIButton setupNormalStyle];
+            UIButton * accessoryButton = [UIButton setupLightGrayStyle];
             [accessoryButton addTarget:self action:@selector(addTeamButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
             self.accessoryView = accessoryButton;
         }
     }
     else {
-        self.textLabel.text = nil;
+        self.titleLabel.text = nil;
         self.accessoryView = nil;
     }
 }

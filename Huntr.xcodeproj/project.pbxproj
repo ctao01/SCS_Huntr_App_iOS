@@ -24,8 +24,11 @@
 		139FCC791D30A9EE002ABAB2 /* login_twitter_twBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 139FCC711D30A9EE002ABAB2 /* login_twitter_twBlue@2x.png */; };
 		139FCC7A1D30A9EE002ABAB2 /* login_twitter_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 139FCC721D30A9EE002ABAB2 /* login_twitter_white@2x.png */; };
 		139FCC7C1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 139FCC7B1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png */; };
-		139FCC7E1D335C66002ABAB2 /* alley_blue_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 139FCC7D1D335C66002ABAB2 /* alley_blue_bg@2x.jpg */; };
 		13A2C6A91D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A2C6A81D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.m */; };
+		13B33E761D910EAE00DA3A2D /* locationClue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13B33E741D910EAE00DA3A2D /* locationClue@2x.png */; };
+		13B33E771D910EAE00DA3A2D /* photoClue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13B33E751D910EAE00DA3A2D /* photoClue@2x.png */; };
+		13B33E791D9127DF00DA3A2D /* alley_blue_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13B33E781D9127DF00DA3A2D /* alley_blue_bg@2x.png */; };
+		13B33E7C1D912AA300DA3A2D /* HeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B33E7A1D912AA300DA3A2D /* HeaderViewController.m */; };
 		13BA67981D47169D00EB932C /* Huntrv3.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BA67961D47169D00EB932C /* Huntrv3.storyboard */; };
 		13E426661D6400CA002307D8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E426651D6400CA002307D8 /* ProfileViewController.m */; };
 		13E426691D640124002307D8 /* TWTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E426681D640124002307D8 /* TWTButton.m */; };
@@ -140,9 +143,13 @@
 		139FCC711D30A9EE002ABAB2 /* login_twitter_twBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_twitter_twBlue@2x.png"; sourceTree = "<group>"; };
 		139FCC721D30A9EE002ABAB2 /* login_twitter_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_twitter_white@2x.png"; sourceTree = "<group>"; };
 		139FCC7B1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "huntr_login_logo_white@2x.png"; sourceTree = "<group>"; };
-		139FCC7D1D335C66002ABAB2 /* alley_blue_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "alley_blue_bg@2x.jpg"; sourceTree = "<group>"; };
 		13A2C6A71D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+SCSHuntrHelpers.h"; sourceTree = "<group>"; };
 		13A2C6A81D6A8FEA0020FB39 /* NSDate+SCSHuntrHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+SCSHuntrHelpers.m"; sourceTree = "<group>"; };
+		13B33E741D910EAE00DA3A2D /* locationClue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationClue@2x.png"; sourceTree = "<group>"; };
+		13B33E751D910EAE00DA3A2D /* photoClue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoClue@2x.png"; sourceTree = "<group>"; };
+		13B33E781D9127DF00DA3A2D /* alley_blue_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alley_blue_bg@2x.png"; sourceTree = "<group>"; };
+		13B33E7A1D912AA300DA3A2D /* HeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderViewController.m; sourceTree = "<group>"; };
+		13B33E7B1D912AA300DA3A2D /* HeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderViewController.h; sourceTree = "<group>"; };
 		13BA67971D47169D00EB932C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Huntrv3.storyboard; sourceTree = "<group>"; };
 		13E426641D6400CA002307D8 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		13E426651D6400CA002307D8 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -442,6 +449,8 @@
 		952045511CD2F40E007C1431 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				13B33E7B1D912AA300DA3A2D /* HeaderViewController.h */,
+				13B33E7A1D912AA300DA3A2D /* HeaderViewController.m */,
 				952045541CD2F40E007C1431 /* CluesListViewController.h */,
 				952045551CD2F40E007C1431 /* CluesListViewController.m */,
 				952045561CD2F40E007C1431 /* GamesListViewController.h */,
@@ -553,6 +562,8 @@
 		95E9F2261CD41B5100B0B909 /* Assests */ = {
 			isa = PBXGroup;
 			children = (
+				13B33E741D910EAE00DA3A2D /* locationClue@2x.png */,
+				13B33E751D910EAE00DA3A2D /* photoClue@2x.png */,
 				955467A81D8878760013A200 /* camera_mode.png */,
 				955467A91D8878760013A200 /* camera_mode@2x.png */,
 				952D6B0F1D80A5C8009D4B35 /* answer_placeholder.jpg */,
@@ -572,7 +583,7 @@
 				9569EF9B1D6D4E2100C827F5 /* camera-flash@2x.png */,
 				9569EF9C1D6D4E2100C827F5 /* camera-switch.png */,
 				9569EF9D1D6D4E2100C827F5 /* camera-switch@2x.png */,
-				139FCC7D1D335C66002ABAB2 /* alley_blue_bg@2x.jpg */,
+				13B33E781D9127DF00DA3A2D /* alley_blue_bg@2x.png */,
 				139FCC7B1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png */,
 				139FCC6B1D30A9EE002ABAB2 /* alley_bg@2x.jpg */,
 				139FCC6C1D30A9EE002ABAB2 /* huntr_login_logo@2x.png */,
@@ -680,6 +691,7 @@
 				95E9F2381CD41B5100B0B909 /* find-discover.png in Resources */,
 				9569EFA01D6D4E2100C827F5 /* map-checkin.png in Resources */,
 				955467AA1D8878760013A200 /* camera_mode.png in Resources */,
+				13B33E761D910EAE00DA3A2D /* locationClue@2x.png in Resources */,
 				9569EFA61D6D4E2100C827F5 /* camera-switch.png in Resources */,
 				95E9F2371CD41B5100B0B909 /* find-discover-2x.png in Resources */,
 				952D6B101D80A5C8009D4B35 /* answer_placeholder.jpg in Resources */,
@@ -690,7 +702,6 @@
 				954247F41D01274A00E3CE07 /* reject@2x.png in Resources */,
 				139FCC7C1D335C5D002ABAB2 /* huntr_login_logo_white@2x.png in Resources */,
 				95E9F2361CD41B5100B0B909 /* clue@2x.png in Resources */,
-				139FCC7E1D335C66002ABAB2 /* alley_blue_bg@2x.jpg in Resources */,
 				139FCC771D30A9EE002ABAB2 /* login_linkedIn_liBlue@2x.png in Resources */,
 				9520452A1CD2F0D0007C1431 /* Assets.xcassets in Resources */,
 				9569EF9E1D6D4E2100C827F5 /* map-car@2x.png in Resources */,
@@ -704,6 +715,7 @@
 				952045361CD2F3D6007C1431 /* Huntrv2.storyboard in Resources */,
 				139FCC7A1D30A9EE002ABAB2 /* login_twitter_white@2x.png in Resources */,
 				139FCC741D30A9EE002ABAB2 /* huntr_login_logo@2x.png in Resources */,
+				13B33E791D9127DF00DA3A2D /* alley_blue_bg@2x.png in Resources */,
 				95E9F23E1CD41B5100B0B909 /* location@2x.png in Resources */,
 				9569EFA41D6D4E2100C827F5 /* camera-flash.png in Resources */,
 				139FCC791D30A9EE002ABAB2 /* login_twitter_twBlue@2x.png in Resources */,
@@ -721,6 +733,7 @@
 				95E9F2351CD41B5100B0B909 /* Checkmark@2x.png in Resources */,
 				954247F51D01274A00E3CE07 /* approved@2x.png in Resources */,
 				955467A71D824F360013A200 /* SCSMessageDesign.json in Resources */,
+				13B33E771D910EAE00DA3A2D /* photoClue@2x.png in Resources */,
 				139FCC751D30A9EE002ABAB2 /* login_facebook_fbBlue@2x.png in Resources */,
 				95E9F23F1CD41B5100B0B909 /* start-button-2x.png in Resources */,
 				9569EFA11D6D4E2100C827F5 /* map-checkin@2x.png in Resources */,
@@ -796,6 +809,7 @@
 				952045731CD2F40E007C1431 /* UIImage+RoundedCorner.m in Sources */,
 				9520456F1CD2F40E007C1431 /* UIAlertView+error.m in Sources */,
 				134A340C1D111F4800F0F96D /* SCSPushNotification.m in Sources */,
+				13B33E7C1D912AA300DA3A2D /* HeaderViewController.m in Sources */,
 				9520457D1CD2F40E007C1431 /* LeaderboardViewController.m in Sources */,
 				952045711CD2F40E007C1431 /* UIImage+Alpha.m in Sources */,
 				130D9B761D12716900F7C9B8 /* SCSPushNotificationManager.m in Sources */,
