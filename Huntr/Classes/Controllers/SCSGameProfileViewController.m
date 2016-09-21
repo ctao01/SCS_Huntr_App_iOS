@@ -53,6 +53,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    
 //    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
 //    refreshControl.alpha = 0;
 //    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
@@ -73,6 +76,7 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     
+    [SVProgressHUD showWithStatus:@"Loading Game"];
     [self refresh:nil];
 }
 
@@ -116,20 +120,22 @@
         else {
             NSLog(@"%@",errorString);
         }
+        
+        [SVProgressHUD dismiss];
     }];
 }
 
 -(IBAction)selectContentType:(UISegmentedControl *)sender
 {
-    // crap code I know
     if (sender.selectedSegmentIndex == 0) {
         self.contentToDisplay = SCSProfileContentTypeTeams;
-        
         self.tableView.allowsSelection = NO;
+        [SVProgressHUD showWithStatus:@"Refreshing Teams"];
     }
     else {
         self.contentToDisplay = SCSProfileContentTypeClues;
         self.tableView.allowsSelection = (self.selectedGame.status == SCSGameStatusInProgress || self.selectedGame.status == SCSGameStatusCompleted );
+        [SVProgressHUD showWithStatus:@"Refreshing Clues"];
     }
     
 //    [self.tableView reloadData];
@@ -315,7 +321,10 @@
 {
     NSDictionary * parameter = [NSDictionary dictionaryWithObject:teamName forKey: @"teamName"];
     [[SCSHuntrClient sharedClient] addTeamToGame:parameter successBlock:^(id object) {
+        
+        [SVProgressHUD showWithStatus:@"Refreshing Teams"];
         [self refresh:nil];
+        
     } failureBlock:^(NSString *errorString) {
         
         if ([errorString rangeOfString:@"status code: 409" options:NSCaseInsensitiveSearch].location != NSNotFound) {
@@ -375,17 +384,15 @@
             cell.team = team;
             
             cell.teamButtonActionBlock = ^{
-                [SVProgressHUD show];
+                [SVProgressHUD showWithStatus:@"Adding Player"];
                 
                 [[SCSHuntrClient sharedClient] addPlayerToTeam:team.teamID successBlock:^(id response) {
                     [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
-                    [SVProgressHUD dismiss];
                     [self refresh:nil];
                 } failureBlock:^(NSString *errorString) {
                     if ([errorString rangeOfString:@"status code: 409" options:NSCaseInsensitiveSearch].location != NSNotFound) {
                         [[SCSHuntrEnviromentManager sharedManager] joinGameID:self.selectedGame.gameID withTeamID:team.teamID];
                     }
-                    [SVProgressHUD dismiss];
                     [self refresh:nil];
                 }];
             };
