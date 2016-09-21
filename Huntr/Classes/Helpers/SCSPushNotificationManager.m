@@ -342,7 +342,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
                 NSString *  teamName = response;
-                NSString * subtitle  =[NSString stringWithFormat:@"Team %@ added into Game %@", teamName, gameName];
+                NSString * subtitle  =[NSString stringWithFormat:@"Team %@ was added to Game %@", teamName, gameName];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [TSMessage showNotificationWithTitle:@"Huntr Notification"
                                                 subtitle:NSLocalizedString(subtitle, nil)
@@ -373,11 +373,11 @@
                 NSString * subtitle = nil;
                 if ([type isEqualToString:@"PAPN"])
                 {
-                    subtitle = [NSString stringWithFormat:@"%@ just joins %@", playerName, teamName];
+                    subtitle = [NSString stringWithFormat:@"%@ just joined %@", playerName, teamName];
                 }
                 else
                 {
-                    subtitle = [NSString stringWithFormat:@"oops %@ left %@", playerName, teamName];
+                    subtitle = [NSString stringWithFormat:@"OOPS! %@ left %@", playerName, teamName];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [TSMessage showNotificationWithTitle:@"Huntr Notification"
@@ -411,7 +411,7 @@
                 NSString * desc = [(SCSClue*)response clueDescription];
                 if (isFirstAnswer)
                 {
-                    subtitle = [NSString stringWithFormat:@"Hurry up ~~~ \"%@\" is the  first team submit answer to clue \"%@\"", teamName, desc];
+                    subtitle = [NSString stringWithFormat:@"Hurry up ~~~ \"%@\" is the first team to submit answer for clue \"%@\"", teamName, desc];
 
                 }
                 else
@@ -420,7 +420,7 @@
                         subtitle = [NSString stringWithFormat:@"Wee ~~~ Team \"%@\" earend points from \"%@\"", teamName, desc];
                     }
                     else if (status == SCSClueStateAnswerPendingReview) {
-                        subtitle = [NSString stringWithFormat:@"Good Job ! Your team has submitted answer to clue"];
+                        subtitle = [NSString stringWithFormat:@"Good Job ! Your team has submitted an answer for clue"];
                     }
                 }
                 
