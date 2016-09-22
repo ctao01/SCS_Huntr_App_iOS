@@ -296,8 +296,9 @@
     UILocalNotification* localNotification = [[UILocalNotification alloc] init];
     //    localNotification.fireDate = nil;
     localNotification.alertBody = alertBody;
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
     //    localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+//    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
     
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
@@ -314,16 +315,22 @@
             subtitle = [NSString stringWithFormat:@"New game \"%@\" created !!!", gameName];
         }
         else if (status == SCSGameStatusInProgress) {
-            subtitle = [NSString stringWithFormat:@"Game \"%@\" begins!!!", gameName];
+            subtitle = [NSString stringWithFormat:@"Game \"%@\" has begun!!!", gameName];
         }
         else if (status == SCSGameStatusCompleted ) {
-            subtitle = [NSString stringWithFormat:@"Game \"%@\" is end!!!", gameName];
+            subtitle = [NSString stringWithFormat:@"Game \"%@\" had ended!!!", gameName];
 
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                        subtitle:NSLocalizedString(subtitle, nil)
-                                            type:TSMessageNotificationTypeMessage];
+            
+            if (notification.pushNotificationType == SCSPushNotificationTypeFG) {
+                [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                            subtitle:NSLocalizedString(subtitle, nil)
+                                                type:TSMessageNotificationTypeMessage];
+            }
+            else {
+                [self fireLocalNotification:notification.alertString];
+            }
         });
         
     } failureBlock:nil];
@@ -344,9 +351,15 @@
                 NSString *  teamName = response;
                 NSString * subtitle  =[NSString stringWithFormat:@"Team %@ was added to Game %@", teamName, gameName];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                                subtitle:NSLocalizedString(subtitle, nil)
-                                                    type:TSMessageNotificationTypeMessage];
+                    
+                    if (notification.pushNotificationType == SCSPushNotificationTypeFG) {
+                        [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                                    subtitle:NSLocalizedString(subtitle, nil)
+                                                        type:TSMessageNotificationTypeMessage];
+                    }
+                    else {
+                        [self fireLocalNotification:notification.alertString];
+                    }
                 });
                 
                 
@@ -377,12 +390,18 @@
                 }
                 else
                 {
-                    subtitle = [NSString stringWithFormat:@"OOPS! %@ left %@", playerName, teamName];
+                    subtitle = [NSString stringWithFormat:@"OOPS! %@ has left %@", playerName, teamName];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                                subtitle:NSLocalizedString(subtitle, nil)
-                                                    type:TSMessageNotificationTypeMessage];
+                    
+                    if (notification.pushNotificationType == SCSPushNotificationTypeFG) {
+                        [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                                    subtitle:NSLocalizedString(subtitle, nil)
+                                                        type:TSMessageNotificationTypeMessage];
+                    }
+                    else {
+                        [self fireLocalNotification:notification.alertString];
+                    }
                 });
                 
 
@@ -411,23 +430,30 @@
                 NSString * desc = [(SCSClue*)response clueDescription];
                 if (isFirstAnswer)
                 {
-                    subtitle = [NSString stringWithFormat:@"Hurry up ~~~ \"%@\" is the first team to submit answer for clue \"%@\"", teamName, desc];
+                    subtitle = [NSString stringWithFormat:@"Hurry up! \"%@\" is the first team submit an answer to clue \"%@\"", teamName, desc];
 
                 }
                 else
                 {
                     if (status == SCSClueStateAnswerAccepted) {
-                        subtitle = [NSString stringWithFormat:@"Wee ~~~ Team \"%@\" earend points from \"%@\"", teamName, desc];
+                        subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earend points from \"%@\"", teamName, desc];
                     }
                     else if (status == SCSClueStateAnswerPendingReview) {
-                        subtitle = [NSString stringWithFormat:@"Good Job ! Your team has submitted an answer for clue"];
+                        subtitle = [NSString stringWithFormat:@"Good Job! Your team has submitted an answer"];
                     }
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [TSMessage showNotificationWithTitle:@"Huntr Notification"
-                                                subtitle:NSLocalizedString(subtitle, nil)
-                                                    type:TSMessageNotificationTypeMessage];
+                    
+                    if (notification.pushNotificationType == SCSPushNotificationTypeFG) {
+                        [TSMessage showNotificationWithTitle:@"Huntr Notification"
+                                                    subtitle:NSLocalizedString(subtitle, nil)
+                                                        type:TSMessageNotificationTypeMessage];
+                    }
+                    else {
+                        [self fireLocalNotification:notification.alertString];
+                    }
+                    
                 });
 
             } failureBlock:nil];
