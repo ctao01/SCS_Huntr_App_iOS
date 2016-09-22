@@ -13,6 +13,7 @@
 @interface SCSPictureTypeClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 {
     BOOL retakePhotoAction;
+    BOOL pickingPhotoFromLocalLibrary;
 }
 
 @property (nonatomic, weak) IBOutlet UIButton * flashButton;
@@ -53,14 +54,18 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     if (self.selectedClue.clueState == SCSClueStateAnswerPendingReview ||
         self.selectedClue.clueState == SCSClueStateAnswerAccepted ||
         self.selectedClue.clueState == SCSClueStateAnswerRejected) {
         
         [SVProgressHUD show];
         [self displayCamaraCaptureScreen:false withAnimated:false withCompletion:^{
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
-            [self.answerImageView setImage:[UIImage imageWithData:imageData]];
+            if (pickingPhotoFromLocalLibrary == NO) {
+                NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.selectedClue.submittedAnswer.answerImageUrl]];
+                [self.answerImageView setImage:[UIImage imageWithData:imageData]];
+            }
+            pickingPhotoFromLocalLibrary = NO;
             [SVProgressHUD dismiss];
         }];
     }
@@ -116,7 +121,9 @@
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePickerController.delegate = (id)self;
-    [self  presentViewController:imagePickerController animated:YES completion:nil];
+    
+    pickingPhotoFromLocalLibrary = YES;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
 - (IBAction)getPhotoButtonPressed:(id)sender
@@ -281,11 +288,15 @@
             [self.roundButton setTitle:@"Submit" forState:UIControlStateNormal];
             [self.roundButton setTintColor:[UIColor whiteColor]];
         }];
+        
+        pickingPhotoFromLocalLibrary = NO;
     }];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        pickingPhotoFromLocalLibrary = NO;
+    }];
 }
 
 @end

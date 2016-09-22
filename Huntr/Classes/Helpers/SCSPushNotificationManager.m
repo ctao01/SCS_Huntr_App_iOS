@@ -441,6 +441,9 @@
                     else if (status == SCSClueStateAnswerPendingReview) {
                         subtitle = [NSString stringWithFormat:@"Good Job! Your team has submitted an answer"];
                     }
+                    else if (status == SCSClueStateAnswerRejected) {
+                        subtitle = [NSString stringWithFormat:@"OPPS! The Game Master didn't like that one. Try Again!"];
+                    }
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
