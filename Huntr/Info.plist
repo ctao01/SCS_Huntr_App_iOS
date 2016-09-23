@@ -28,7 +28,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>I would like permission to spy on you 24/7</string>
+	<string>Please allow Huntr to use Location Services to answer location clues.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
