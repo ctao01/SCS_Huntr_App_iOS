@@ -8,6 +8,7 @@
 
 #import "SCSPushNotificationManager.h"
 #import "SCSPushNotification.h"
+#import "SCSHuntrEnviromentManager.h"
 
 #import "NSString+UUID.h"
 
@@ -418,7 +419,8 @@
     NSString * teamId = notification.payload[@"teamID"];
     NSString * answerId = notification.payload[@"answerID"];
     
-    BOOL isFirstAnswer = (answerId == nil);
+    NSString * activeTeamId = [[SCSHuntrEnviromentManager sharedManager]activeTeamID];
+    BOOL isYourTeam = [activeTeamId isEqualToString:teamId];
     
     [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
         __block NSString * teamName = response;
@@ -428,13 +430,8 @@
                 NSString * subtitle;
                 SCSClueState status = [(SCSClue*)response clueState];
                 NSString * desc = [(SCSClue*)response clueDescription];
-                if (isFirstAnswer)
-                {
-                    subtitle = [NSString stringWithFormat:@"Hurry up! \"%@\" is the first team submit an answer to clue \"%@\"", teamName, desc];
-
-                }
-                else
-                {
+                
+                if (isYourTeam) {
                     if (status == SCSClueStateAnswerAccepted) {
                         subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earend points from \"%@\"", teamName, desc];
                     }
@@ -445,6 +442,11 @@
                         subtitle = [NSString stringWithFormat:@"OPPS! The Game Master didn't like that one. Try Again!"];
                     }
                 }
+                else
+                {
+                    subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earend points from \"%@\"", teamName, desc];
+                }
+                
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
