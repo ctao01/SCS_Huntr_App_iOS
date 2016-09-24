@@ -30,6 +30,8 @@
 		13B33E791D9127DF00DA3A2D /* alley_blue_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13B33E781D9127DF00DA3A2D /* alley_blue_bg@2x.png */; };
 		13B33E7C1D912AA300DA3A2D /* HeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B33E7A1D912AA300DA3A2D /* HeaderViewController.m */; };
 		13BA67981D47169D00EB932C /* Huntrv3.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BA67961D47169D00EB932C /* Huntrv3.storyboard */; };
+		13C8B2501D963C5C00903F72 /* mh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13C8B24F1D963C5C00903F72 /* mh@2x.png */; };
+		13C8B2521D963D7000903F72 /* mh.png in Resources */ = {isa = PBXBuildFile; fileRef = 13C8B2511D963D7000903F72 /* mh.png */; };
 		13E426661D6400CA002307D8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E426651D6400CA002307D8 /* ProfileViewController.m */; };
 		13E426691D640124002307D8 /* TWTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E426681D640124002307D8 /* TWTButton.m */; };
 		13E4266C1D640223002307D8 /* AvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E4266B1D640223002307D8 /* AvatarImageView.m */; };
@@ -151,6 +153,8 @@
 		13B33E7A1D912AA300DA3A2D /* HeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderViewController.m; sourceTree = "<group>"; };
 		13B33E7B1D912AA300DA3A2D /* HeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderViewController.h; sourceTree = "<group>"; };
 		13BA67971D47169D00EB932C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Huntrv3.storyboard; sourceTree = "<group>"; };
+		13C8B24F1D963C5C00903F72 /* mh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mh@2x.png"; sourceTree = "<group>"; };
+		13C8B2511D963D7000903F72 /* mh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mh.png; sourceTree = "<group>"; };
 		13E426641D6400CA002307D8 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		13E426651D6400CA002307D8 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		13E426671D640124002307D8 /* TWTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTButton.h; sourceTree = "<group>"; };
@@ -562,6 +566,8 @@
 		95E9F2261CD41B5100B0B909 /* Assests */ = {
 			isa = PBXGroup;
 			children = (
+				13C8B2511D963D7000903F72 /* mh.png */,
+				13C8B24F1D963C5C00903F72 /* mh@2x.png */,
 				13B33E741D910EAE00DA3A2D /* locationClue@2x.png */,
 				13B33E751D910EAE00DA3A2D /* photoClue@2x.png */,
 				955467A81D8878760013A200 /* camera_mode.png */,
@@ -714,6 +720,7 @@
 				9569EFB91D6DEB2100C827F5 /* map-marker.png in Resources */,
 				952045361CD2F3D6007C1431 /* Huntrv2.storyboard in Resources */,
 				139FCC7A1D30A9EE002ABAB2 /* login_twitter_white@2x.png in Resources */,
+				13C8B2501D963C5C00903F72 /* mh@2x.png in Resources */,
 				139FCC741D30A9EE002ABAB2 /* huntr_login_logo@2x.png in Resources */,
 				13B33E791D9127DF00DA3A2D /* alley_blue_bg@2x.png in Resources */,
 				95E9F23E1CD41B5100B0B909 /* location@2x.png in Resources */,
@@ -734,6 +741,7 @@
 				954247F51D01274A00E3CE07 /* approved@2x.png in Resources */,
 				955467A71D824F360013A200 /* SCSMessageDesign.json in Resources */,
 				13B33E771D910EAE00DA3A2D /* photoClue@2x.png in Resources */,
+				13C8B2521D963D7000903F72 /* mh.png in Resources */,
 				139FCC751D30A9EE002ABAB2 /* login_facebook_fbBlue@2x.png in Resources */,
 				95E9F23F1CD41B5100B0B909 /* start-button-2x.png in Resources */,
 				9569EFA11D6D4E2100C827F5 /* map-checkin@2x.png in Resources */,
