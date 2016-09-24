@@ -43,6 +43,7 @@
     if (pushNotification) postPayload = @{@"pn":pushNotification};
     
     if ([pushNotification.payload[@"type"] isEqualToString:@"GSUPN"]) {
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationGameStatusUpdate object:self userInfo:postPayload];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -59,29 +60,32 @@
         });
 
     }
-    
     else if ([pushNotification.payload[@"type"] isEqualToString:@"PAPN"] ||
              [pushNotification.payload[@"type"] isEqualToString:@"PRPN"]) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationTeamStatusUpdate object:self userInfo:postPayload];
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self handlePlayersOnTeamStatusUpdatePushNotification:pushNotification];
         });
     }
     else if ([pushNotification.payload[@"type"] isEqualToString:@"CSUPN"]) {
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationClueStatusUpdate object:self userInfo:postPayload];
+        
     }
     else if ([pushNotification.payload[@"type"] isEqualToString:@"ASUPN"]) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationAnswerStatusUpdate object:self userInfo:postPayload];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationTeamStatusUpdate object:self userInfo:postPayload];
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self handleAnswerStatusUpdatePushNotification:pushNotification];
         });
         
     }
     else if ([pushNotification.payload[@"type"] isEqualToString:@"PSUPN"]) {
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:SCSPushNotificationPlayerStatusUpdate object:self userInfo:postPayload];
     }
 }
@@ -330,7 +334,7 @@
                                                 type:TSMessageNotificationTypeMessage];
             }
             else {
-                [self fireLocalNotification:notification.alertString];
+                [self fireLocalNotification:subtitle];
             }
         });
         
@@ -350,7 +354,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [[SCSHuntrClient sharedClient]getTeamById:teamId gameId:gameId successBlock:^(id response) {
                 NSString *  teamName = response;
-                NSString * subtitle  =[NSString stringWithFormat:@"Team %@ was added to Game %@", teamName, gameName];
+                NSString * subtitle  =[NSString stringWithFormat:@"Team \"%@\" was added to Game \"%@\"", teamName, gameName];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     if (notification.pushNotificationType == SCSPushNotificationTypeFG) {
@@ -359,7 +363,7 @@
                                                         type:TSMessageNotificationTypeMessage];
                     }
                     else {
-                        [self fireLocalNotification:notification.alertString];
+                        [self fireLocalNotification:subtitle];
                     }
                 });
                 
@@ -387,11 +391,11 @@
                 NSString * subtitle = nil;
                 if ([type isEqualToString:@"PAPN"])
                 {
-                    subtitle = [NSString stringWithFormat:@"%@ just joined %@", playerName, teamName];
+                    subtitle = [NSString stringWithFormat:@"\"%@\" just joined Team \"%@\"", playerName, teamName];
                 }
                 else
                 {
-                    subtitle = [NSString stringWithFormat:@"OOPS! %@ has left %@", playerName, teamName];
+                    subtitle = [NSString stringWithFormat:@"OOPS! \"%@\" has left Team \"%@\"", playerName, teamName];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
@@ -401,7 +405,7 @@
                                                         type:TSMessageNotificationTypeMessage];
                     }
                     else {
-                        [self fireLocalNotification:notification.alertString];
+                        [self fireLocalNotification:subtitle];
                     }
                 });
                 
@@ -426,7 +430,9 @@
         __block NSString * teamName = response;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
             [[SCSHuntrClient sharedClient]getClueById:clueId successBlock:^(id response) {
+                
                 NSString * subtitle;
                 SCSClueState status = [(SCSClue*)response clueState];
                 NSString * desc = [(SCSClue*)response clueDescription];
@@ -444,9 +450,10 @@
                 }
                 else
                 {
-                    subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earned points from \"%@\"", teamName, desc];
+                    if (status == SCSClueStateAnswerAccepted) {
+                        subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earned points from \"%@\"", teamName, desc];
+                    }
                 }
-                
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
@@ -456,7 +463,7 @@
                                                         type:TSMessageNotificationTypeMessage];
                     }
                     else {
-                        [self fireLocalNotification:notification.alertString];
+                        [self fireLocalNotification:subtitle];
                     }
                     
                 });
