@@ -157,18 +157,18 @@
             }];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(array);
+                if (successBlock) successBlock(array);
             });
         }
         else {
             NSLog(@"the only one game: %@", responseObject);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock(@"No Games Found");
+                if (failureBlock) failureBlock(@"No Games Found");
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -186,19 +186,19 @@
             SCSGame * game = [[SCSGame alloc] initWithJSON:responseObject];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(game);
+                if (successBlock) successBlock(game);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -229,19 +229,19 @@
             }];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(array);
+                if (successBlock) successBlock(array);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -277,19 +277,19 @@
             arrayResult = [array sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSort, nil]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(arrayResult);
+                if (successBlock) successBlock(arrayResult);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -313,19 +313,19 @@
             arrayResult = [array sortedArrayUsingDescriptors:[NSArray arrayWithObjects:nameSort, nil]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(arrayResult);
+                if (successBlock) successBlock(arrayResult);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -361,18 +361,18 @@
             SCSTeam * newTeam  = [[SCSTeam alloc] initWithJSON:responseObject];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(newTeam);
+                if (successBlock) successBlock(newTeam);
             });
         }
         else  {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -390,21 +390,21 @@
             if ([responseObject isKindOfClass:[NSDictionary class]])
             {                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    successBlock(responseObject[@"name"]);
+                    if (successBlock) successBlock(responseObject[@"name"]);
                 });
             }
             else
             {
                 NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                    if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
                 });
             }
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 
@@ -438,19 +438,19 @@
             }];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(array);
+                if (successBlock) successBlock(array);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -464,10 +464,10 @@
         {
             endPoint = [NSString stringWithFormat:@"player/%@/%@/token", teamId, self.playerName];
             [self POST:[self urlStringWithEndPoint:endPoint] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-                if (responseObject) successBlock(responseObject);
+                if (responseObject && successBlock) successBlock(responseObject);
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    failureBlock([error description]);
+                    if (failureBlock) failureBlock([error description]);
                 });
             }];
         }
@@ -480,18 +480,18 @@
                     if ([[responseObject objectForKey:@"players"] isKindOfClass:[NSArray class]])
                     {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            successBlock([responseObject objectForKey:@"players"]);
+                            if (successBlock) successBlock([responseObject objectForKey:@"players"]);
                         });
                     }
                     else {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            failureBlock(responseObject);
+                            if (failureBlock) failureBlock(responseObject);
                         });
                     }
                 }
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    failureBlock([error description]);
+                    if (failureBlock) failureBlock([error description]);
                 });
             }];
         }
@@ -510,14 +510,14 @@
             NSLog(@"postPlayerName %@",responseObject);
             if ([responseObject objectForKey:@"updated"] != nil) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    successBlock([responseObject objectForKey:@"updated"]);
+                    if (successBlock) successBlock([responseObject objectForKey:@"updated"]);
                 });
             }
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -536,21 +536,21 @@
             if ([responseObject isKindOfClass:[NSDictionary class]])
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    successBlock(responseObject[@"name"]);
+                    if (successBlock) successBlock(responseObject[@"name"]);
                 });
             }
             else
             {
                 NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                    if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
                 });
             }
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -581,19 +581,19 @@
             }];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(array);
+                if (successBlock) successBlock(array);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -608,19 +608,19 @@
         if ([responseObject isKindOfClass:[NSArray class]])
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(responseObject);
+                if (successBlock) successBlock(responseObject);
             });
         }
         else
         {
             NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
             dispatch_async(dispatch_get_main_queue(), ^{
-                failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
             });
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -640,14 +640,14 @@
                 }];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    successBlock (cluesList);
+                    if (successBlock) successBlock (cluesList);
                 });
             }
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -667,21 +667,21 @@
                 SCSClue * clue = [[SCSClue alloc] initWithJSON:responseObject];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    successBlock(clue);
+                    if (successBlock) successBlock(clue);
                 });
             }
             else
             {
                 NSLog(@"operation error:%ld",(long)[httpResponse statusCode]);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
+                    if (failureBlock) failureBlock([NSString stringWithFormat: @"Received HTTP %ld", (long)httpResponse.statusCode]);
                 });
             }
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -752,13 +752,13 @@
         if (responseObject != nil) {
             NSLog(@"registerDevice %@",responseObject);
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(responseObject);
+                if (successBlock) successBlock(responseObject);
             });
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -772,13 +772,13 @@
         if (responseObject != nil) {
             NSLog(@"registerPlayer %@",responseObject);
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(responseObject);
+                if (successBlock) successBlock(responseObject);
             });
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
@@ -796,14 +796,14 @@
         if (responseObject != nil) {
             NSLog(@"GET LinkedInInfo %@",responseObject);
             dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(responseObject);
+                if (successBlock) successBlock(responseObject);
             });
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"GET LinkedInInfo Error:%@", [error localizedDescription]);
         dispatch_async(dispatch_get_main_queue(), ^{
-            failureBlock([error description]);
+            if (failureBlock) failureBlock([error description]);
         });
     }];
 }
