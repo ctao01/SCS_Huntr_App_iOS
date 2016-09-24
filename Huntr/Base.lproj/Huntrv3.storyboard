@@ -936,7 +936,7 @@
                                             <color key="textColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-nR-Fys" customClass="AvatarImageView">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mh.png" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-nR-Fys" customClass="AvatarImageView">
                                             <rect key="frame" x="8" y="-26" width="69" height="69"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="69" id="FQG-fJ-7ln"/>

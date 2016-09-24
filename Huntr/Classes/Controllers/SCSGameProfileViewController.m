@@ -46,6 +46,12 @@
 
 #pragma mark - View Lifecycle
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    [self resetUI];
+}
+
 - (void) dealloc {
     [self invalidateGameTimer];
 }
@@ -150,7 +156,7 @@
     SCSRegisteredPlayer * activePlayer = [SCSHuntrEnviromentManager sharedManager].registeredPlayer;
     if (activePlayer) {
         
-        [self.avatarImage setImageWithURL:[NSURL URLWithString:activePlayer.pictureURL] placeholderImage:nil];
+        [self.avatarImage setImageWithURL:[NSURL URLWithString:activePlayer.pictureURL] placeholderImage:[UIImage imageNamed:@"mh"]];
         self.subSubtitleLabel.text = activePlayer.playerName;
         
         SCSTeam * activeTeam = activePlayer.activeTeam;
@@ -194,6 +200,23 @@
             self.gameDateTimeLabel.text = @"Unknown Game State";
         }
     }
+}
+
+- (void) resetUI
+{
+    self.avatarImage.image = [UIImage imageNamed:@"mh.png"];
+    self.subSubtitleLabel.text = @"---";
+
+    self.subtitleLabel.text = @"---";
+    self.subtitleLabel.textColor = [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f  blue:204.0f/255.0f alpha:1];
+    
+    self.titleLabel.text = @"---";
+    self.headerTitleLabel.text = @"---";
+
+    self.addTeamButton.hidden = YES;
+    self.gameDateTimeLabel.hidden = NO;
+    [self.contentTypeSegmentControl setEnabled:[SCSHuntrEnviromentManager sharedManager].hasActiveTeam forSegmentAtIndex:1];
+    self.gameDateTimeLabel.text = @"---";
 }
 
 - (void) refreshTeamsListWithCompletion:(void (^)(NSString *errorString))completion
