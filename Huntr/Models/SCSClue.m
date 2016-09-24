@@ -45,7 +45,11 @@
                 }
             }];
         }
-        self.clueLocation = [[CLLocation alloc] initWithLatitude:[[json objectForKey:@"latitude"] doubleValue] longitude:[[json objectForKey:@"longitude"] doubleValue]]; 
+        
+        double lat = [json objectForKey:@"latitude"] ? [[json objectForKey:@"latitude"] doubleValue] : 0.0;
+        double lng = [json objectForKey:@"longitude"] ? [[json objectForKey:@"longitude"] doubleValue] : 0.0;
+        
+        self.clueLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
     
     }
     return self;
