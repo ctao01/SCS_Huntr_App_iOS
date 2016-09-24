@@ -10,6 +10,7 @@
 
 @interface SCSClueViewController : UIViewController
 
+@property (nonatomic, weak) SCSGame * selectedGame;
 @property (nonatomic, assign) SCSClue * selectedClue;
 
 @property (nonatomic, weak) IBOutlet UIVisualEffectView * blurView;

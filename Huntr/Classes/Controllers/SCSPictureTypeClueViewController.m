@@ -193,7 +193,6 @@
 
 - (void) submitButtonPressed:(UIButton *)button
 {
-    
     [UIAlertController showAlertInViewController:self withTitle:@"Huntr Notification" message:@"Are you sure to submit the answer?"  cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Yes"] tapBlock:^(UIAlertController * controller, UIAlertAction * action, NSInteger buttonIndex) {
         if( buttonIndex == controller.firstOtherButtonIndex )
         {
@@ -250,15 +249,13 @@
                 }
             }
             
-            if (self.selectedClue.clueState == SCSClueStateAnswerAccepted) {
+            if (self.selectedClue.clueState == SCSClueStateAnswerAccepted || self.selectedGame.status == SCSGameStatusCompleted) {
                 self.getPhotoButton.alpha = 0;
             }
             
             self.answerScrollView.contentSize = self.answerImageView.image.size;
             self.answerScrollView.alpha = 1;
             [self.getPhotoButton setImage:[UIImage imageNamed:@"camera_mode"] forState:UIControlStateNormal];
-
-            
 
         } completion:^(BOOL finished) {
             if (completion)

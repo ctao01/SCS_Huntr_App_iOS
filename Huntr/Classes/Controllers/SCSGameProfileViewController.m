@@ -516,12 +516,14 @@
     if ([[segue identifier] isEqualToString:kGoToPicAnswerSegueIdentifier])
     {
         SCSPictureTypeClueViewController * controller = segue.destinationViewController;
+        controller.selectedGame = self.selectedGame;
         controller.selectedClue = clue;
 //        controller.selectedGame = self.selectedGame;
     }
     else if ([[segue identifier] isEqualToString:kGoToLocAnswerSegueIdentifier])
     {
         SCSLocationTypeClueViewController * controller = segue.destinationViewController;
+        controller.selectedGame = self.selectedGame;
         controller.selectedClue = clue;
 //        controller.selectedGame = self.selectedGame;
     }
