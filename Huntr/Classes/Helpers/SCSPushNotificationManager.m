@@ -450,9 +450,7 @@
                 }
                 else
                 {
-                    if (status == SCSClueStateAnswerAccepted) {
                         subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earned points from \"%@\"", teamName, desc];
-                    }
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
