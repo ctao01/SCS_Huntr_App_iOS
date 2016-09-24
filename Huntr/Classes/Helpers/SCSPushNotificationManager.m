@@ -433,7 +433,7 @@
                 
                 if (isYourTeam) {
                     if (status == SCSClueStateAnswerAccepted) {
-                        subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earend points from \"%@\"", teamName, desc];
+                        subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earned points from \"%@\"", teamName, desc];
                     }
                     else if (status == SCSClueStateAnswerPendingReview) {
                         subtitle = [NSString stringWithFormat:@"Good Job! Your team has submitted an answer"];
@@ -444,7 +444,7 @@
                 }
                 else
                 {
-                    subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earend points from \"%@\"", teamName, desc];
+                    subtitle = [NSString stringWithFormat:@"Woo! Team \"%@\" earned points from \"%@\"", teamName, desc];
                 }
                 
                 
